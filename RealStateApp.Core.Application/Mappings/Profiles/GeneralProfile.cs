@@ -8,13 +8,6 @@ namespace RealStateApp.Core.Application.Mappings.Profiles
     {
         public GeneralProfile()
         {
-
-            #region AmenityProfile
-
-
-            #endregion
-
-
             #region UserIdentityProfile
             CreateMap<AuthenticationRequest, LoginViewModel>()
                 .ForMember(x => x.HasError, opt => opt.Ignore())

@@ -17,7 +17,5 @@ namespace RealStateApp.Infrastructure.Persistence.Repositories
         {
             _dbContext = dbContext;
         }
-        
-         
     }
 }
