@@ -8,7 +8,7 @@
         IPropertyService Property { get; }
         IPropertyImageService PropertyImage { get; }
         ITypePropertyService TypeProperty { get; }
-        ITypeSale TypeSale { get; }
+        ITypeSaleService TypeSale { get; }
         Task SaveAsync();
     }
 }
