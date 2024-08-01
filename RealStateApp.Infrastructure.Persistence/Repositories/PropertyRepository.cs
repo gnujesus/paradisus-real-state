@@ -1,12 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RealStateApp.Core.Application.Interfaces.Repositories;
-using RealStateApp.Infrastructure.Persistence.Contexts;
 using RealStateApp.Core.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using RealStateApp.Infrastructure.Persistence.Contexts;
 
 namespace RealStateApp.Infrastructure.Persistence.Repositories
 {

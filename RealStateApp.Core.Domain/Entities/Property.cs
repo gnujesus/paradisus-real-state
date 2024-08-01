@@ -4,7 +4,6 @@ namespace RealStateApp.Core.Domain.Entities
 {
     public class Property: AuditableBaseEntity
     {
-        
         public decimal Value_Sale { get; set; }
         public int Rooms { get; set; }
         public int BathRooms { get; set; }
