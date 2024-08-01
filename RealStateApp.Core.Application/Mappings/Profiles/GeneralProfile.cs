@@ -32,6 +32,7 @@ namespace RealStateApp.Core.Application.Mappings.Profiles
                 .ForMember(dest => dest.Amenities, opt => opt.Condition(src => src.Amenities != null))
                 .ForMember(dest => dest.Type_Property, opt => opt.Ignore())
                 .ForMember(dest => dest.Type_sale, opt => opt.Ignore());
+
             #endregion
 
             #region AmenityProfile
