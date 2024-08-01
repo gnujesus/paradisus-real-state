@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="MediatR" Version="12.4.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
@@ -25,7 +26,36 @@
 
   <ItemGroup>
     <Folder Include="Exceptions\" />
-    <Folder Include="Features\" />
+    <Folder Include="Features\AmenityF\Commands\CreateAmenity\" />
+    <Folder Include="Features\AmenityF\Commands\DeleteAmenity\" />
+    <Folder Include="Features\AmenityF\Commands\UpdateAmenity\" />
+    <Folder Include="Features\AmenityF\Queries\GetAllAmenities\" />
+    <Folder Include="Features\AmenityF\Queries\GetAmenityById\" />
+    <Folder Include="Features\FavoritesF\Commands\CreateFavorites\" />
+    <Folder Include="Features\FavoritesF\Commands\DeleteFavorites\" />
+    <Folder Include="Features\FavoritesF\Commands\UpdateFavorites\" />
+    <Folder Include="Features\FavoritesF\Queries\GetAllFavorites\" />
+    <Folder Include="Features\FavoritesF\Queries\GetFavoriteById\" />
+    <Folder Include="Features\PropertyAmenityF\Commands\CreatePropertyAmenity\" />
+    <Folder Include="Features\PropertyAmenityF\Commands\DeletePropertyAmenity\" />
+    <Folder Include="Features\PropertyAmenityF\Commands\UpdatePropertyAmenity\" />
+    <Folder Include="Features\PropertyAmenityF\Queries\GetAllPropertyAmenity\" />
+    <Folder Include="Features\PropertyAmenityF\Queries\GetPropertyAmenityById\" />
+    <Folder Include="Features\PropertyF\Commands\CreateProperty\" />
+    <Folder Include="Features\PropertyF\Commands\DeleteProperty\" />
+    <Folder Include="Features\PropertyF\Commands\UpdateProperty\" />
+    <Folder Include="Features\PropertyF\Queries\GetAllProperties\" />
+    <Folder Include="Features\PropertyF\Queries\GetPropertyByID\" />
+    <Folder Include="Features\PropertyF\Queries\GetPropertiesWithFavorites\" />
+    <Folder Include="Features\PropertyF\Queries\GetPropertiesByAgent\" />
+    <Folder Include="Features\PropertyF\Queries\GetTotalPropertiesCount\" />
+    <Folder Include="Features\PropertyF\Queries\FiltersProperties\" />
+    <Folder Include="Features\PropertyImagesF\Commands\" />
+    <Folder Include="Features\PropertyImagesF\Queries\" />
+    <Folder Include="Features\TypePropertyF\Commands\" />
+    <Folder Include="Features\TypePropertyF\Queries\" />
+    <Folder Include="Features\TypeSaleF\Commands\" />
+    <Folder Include="Features\TypeSaleF\Queries\" />
     <Folder Include="Wrappers\" />
   </ItemGroup>
 

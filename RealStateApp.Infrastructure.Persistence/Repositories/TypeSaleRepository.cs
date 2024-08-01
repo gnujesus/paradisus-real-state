@@ -19,7 +19,7 @@ namespace RealStateApp.Infrastructure.Persistence.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<Core.Domain.Entities.Property>> GetPropertiesByTypeSaleIdAsync(string typeSaleId)
+        public async Task<IEnumerable<Property>> GetPropertiesByTypeSaleIdAsync(string typeSaleId)
         {
             return await _dbContext.Properties
                 .Where(p => p.TypeSale_Id == typeSaleId)

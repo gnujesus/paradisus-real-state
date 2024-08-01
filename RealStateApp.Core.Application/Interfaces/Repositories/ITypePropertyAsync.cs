@@ -9,7 +9,7 @@ namespace RealStateApp.Core.Application.Interfaces.Repositories
 {
     public interface ITypePropertyAsync: IGenericRepositoryAsync<TypeProperty>
     {
-        Task<IEnumerable<Core.Domain.Entities.Property>> GetPropertiesByTypePropertyIdAsync(string typePropertyId);
+        Task<IEnumerable<Property>> GetPropertiesByTypePropertyIdAsync(string typePropertyId);
         Task<int> GetPropertiesCountByTypePropertyIdAsync(string typePropertyId);
     }
 }
