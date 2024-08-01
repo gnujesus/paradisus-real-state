@@ -1,0 +1,53 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.Extensions.Options;
+using System.Net.Mail;
+using System.Text;
+using System.Threading.Tasks;
+using System.Threading.Tasks;
+using MimeKit;
+using RealStateApp.Core.Application.Dtos.Email;
+using MailKit.Security;
+using RealStateApp.Core.Application.Interfaces.Services;
+using RealStateApp.Core.Domain.Settings;
+
+namespace RealStateApp.Infrastructure.Shared.Sevices
+{
+    public class EmailService : IEmailService
+    {
+        public MailSettings MailSettings { get; }
+
+        public EmailService(IOptions<MailSettings> mailSettings)
+        {
+            MailSettings = mailSettings.Value;
+        }
+
+        public async Task SendAsync(EmailRequest request)
+        {
+            try
+            {
+                // create message
+                var email = new MimeMessage();
+                email.Sender = MailboxAddress.Parse(request.From ?? MailSettings.EmailFrom);
+                email.To.Add(MailboxAddress.Parse(request.To));
+                email.Subject = request.Subject;
+                var builder = new BodyBuilder();
+                builder.HtmlBody = request.Body;
+                email.Body = builder.ToMessageBody();
+
+                using var smtp = new MailKit.Net.Smtp.SmtpClient();
+
+                smtp.Connect(MailSettings.SmtpHost, MailSettings.SmtpPort, SecureSocketOptions.StartTls);
+                smtp.Authenticate(MailSettings.SmtpUser, MailSettings.SmtpPass);
+                await smtp.SendAsync(email);
+                smtp.Disconnect(true);
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
+    }
+}
