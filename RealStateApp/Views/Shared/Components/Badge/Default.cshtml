@@ -1,0 +1,18 @@
+﻿@{
+    var feature = new
+    {
+        Name = "Balcón",
+        HasFeature = true
+    };
+}
+
+@if (feature.HasFeature)
+{
+    <div class="inline-flex items-center px-2 py-1 bg-gray-800 text-white rounded-lg">
+        <svg class="w-4 h-4 text-white mr-1" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 11L12 14L22 4"></path>
+            <path d="M2 12L9 19L22 6"></path>
+        </svg>
+        <span>@feature.Name</span>
+    </div>
+}
