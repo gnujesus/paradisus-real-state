@@ -15,8 +15,9 @@ namespace RealStateApp.Core.Application
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
 
-            services.AddTransient(typeof(IGenericService<,,>), typeof(GenericService<,,>));
-            services.AddTransient<IAmenityService, AmenityService>();
+            //services.AddTransient(typeof(IGenericService<,,>), typeof(GenericService<,,>));
+            //services.AddTransient<IAmenityService, AmenityService>();
+            services.AddScoped<IServiceManager, ServiceManager>();
         }
     }
 }

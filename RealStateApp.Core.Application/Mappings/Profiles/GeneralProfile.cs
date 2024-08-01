@@ -6,6 +6,7 @@ using RealStateApp.Core.Application.ViewModels.PropertyAmenityModels;
 using RealStateApp.Core.Application.ViewModels.PropertyImage;
 using RealStateApp.Core.Application.ViewModels.PropertyModels;
 using RealStateApp.Core.Application.ViewModels.TypePropertyModels;
+using RealStateApp.Core.Application.ViewModels.TypeSaleModels;
 using RealStateApp.Core.Application.ViewModels.UserModels;
 using RealStateApp.Core.Domain.Entities;
 
@@ -100,7 +101,6 @@ namespace RealStateApp.Core.Application.Mappings.Profiles
                 .ForMember(x => x.HasError, opt => opt.Ignore())
                 .ForMember(x => x.Error, opt => opt.Ignore())
                 .ReverseMap();
-
 
             CreateMap<ForgotPasswordRequest, ForgotPasswordViewModel>()
                 .ForMember(x => x.HasError, opt => opt.Ignore())

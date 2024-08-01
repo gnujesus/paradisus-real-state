@@ -4,12 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using RealStateApp.Core.Application.Interfaces.Repositories;
 using RealStateApp.Infrastructure.Persistence.Contexts;
 using RealStateApp.Infrastructure.Persistence.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+    
 namespace RealStateApp.Infrastructure.Persistence
 {
     public static class ServiceRegistration
@@ -30,13 +25,14 @@ namespace RealStateApp.Infrastructure.Persistence
             #endregion
 
             #region Repositories
-            services.AddTransient(typeof(IGenericRepositoryAsync<>), typeof(GenericRepository<>));
-            services.AddTransient<IAmenityAsync, AmenityRepository>();
-            services.AddTransient<IFavoriteAsync, FavoritesRepository>();
-            services.AddTransient<IPropertyAsync, PropertyRepository>();
-            services.AddTransient<IPropertyAmenityAsync, PropertyAmenityRepository>();
-            services.AddTransient<ITypePropertyAsync, TypePropertyRepository>();
-            services.AddTransient<ITypeSaleAsync, TypeSaleRepository>();
+            services.AddScoped<IRepositoryManager, RepositoryManager>();
+            //services.AddTransient(typeof(IGenericRepositoryAsync<>), typeof(GenericRepository<>));
+            //services.AddTransient<IAmenityAsync, AmenityRepository>();
+            //services.AddTransient<IFavoriteAsync, FavoritesRepository>();
+            //services.AddTransient<IPropertyAsync, PropertyRepository>();
+            //services.AddTransient<IPropertyAmenityAsync, PropertyAmenityRepository>();
+            //services.AddTransient<ITypePropertyAsync, TypePropertyRepository>();
+            //services.AddTransient<ITypeSaleAsync, TypeSaleRepository>();
             #endregion*/
         }
     }
