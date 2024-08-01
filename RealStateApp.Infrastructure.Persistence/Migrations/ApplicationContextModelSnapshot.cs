@@ -64,7 +64,7 @@ namespace RealStateApp.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Amanities", (string)null);
+                    b.ToTable("Amenities", (string)null);
                 });
 
             modelBuilder.Entity("RealStateApp.Core.Domain.Entities.Favorites", b =>
@@ -148,7 +148,7 @@ namespace RealStateApp.Infrastructure.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Value_Sale")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(5, 2)");
 
                     b.HasKey("Id");
 
