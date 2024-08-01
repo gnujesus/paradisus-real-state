@@ -26,12 +26,12 @@ namespace RealStateApp.Core.Application.Services.MainServices
             _mapper = mapper;
 
             _amenityService = new Lazy<IAmenityService>(() => new AmenityService(repositoryManager, contextAccessor, mapper));
-            //_favoriteService = new Lazy<IFavoriteService>(() => new FavoritesService(repositoryManager, contextAccessor, mapper));
-            //_propertyAmenityService = new Lazy<IPropertyAmenityService>(() => new PropertyAmenityService(repositoryManager, contextAccessor, mapper));
-            //_propertyService = new Lazy<IPropertyService>(() => new PropertyService(repositoryManager, contextAccessor, mapper));
+            _favoriteService = new Lazy<IFavoriteService>(() => new FavoriteService(repositoryManager, contextAccessor, mapper));
+            _propertyAmenityService = new Lazy<IPropertyAmenityService>(() => new PropertyAmenityService(repositoryManager, contextAccessor, mapper));
+            _propertyService = new Lazy<IPropertyService>(() => new PropertyService(repositoryManager, contextAccessor, mapper));
             _propertyImageService = new Lazy<IPropertyImageService>(() => new PropertyImageService(repositoryManager, contextAccessor, mapper));
-            //_typePropertyService = new Lazy<ITypePropertyService>(() => new TypePropertyService(repositoryManager, contextAccessor, mapper));
-            //_typeSaleService = new Lazy<ITypeSaleService>(() => new TypeSaleService(repositoryManager, contextAccessor, mapper));
+            _typePropertyService = new Lazy<ITypePropertyService>(() => new TypePropertyService(repositoryManager, contextAccessor, mapper));
+            _typeSaleService = new Lazy<ITypeSaleService>(() => new TypeSaleService(repositoryManager, contextAccessor, mapper));
         }
 
         public IAmenityService Amenity => _amenityService.Value;

@@ -47,7 +47,5 @@ namespace RealStateApp.Core.Application.Services.MainServices
         {
             return await _repositoryManager.Property.GetAllAsync();
         }
-
-
     }
 }

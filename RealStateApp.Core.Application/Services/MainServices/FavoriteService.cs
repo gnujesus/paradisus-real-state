@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Http;
 using RealStateApp.Core.Application.Interfaces.Repositories;
 using RealStateApp.Core.Application.Interfaces.Services;
-
 using RealStateApp.Core.Application.ViewModels.FavoritesModels;
 using RealStateApp.Core.Domain.Entities;
 
@@ -23,21 +22,15 @@ namespace RealStateApp.Core.Application.Services.MainServices
         //Favorite Services  , [Pending to check]
        public async Task<IEnumerable<Property>> GetFavoritePropertiesByUserId(string userId)
         {
-            
-          return   await _repositoryManager.Favorite.GetFavoritePropertiesByUserIdAsync(userId);
+            return await _repositoryManager.Favorite.GetFavoritePropertiesByUserIdAsync(userId);
         }
         public async Task MarkFavorite(string userId, string propertyId)
         {
-                await _repositoryManager.Favorite.MarkFavoriteAsync(userId, propertyId);
+            await _repositoryManager.Favorite.MarkFavoriteAsync(userId, propertyId);
         }
         public async Task UnmarkFavorite(string userId, string propertyId)
         {
-
             await _repositoryManager.Favorite.UnmarkFavoriteAsync(userId, propertyId);
-
         }
-
-
-
     }
 }
