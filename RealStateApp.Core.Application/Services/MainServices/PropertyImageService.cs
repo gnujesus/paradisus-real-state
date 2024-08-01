@@ -9,27 +9,27 @@ namespace RealStateApp.Core.Application.Services.MainServices
 {
     public class PropertyImageService : GenericService<SavePropertyImageViewModel, PropertyImageViewModel, PropertyImage>, IPropertyImageService
     {
-        private readonly IPropertyImageRepository _propertyImageRepository;
+        private readonly IRepositoryManager _repositoryManager;
         private readonly IHttpContextAccessor _contextAccessor;
         private readonly IMapper _mapper;
 
-        public PropertyImageService(IPropertyImageRepository propertyImageRepository, 
+        public PropertyImageService(IRepositoryManager repositoryManager, 
             IHttpContextAccessor contextAccessor, 
-            IMapper mapper) : base(propertyImageRepository, mapper)
+            IMapper mapper) : base(repositoryManager.PropertyImage, mapper)
         {
-            _propertyImageRepository = propertyImageRepository;
+            _repositoryManager = repositoryManager;
             _contextAccessor = contextAccessor;
             _mapper = mapper;
         }
 
         public async Task AddImagesToPropertyAsync(string propertyId, List<byte[]> images)
         {
-            await _propertyImageRepository.AddImagesToPropertyAsync(propertyId, images);
+            await _repositoryManager.PropertyImage.AddImagesToPropertyAsync(propertyId, images);
         }
 
         public async Task RemoveImageFromPropertyAsync(string propertyId, string imageId)
         {
-            await _propertyImageRepository.RemoveImageFromPropertyAsync(propertyId, imageId);
+            await _repositoryManager.PropertyImage.RemoveImageFromPropertyAsync(propertyId, imageId);
         }
     }
 }
