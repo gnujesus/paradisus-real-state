@@ -1,10 +1,5 @@
 ﻿using RealStateApp.Core.Domain.Entities;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RealStateApp.Core.Application.ViewModels.PropertyModels
 {
@@ -35,6 +30,6 @@ namespace RealStateApp.Core.Application.ViewModels.PropertyModels
         public TypeSale? Type_sale { get; set; }
         public ICollection<Amenity>? Amenities { get; set; }
         public ICollection<Favorites>? Favorites { get; set; }
-        public ICollection<PropertyImage>? Images { get; set; } = new List<PropertyImage>();
+        public ICollection<Domain.Entities.PropertyImage>? Images { get; set; } = new List<Domain.Entities.PropertyImage>();
     }
 }

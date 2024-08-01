@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RealStateApp.Core.Application.Interfaces.Services;
 using RealStateApp.Models;
 using System.Diagnostics;
 
@@ -6,15 +7,23 @@ namespace RealStateApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IServiceManager _serviceManager;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IServiceManager serviceManager)
         {
-            _logger = logger;
+            _serviceManager = serviceManager;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            await _serviceManager.Amenity.Add(new Core.Application.ViewModels.AmenityModels.SaveAmenityViewModel() { Name = "Brahiam", Description = "My desc" });
+            var list = await _serviceManager.Amenity.GetAllViewModel();
+
+            foreach (var item in list)
+            {
+                Console.WriteLine(item);
+            }
+
             return View();
         }
 

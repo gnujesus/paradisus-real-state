@@ -9,7 +9,7 @@ namespace RealStateApp.Core.Application.Interfaces.Services
         Task<Property> GetPropertyByCode(string code);
         Task<IEnumerable<Property>> GetPropertiesByAgentId(string agentId);
         Task<int> GetTotalPropertiesCount();
-        Task<IEnumerable<Property>> FilterProperties(string typePropertyId = null, decimal? minPrice = null, decimal? maxPrice = null, int? rooms = null, int? bathrooms = null);
-        new Task<List<Property>> GetAll();
+        Task<IEnumerable<Property>> FilterProperties(string typePropertyId = "", decimal? minPrice = null, decimal? maxPrice = null, int? rooms = null, int? bathrooms = null);
+        Task<List<Property>> GetAll();
     }
 }

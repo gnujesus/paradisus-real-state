@@ -1,10 +1,5 @@
 ﻿using RealStateApp.Core.Application.Dtos.Account;
 using RealStateApp.Core.Application.ViewModels.UserModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RealStateApp.Core.Application.Interfaces.Services
 {
