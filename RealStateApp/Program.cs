@@ -10,10 +10,17 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddSession();
-builder.Services.AddPersistenceInfrastructure(builder.Configuration);
-builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-builder.Services.AddSharedInfrastructure(builder.Configuration);
+
 builder.Services.AddIdentityInfrastructure(builder.Configuration);
+
+builder.Services.AddPersistenceInfrastructure(builder.Configuration);
+
+builder.Services.AddApplicationLayer();
+
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+builder.Services.AddSharedInfrastructure(builder.Configuration);
+
 
 var app = builder.Build();
 
