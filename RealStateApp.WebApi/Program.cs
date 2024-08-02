@@ -73,10 +73,9 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.UseSwaggerExtension();
-
 app.UseHealthChecks("/health");
+app.UseSession();
 
 app.MapControllers();
 
