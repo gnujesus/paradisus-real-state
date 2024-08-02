@@ -1,6 +1,10 @@
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RealStateApp.Core.Application.Dtos.Account;
+using RealStateApp.Core.Application.Enums;
 using RealStateApp.Core.Application.Interfaces.Services;
 using RealStateApp.Core.Application.ViewModels.UserModels;
+using RealStateApp.Core.Application.Helpers;
 using RealStateApp.Models;
 using System.Diagnostics;
 
@@ -10,15 +14,40 @@ namespace RealStateApp.Controllers
     {
         private readonly IServiceManager _serviceManager;
         private readonly IAccountService _accountService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public UserController(IServiceManager serviceManager, IAccountService accountService)
+        public UserController(IServiceManager serviceManager, IAccountService accountService, IHttpContextAccessor httpContextAccessor)
         {
             _serviceManager = serviceManager;
             _accountService = accountService;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<IActionResult> Login()
         {
+
+            AuthenticationResponse user = new();
+
+            List<string> roles = new() {
+                Roles.Client.ToString(),
+                Roles.Admin.ToString(),
+                Roles.Developer.ToString(),
+                Roles.Agent.ToString(),
+
+            };
+
+            foreach(string role in roles)
+            {
+                if(user != null)
+                {
+                    return RedirectToRoute(new {Controller="Login", Action="Login"});
+                }
+
+                user = _httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>(role);
+            }
+
+
+            
             return View(new LoginViewModel() { });
         }
 
