@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using RealStateApp.Core.Application.Interfaces.Repositories;
 using RealStateApp.Core.Application.Interfaces.Services;
 using RealStateApp.Core.Application.ViewModels.FavoritesModels;
+using RealStateApp.Core.Application.ViewModels.PropertyModels;
 using RealStateApp.Core.Domain.Entities;
 
 namespace RealStateApp.Core.Application.Services.MainServices
@@ -19,10 +20,11 @@ namespace RealStateApp.Core.Application.Services.MainServices
             _contextAccessor = contextAccessor;
             _mapper = mapper;
         }
-        //Favorite Services  , [Pending to check]
-       public async Task<IEnumerable<Property>> GetFavoritePropertiesByUserId(string userId)
+        //Cambiado a propertyviewmodel 
+        public async Task<IEnumerable<PropertyViewModel>> GetFavoritePropertiesByUserId(string userId)
         {
-            return await _repositoryManager.Favorite.GetFavoritePropertiesByUserIdAsync(userId);
+           var Properties =   await _repositoryManager.Favorite.GetFavoritePropertiesByUserIdAsync(userId);
+            return  _mapper.Map<List<PropertyViewModel>>(Properties);
         }
         public async Task MarkFavorite(string userId, string propertyId)
         {

@@ -8,6 +8,7 @@ using RealStateApp.Core.Application.ViewModels.PropertyModels;
 using RealStateApp.Core.Application.ViewModels.TypePropertyModels;
 using RealStateApp.Core.Application.ViewModels.TypeSaleModels;
 using RealStateApp.Core.Application.ViewModels.UserModels;
+using RealStateApp.Core.Domain.Entities;
 
 namespace RealStateApp.Core.Application.Mappings.Profiles
 {
@@ -36,7 +37,12 @@ namespace RealStateApp.Core.Application.Mappings.Profiles
 
             #region AmenityProfile
             CreateMap<Amenity, AmenityViewModel>()
+<<<<<<< HEAD
                 .ForMember(dest => dest.Properties, opt => opt.MapFrom(src => src.Properties));
+=======
+                .ForMember(dest => dest.Properties, opt => opt.MapFrom(src => src.Properties))
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.ToString()));
+>>>>>>> 738e6363eef2c5b5509eefc37d8ab74383c3cb71
 
             CreateMap<SaveAmenityViewModel, Amenity>()
                 .ReverseMap()
@@ -90,6 +96,10 @@ namespace RealStateApp.Core.Application.Mappings.Profiles
                 .ForMember(dest => dest.Amenity, opt => opt.Ignore());
             #endregion
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 738e6363eef2c5b5509eefc37d8ab74383c3cb71
             #region UserIdentityProfile
             CreateMap<AuthenticationRequest, LoginViewModel>()
                 .ForMember(x => x.HasError, opt => opt.Ignore())

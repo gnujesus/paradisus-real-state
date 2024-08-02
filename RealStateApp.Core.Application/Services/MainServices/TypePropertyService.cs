@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using RealStateApp.Core.Application.Interfaces.Repositories;
 using RealStateApp.Core.Application.Interfaces.Services;
+using RealStateApp.Core.Application.ViewModels.PropertyModels;
 using RealStateApp.Core.Application.ViewModels.TypePropertyModels;
 using RealStateApp.Core.Domain.Entities;
 
@@ -19,13 +20,17 @@ namespace RealStateApp.Core.Application.Services.MainServices
             _contextAccessor = contextAccessor;
             _mapper = mapper;
         }
-       public async  Task<IEnumerable<Property>> GetPropertiesByTypePropertyIdAsync(string typePropertyId)
+        //Cambiado a propertyviewmodel
+        public async  Task<IEnumerable<PropertyViewModel>> GetPropertiesByTypePropertyIdAsync(string typePropertyId)
         {
-            return await _repositoryManager.TypeProperty.GetPropertiesByTypePropertyIdAsync(typePropertyId);
+            var Properties = await _repositoryManager.TypeProperty.GetPropertiesByTypePropertyIdAsync(typePropertyId);
+            return _mapper.Map<List<PropertyViewModel>>(Properties);
         }
         public async Task<int> GetPropertiesCountByTypePropertyIdAsync(string typePropertyId)
         {
-            return await _repositoryManager.TypeProperty.GetPropertiesCountByTypePropertyIdAsync(typePropertyId);
+
+           return  await _repositoryManager.TypeProperty.GetPropertiesCountByTypePropertyIdAsync(typePropertyId);
+          
         }
     }
 }

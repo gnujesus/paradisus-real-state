@@ -43,7 +43,7 @@ namespace RealStateApp.Infrastructure.Persistence.Contexts
             #region Tables
 
             modelBuilder.Entity<Amenity>()
-                .ToTable("Amanities");
+                .ToTable("Amenities");
 
             modelBuilder.Entity<Favorites>()
                 .ToTable("Favorites");
