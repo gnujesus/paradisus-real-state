@@ -7,7 +7,7 @@ using RealStateApp.Core.Domain.Entities;
 
 namespace RealStateApp.Core.Application.Services.MainServices
 {
-    public class AmenityService: GenericService<SaveAmenityViewModel, AmenityViewModel, Amenity>, IAmenityService
+    public class AmenityService : GenericService<SaveAmenityViewModel, AmenityViewModel, Amenity>, IAmenityService
     {
         private readonly IRepositoryManager _repositoryManager;
         private readonly IHttpContextAccessor _contextAccessor;

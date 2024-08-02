@@ -41,7 +41,7 @@ namespace RealStateApp.WebApi.Extensions
                     Contact = new OpenApiContact
                     {
                         Name = "Gilthong Emmanuel",
-                        Email = "gilthong@gmail.com"
+                        Email = "gilthong09@gmail.com"
                     }
                 });
 
