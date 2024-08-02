@@ -14,19 +14,22 @@ namespace RealStateApp.Controllers
             _serviceManager = serviceManager;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var properties = await _serviceManager.Property.GetAllViewModel();
+            return View(properties);
         }
 
-        public IActionResult Favorites()
+        public async Task<IActionResult> Favorites()
         {
-            return View();
+            var favorites = await _serviceManager.Favorite.GetAllViewModel();
+            return View(favorites);
         }
 
-        public IActionResult Single()
+        public async Task<IActionResult> Single(string id)
         {
-            return View();
+            var favorite = await _serviceManager.Property.GetByIdSaveViewModel(id);
+            return View(favorite);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

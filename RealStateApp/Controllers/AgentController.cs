@@ -8,14 +8,17 @@ namespace RealStateApp.Controllers
     public class AgentController : Controller
     {
         private readonly IServiceManager _serviceManager;
+        private readonly IAccountService _accountService;
 
-        public AgentController(IServiceManager serviceManager)
+        public AgentController(IServiceManager serviceManager, IAccountService accountService)
         {
             _serviceManager = serviceManager;
+            _accountService = accountService;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var agents = await _accountService.GetAgentsAsync();
+            return View(agents);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
