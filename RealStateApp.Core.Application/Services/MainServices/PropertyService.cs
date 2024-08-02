@@ -13,39 +13,46 @@ namespace RealStateApp.Core.Application.Services.MainServices
         private readonly IHttpContextAccessor _contextAccessor;
         private readonly IMapper _mapper;
 
+        //Cambiado a propertyviewmodel
         public PropertyService(IRepositoryManager repositoryManager, IHttpContextAccessor contextAccessor, IMapper mapper): base(repositoryManager.Property, mapper)
         {
             _repositoryManager = repositoryManager;
             _contextAccessor = contextAccessor;
             _mapper = mapper;
         }
-        public async Task<IEnumerable<Property>> GetAllPropertiesWithFavorites(string userId)
+        public async Task<IEnumerable<PropertyViewModel>> GetAllPropertiesWithFavorites(string userId)
         {
+            var Properties = await _repositoryManager.Property.GetAllPropertiesWithFavoritesAsync(userId);
 
-
-            return await _repositoryManager.Property.GetAllPropertiesWithFavoritesAsync(userId);
+            return _mapper.Map<List<PropertyViewModel>>(Properties);
         }
-        public async Task<Property> GetPropertyByCode(string code)
+        public async Task<PropertyViewModel> GetPropertyByCode(string code)
         {
-           return await _repositoryManager.Property.GetPropertyByCodeAsync(code);
+           var Properties = await _repositoryManager.Property.GetPropertyByCodeAsync(code);
+            return _mapper.Map<PropertyViewModel>(Properties);
         }
 
-        public async Task<IEnumerable<Property>> GetPropertiesByAgentId(string agentId)
+        public async Task<IEnumerable<PropertyViewModel>> GetPropertiesByAgentId(string agentId)
         {
-            return await _repositoryManager.Property.GetPropertiesByAgentIdAsync(agentId);
+
+            var Properties = _repositoryManager.Property.GetPropertiesByAgentIdAsync(agentId);
+
+            return _mapper.Map<List<PropertyViewModel>>(Properties);
         }
 
         public async Task<int> GetTotalPropertiesCount()
         {
             return await _repositoryManager.Property.GetTotalPropertiesCountAsync();
         }
-        public async Task<IEnumerable<Property>> FilterProperties(string typePropertyId = "", decimal? minPrice = null, decimal? maxPrice = null, int? rooms = null, int? bathrooms = null)
+        public async Task<IEnumerable<PropertyViewModel>> FilterProperties(string typePropertyId = "", decimal? minPrice = null, decimal? maxPrice = null, int? rooms = null, int? bathrooms = null)
         {
-           return  await _repositoryManager.Property.FilterPropertiesAsync( typePropertyId = "",  minPrice = null, maxPrice = null,  rooms = null, bathrooms);
+            var Properties = await _repositoryManager.Property.FilterPropertiesAsync(typePropertyId = "", minPrice = null, maxPrice = null, rooms = null, bathrooms);
+            return   _mapper.Map<List<PropertyViewModel>>(Properties);
         }
-        public async Task<List<Property>> GetAll()
+        public async Task<List<PropertyViewModel>> GetAllProperties()
         {
-            return await _repositoryManager.Property.GetAllAsync();
+            var Properties = await _repositoryManager.Property.GetAllAsync();
+            return _mapper.Map<List<PropertyViewModel>>(Properties);
         }
     }
 }
