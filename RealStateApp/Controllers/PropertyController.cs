@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using RealStateApp.Core.Application.Interfaces.Services;
 using RealStateApp.Models;
 using System.Diagnostics;
@@ -39,3 +39,4 @@ namespace RealStateApp.Controllers
         }
     }
 }
+
