@@ -20,6 +20,7 @@ namespace RealStateApp.Core.Application.Services.MainServices
 
         public virtual async Task Update(SaveViewModel vm, string id)
         {
+            
             Model entity = _mapper.Map<Model>(vm);
             await _repository.UpdateAsync(entity, id);
         }
