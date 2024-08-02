@@ -1,30 +1,164 @@
 ﻿@model List<PropertyViewModel>
+@inject IHttpContextAccessor httpContextAccessor
+
 @{
     ViewData["Title"] = "Home";
+
+    AuthenticationResponse user = new();
+    var admin = httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>(Roles.Admin.ToString());
+    var agent = httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>(Roles.Agent.ToString());
+    var client = httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>(Roles.Client.ToString());
+    var developer = httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>(Roles.Developer.ToString());
+
+    if (admin != null)
+    {
+        user = admin;
+    }
+    else if (agent != null)
+    {
+        user = agent;
+    }
+    else if (client != null)
+    {
+        user = client;
+    }
+    else
+    {
+        user = developer;
+    }
 }
 
-<section class="hero-bg h-screen flex items-center text-white">
-    <div class="container">
-        <div class="max-w-lg px-24">
-            <h1 class="text-5xl font-bold mb-4">Paradisus Inmobiliarias</h1>
-            <h2 class="text-3xl mb-6">Find your dream home with us. We aim to help you live the life of your dreams with the best services.</h2>
-            <a href="#contact" class="bg-yellow-500 text-black px-8 py-4 rounded-md hover:bg-yellow-600 text-lg">Contact Us</a>
-            <p class="text-lg mt-4">Over 2k+ clients satisfied</p>
+@if (user == agent)
+{
+    <section class="hero-bg h-screen flex items-center text-white">
+        <div class="container">
+            <div class="max-w-lg px-24">
+                <h1 class="text-5xl font-bold mb-4">Paradisus Inmobiliarias</h1>
+                <h2 class="text-3xl mb-6">Find your dream home with us. We aim to help you live the life of your dreams with the best services.</h2>
+                <a href="#contact" class="bg-yellow-500 text-black px-8 py-4 rounded-md hover:bg-yellow-600 text-lg">Contact Us</a>
+                <p class="text-lg mt-4">Over 2k+ clients satisfied</p>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<section class="py-12 bg-gray-100">
-    <div class="container mx-auto px-6 md:px-12 lg:px-24">
-        <h2 class="text-4xl font-bold mb-8">All Properties</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            @foreach (var property in Model)
-            {
-                @await Component.InvokeAsync("PropertyCard", property)
-            }
+    <section class="py-12 bg-gray-100">
+        <div class="container mx-auto px-6 md:px-12 lg:px-24">
+            <h2 class="text-4xl font-bold mb-8">All Properties</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                @foreach (var property in Model)
+                {
+                    @await Component.InvokeAsync("PropertyCard", property)
+                }
+            </div>
+        </div>
+    </section>
+}
+else if (user == admin)
+{
+    <div class="flex">
+        <div class="w-1/4 bg-blue-900 text-white h-screen p-4">
+            <div class="flex flex-col items-center">
+                <img src="/path/to/logo.png" alt="Company Logo" class="mb-8" style="width: 100px;">
+                <button class="bg-red-500 text-white px-4 py-2 rounded-md mb-8">Log out</button>
+                <div class="grid grid-cols-1 gap-4">
+                    <a class="bg-gray-700 text-white text-center rounded-md block p-4" href="#">
+                        <div class="flex flex-col items-center">
+                            <svg class="w-8 h-8 mb-2" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                            </svg>
+                            <span>Agents</span>
+                        </div>
+                    </a>
+                    <a class="bg-gray-700 text-white text-center rounded-md block p-4" href="#">
+                        <div class="flex flex-col items-center">
+                            <svg class="w-8 h-8 mb-2" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                            </svg>
+                            <span>Administrators</span>
+                        </div>
+                    </a>
+                    <a class="bg-gray-700 text-white text-center rounded-md block p-4" href="#">
+                        <div class="flex flex-col items-center">
+                            <svg class="w-8 h-8 mb-2" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                            </svg>
+                            <span>Developers</span>
+                        </div>
+                    </a>
+                    <a class="bg-gray-700 text-white text-center rounded-md block p-4" href="#">
+                        <div class="flex flex-col items-center">
+                            <svg class="w-8 h-8 mb-2" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                            </svg>
+                            <span>Property Types</span>
+                        </div>
+                    </a>
+                    <a class="bg-gray-700 text-white text-center rounded-md block p-4" href="#">
+                        <div class="flex flex-col items-center">
+                            <svg class="w-8 h-8 mb-2" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                            </svg>
+                            <span>Sell Types</span>
+                        </div>
+                    </a>
+                    <a class="bg-gray-700 text-white text-center rounded-md block p-4" href="#">
+                        <div class="flex flex-col items-center">
+                            <svg class="w-8 h-8 mb-2" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                            </svg>
+                            <span>Amenities</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
-</section>
+}
+else
+{
+    <section class="py-12 bg-gray-100">
+        <div class="container mx-auto px-6 md:px-12 lg:px-24">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-4xl font-bold">All Properties</h2>
+                <a href="@Url.Action("Create", "Properties")" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">New</a>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white">
+                    <thead>
+                        <tr>
+                            <th class="py-2 px-4 border-b">Property ID</th>
+                            <th class="py-2 px-4 border-b">Description</th>
+                            <th class="py-2 px-4 border-b">Price</th>
+                            <th class="py-2 px-4 border-b">Rooms</th>
+                            <th class="py-2 px-4 border-b">Bathrooms</th>
+                            <th class="py-2 px-4 border-b">Size</th>
+                            <th class="py-2 px-4 border-b">Type</th>
+                            <th class="py-2 px-4 border-b">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var property in Model)
+                        {
+                            <tr>
+                                <td class="py-2 px-4 border-b">@property.Id</td>
+                                <td class="py-2 px-4 border-b">@string.Join(" ", property.Description.Split(' ').Take(4)) ...</td>
+                                <td class="py-2 px-4 border-b">@property.Value_Sale.ToString("C")</td>
+                                <td class="py-2 px-4 border-b">@property.Rooms</td>
+                                <td class="py-2 px-4 border-b">@property.BathRooms</td>
+                                <td class="py-2 px-4 border-b">@property.Size_Property</td>
+                                <td class="py-2 px-4 border-b">@property.TypeProperty_Id</td>
+                                <td class="py-2 px-4 border-b">
+                                    <a href="@Url.Action("Edit", "Properties", new { id = property.Id })" class="bg-yellow-500 text-white px-2 py-1 rounded-md hover:bg-yellow-600">Edit</a>
+                                    <a href="@Url.Action("Delete", "Properties", new { id = property.Id })" class="bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600 ml-2">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+}
 
 <style>
     .hero-bg {
