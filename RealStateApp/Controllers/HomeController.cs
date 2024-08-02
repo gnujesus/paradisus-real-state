@@ -16,15 +16,9 @@ namespace RealStateApp.Controllers
 
         public async Task<IActionResult> Index()
         {
-            //await _serviceManager.Amenity.Add(new Core.Application.ViewModels.AmenityModels.SaveAmenityViewModel() { Name = "Brahiam", Description = "My desc" });
-            //var list = await _serviceManager.Amenity.GetAllViewModel();
+            var properties = await _serviceManager.Property.GetAllProperties();
 
-            //foreach (var item in list)
-            //{
-            //    Console.WriteLine(item);
-            //}
-
-            return View();
+            return View(properties);
         }
 
         public IActionResult Privacy()
