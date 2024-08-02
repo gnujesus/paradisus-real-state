@@ -24,21 +24,20 @@ namespace RealStateApp.Controllers
         public async Task<IActionResult> Index()
         {
             var properties = await _serviceManager.Property.GetAllViewModel();
+
             return View(properties);
         }
 
         public async Task<IActionResult> Favorites()
         {
-
             var user = _httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>(Roles.Client.ToString());
 
-            if(user == null)
+            if (user == null)
             {
                 return RedirectToRoute(new {Controller="Login", Action="Login"});
             }
 
-
-            var favoriteProperties = _serviceManager.Favorite.GetFavoritePropertiesByUserId(user.Id);
+            var favoriteProperties = await _serviceManager.Favorite.GetFavoritePropertiesByUserId(user.Id);
 
             return View(favoriteProperties);
         }

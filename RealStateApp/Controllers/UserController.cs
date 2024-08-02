@@ -45,8 +45,6 @@ namespace RealStateApp.Controllers
 
                 user = _httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>(role);
             }
-
-
             
             return View(new LoginViewModel() { });
         }
