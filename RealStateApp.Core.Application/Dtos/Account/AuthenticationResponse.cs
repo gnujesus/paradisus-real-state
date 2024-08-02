@@ -1,6 +1,5 @@
 ﻿using System.Text.Json.Serialization;
 
-
 namespace RealStateApp.Core.Application.Dtos.Account
 {
     public class AuthenticationResponse

@@ -1,11 +1,6 @@
 ﻿using RealStateApp.Core.Application.Interfaces.Repositories;
 using RealStateApp.Core.Domain.Entities;
 using RealStateApp.Infrastructure.Persistence.Contexts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RealStateApp.Infrastructure.Persistence.Repositories
 {
@@ -17,7 +12,5 @@ namespace RealStateApp.Infrastructure.Persistence.Repositories
         {
             _dbContext = dbContext;
         }
-        
-         
     }
 }

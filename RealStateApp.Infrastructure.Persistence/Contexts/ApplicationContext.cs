@@ -1,12 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using RealStateApp.Core.Domain.Common;
 using RealStateApp.Core.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RealStateApp.Infrastructure.Persistence.Contexts
 {
@@ -20,7 +15,6 @@ namespace RealStateApp.Infrastructure.Persistence.Contexts
         public DbSet<TypeProperty> TypeProperties { get; set; }
         public DbSet<TypeSale> TypeSales { get; set; }
         public DbSet<PropertyImage> PropertyImages { get; set; }
-
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
@@ -49,7 +43,7 @@ namespace RealStateApp.Infrastructure.Persistence.Contexts
             #region Tables
 
             modelBuilder.Entity<Amenity>()
-                .ToTable("Amanities");
+                .ToTable("Amenities");
 
             modelBuilder.Entity<Favorites>()
                 .ToTable("Favorites");

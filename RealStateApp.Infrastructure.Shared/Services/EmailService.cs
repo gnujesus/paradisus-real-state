@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using MailKit.Security;
 using Microsoft.Extensions.Options;
-using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
-using System.Threading.Tasks;
 using MimeKit;
 using RealStateApp.Core.Application.Dtos.Email;
-using MailKit.Security;
 using RealStateApp.Core.Application.Interfaces.Services;
 using RealStateApp.Core.Domain.Settings;
 

@@ -4,27 +4,20 @@ using RealStateApp.Core.Application.Interfaces.Repositories;
 using RealStateApp.Core.Application.Interfaces.Services;
 using RealStateApp.Core.Application.ViewModels.AmenityModels;
 using RealStateApp.Core.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RealStateApp.Core.Application.Services.MainServices
 {
-    public class AmenityService: GenericService<SaveAmenityViewModel, AmenityViewModel, Amenity>, IAmenityService
+    public class AmenityService : GenericService<SaveAmenityViewModel, AmenityViewModel, Amenity>, IAmenityService
     {
-        private readonly IAmenityAsync _amenityRepository;
+        private readonly IRepositoryManager _repositoryManager;
         private readonly IHttpContextAccessor _contextAccessor;
         private readonly IMapper _mapper;
 
-        public AmenityService(IAmenityAsync amenityRepository, IHttpContextAccessor contextAccessor, IMapper mapper): base(amenityRepository,mapper)
+        public AmenityService(IRepositoryManager repositoryManager, IHttpContextAccessor contextAccessor, IMapper mapper): base(repositoryManager.Amenity, mapper)
         {
-            _amenityRepository = amenityRepository;
+            _repositoryManager = repositoryManager;
             _contextAccessor = contextAccessor;
             _mapper = mapper;
         }
-
-
     }
 }
