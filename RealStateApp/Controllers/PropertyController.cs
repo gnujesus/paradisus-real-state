@@ -30,6 +30,8 @@ namespace RealStateApp.Controllers
         public async Task<IActionResult> Favorites()
         {
 
+            List<PropertyViewModel> favoriteProperties = new();
+
             var user = _httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>(Roles.Client.ToString());
 
             if(user == null)
@@ -38,11 +40,26 @@ namespace RealStateApp.Controllers
             }
 
 
-            var favoriteProperties = _serviceManager.Favorite.GetFavoritePropertiesByUserId(user.Id);
+            favoriteProperties = await _serviceManager.Favorite.GetFavoritePropertiesByUserId(user.Id);
 
             return View(favoriteProperties);
         }
 
+        public async Task<IActionResult> Save()
+        {
+            return View(new PropertyViewModel());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Save(PropertyViewModel vm)
+        {
+            return View();
+        }
+
+        // TODO: Single page of the selected property 
+        // the idea is that, if you click into a property, 
+        // it'll send you to a page where the data rendered
+        // will depend on the clicked property
         public async Task<IActionResult> Single(string id)
         {
             var favorite = await _serviceManager.Property.GetByIdSaveViewModel(id);

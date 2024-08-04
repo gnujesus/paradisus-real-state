@@ -26,29 +26,29 @@ namespace RealStateApp.Controllers
         public async Task<IActionResult> Login()
         {
 
-            AuthenticationResponse user = new();
+            var admin = _httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>(Roles.Admin.ToString());
+            var agent = _httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>(Roles.Agent.ToString());
+            var client = _httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>(Roles.Client.ToString());
 
-            List<string> roles = new() {
-                Roles.Client.ToString(),
-                Roles.Admin.ToString(),
-                Roles.Developer.ToString(),
-                Roles.Agent.ToString(),
-
-            };
-
-            foreach(string role in roles)
+            if (admin != null)
             {
-                if(user != null)
-                {
-                    return RedirectToRoute(new {Controller="Login", Action="Login"});
-                }
-
-                user = _httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>(role);
+                return RedirectToRoute(new { Controller = "Home", Action = "Index" });
+            }
+            else if (agent != null)
+            {
+                return RedirectToRoute(new { Controller = "Home", Action = "Index" });
+            }
+            else if (client != null)
+            {
+                // TODO: Make client home page (it must be a different page since it has it's own model and post request)
+                return RedirectToRoute(new { Controller = "Home", Action = "Index" });
+            }
+            else
+            {
+                return View(new LoginViewModel() { });
             }
 
-
             
-            return View(new LoginViewModel() { });
         }
 
         public IActionResult Register()

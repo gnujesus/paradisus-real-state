@@ -1,1 +1,81 @@
-﻿
+﻿@model SavePropertyViewModel
+
+<h2>Create Property</h2>
+
+<form asp-action="CreateProperty" method="post" class="w-full max-w-lg">
+    <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="Value_Sale">
+            Value Sale
+        </label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+               id="Value_Sale" name="Value_Sale" type="text" value="@Model.Value_Sale" />
+        <span asp-validation-for="Value_Sale" class="text-red-500 text-xs italic"></span>
+    </div>
+
+    <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="Rooms">
+            Rooms
+        </label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+               id="Rooms" name="Rooms" type="number" value="@Model.Rooms" />
+        <span asp-validation-for="Rooms" class="text-red-500 text-xs italic"></span>
+    </div>
+
+    <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="BathRooms">
+            Bathrooms
+        </label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+               id="BathRooms" name="BathRooms" type="number" value="@Model.BathRooms" />
+        <span asp-validation-for="BathRooms" class="text-red-500 text-xs italic"></span>
+    </div>
+
+    <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="Size_Property">
+            Size (m²)
+        </label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+               id="Size_Property" name="Size_Property" type="text" value="@Model.Size_Property" />
+        <span asp-validation-for="Size_Property" class="text-red-500 text-xs italic"></span>
+    </div>
+
+    <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="Description">
+            Description
+        </label>
+        <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  id="Description" name="Description">@Model.Description</textarea>
+        <span asp-validation-for="Description" class="text-red-500 text-xs italic"></span>
+    </div>
+
+    <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="TypeProperty_Id">
+            Property Type
+        </label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+               id="TypeProperty_Id" name="TypeProperty_Id" type="text" value="@Model.TypeProperty_Id" />
+        <span asp-validation-for="TypeProperty_Id" class="text-red-500 text-xs italic"></span>
+    </div>
+
+    <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="TypeSale_Id">
+            Sale Type
+        </label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+               id="TypeSale_Id" name="TypeSale_Id" type="text" value="@Model.TypeSale_Id" />
+        <span asp-validation-for="TypeSale_Id" class="text-red-500 text-xs italic"></span>
+    </div>
+
+    <div class="flex items-center justify-between">
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="submit">
+            Create Property
+        </button>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
