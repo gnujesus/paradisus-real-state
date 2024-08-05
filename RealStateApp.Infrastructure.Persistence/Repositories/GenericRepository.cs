@@ -42,5 +42,17 @@ namespace RealStateApp.Infrastructure.Persistence.Repositories
         {
             return await _dbContext.Set<Entity>().FindAsync(id);
         }
+
+        public virtual async Task<List<Entity>> GetAllWithIncludeAsync(List<string> properties)
+        {
+            var query = _dbContext.Set<Entity>().AsQueryable();
+
+            foreach (string property in properties)
+            {
+                query = query.Include(property);
+            }
+
+            return await query.ToListAsync();
+        }
     }
 }

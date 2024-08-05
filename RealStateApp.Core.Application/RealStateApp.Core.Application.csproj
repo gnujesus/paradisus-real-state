@@ -25,12 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Exceptions\" />
-    <Folder Include="Features\AmenityF\Commands\CreateAmenity\" />
-    <Folder Include="Features\AmenityF\Commands\DeleteAmenity\" />
-    <Folder Include="Features\AmenityF\Commands\UpdateAmenity\" />
-    <Folder Include="Features\AmenityF\Queries\GetAllAmenities\" />
-    <Folder Include="Features\AmenityF\Queries\GetAmenityById\" />
     <Folder Include="Features\FavoritesF\Commands\CreateFavorites\" />
     <Folder Include="Features\FavoritesF\Commands\DeleteFavorites\" />
     <Folder Include="Features\FavoritesF\Commands\UpdateFavorites\" />
@@ -56,7 +50,6 @@
     <Folder Include="Features\TypePropertyF\Queries\" />
     <Folder Include="Features\TypeSaleF\Commands\" />
     <Folder Include="Features\TypeSaleF\Queries\" />
-    <Folder Include="Wrappers\" />
   </ItemGroup>
 
 </Project>

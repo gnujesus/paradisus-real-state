@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace RealStateApp.Infrastructure.Persistence.Services
 {
-    public class CodeGeneration
+    public class CodeGeneratorRepository
     {
         private readonly ApplicationContext _dbContext;
 
-        public CodeGeneration(ApplicationContext dbContext)
+        public CodeGeneratorRepository(ApplicationContext dbContext)
         {
             _dbContext = dbContext;
         }
