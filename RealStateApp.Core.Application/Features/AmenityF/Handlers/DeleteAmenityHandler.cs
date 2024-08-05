@@ -2,6 +2,7 @@
 using RealStateApp.Core.Application.Exceptions.Amenity;
 using RealStateApp.Core.Application.Features.AmenityF.Notifications;
 using RealStateApp.Core.Application.Interfaces.Repositories;
+using System.Net;
 
 namespace RealStateApp.Core.Application.Features.AmenityF.Handlers
 {
@@ -15,7 +16,7 @@ namespace RealStateApp.Core.Application.Features.AmenityF.Handlers
         {
             var Amenity = await _repository.Amenity.GetAmenityAsync(notification.Id, notification.TrackChanges);
             if (Amenity is null)
-                throw new AmenityNotFoundException(notification.Id);
+                throw new AmenityNotFoundException(notification.Id, (int)HttpStatusCode.NotFound);
 
             await _repository.Amenity.DeleteAsync(Amenity);
             await _repository.SaveAsync();

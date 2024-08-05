@@ -8,7 +8,6 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace RealStateApp.Core.Application.Features.AmenityF.Commands.CreateAmenity
 {
-
     /// <summary>
     /// Parámetros para la creacion de una Mejora
     /// </summary> 
@@ -27,19 +26,16 @@ namespace RealStateApp.Core.Application.Features.AmenityF.Commands.CreateAmenity
     {
         private readonly IAmenityAsync _amenityRepository;
         private readonly IMapper _mapper;
-        private readonly ICodeGeneratorService _codegenService;
-        public CreateAmenityCommandHandler(IAmenityAsync amenityRepository, IMapper mapper, ICodeGeneratorService codegenService)
+
+        public CreateAmenityCommandHandler(IAmenityAsync amenityRepository, IMapper mapper)
         {
             _amenityRepository = amenityRepository;
             _mapper = mapper;
-            _codegenService = codegenService;
         }
 
         public async Task<Response<int>> Handle(CreateAmenityCommand request, CancellationToken cancellationToken)
         {
-
             var amenity = _mapper.Map<Amenity>(request);
-            amenity.Id = await _codegenService.GenerateUniqueCodeAsync();
 
             await _amenityRepository.AddAsync(amenity);
             return new Response<int>(amenity.Id);

@@ -3,12 +3,7 @@ using RealStateApp.Core.Application.Exceptions;
 using RealStateApp.Core.Application.Interfaces.Repositories;
 using RealStateApp.Core.Application.Wrappers;
 using Swashbuckle.AspNetCore.Annotations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RealStateApp.Core.Application.Features.AmenityF.Commands.DeleteAmenity
 {
@@ -23,16 +18,17 @@ namespace RealStateApp.Core.Application.Features.AmenityF.Commands.DeleteAmenity
 
     public class DeleteAmenityByIdCommandHandler : IRequestHandler<DeleteAmenityByIdCommand, Response<int>>
     {
-        private readonly IAmenityAsync _amenityRepository;
-        public DeleteAmenityByIdCommandHandler(IAmenityAsync amenityRepository)
+        private readonly IRepositoryManager _repositoryManager;
+        public DeleteAmenityByIdCommandHandler(IRepositoryManager repositoryManager)
         {
-            _amenityRepository = amenityRepository;
+            _repositoryManager = repositoryManager;
         }
         public async Task<Response<int>> Handle(DeleteAmenityByIdCommand command, CancellationToken cancellationToken)
         {
-            var amenity = await _amenityRepository.GetByIdAsync(command.Id);
+            var amenity = await _repositoryManager.Amenity.GetByIdAsync(command.Id);
             if (amenity == null) throw new ApiException($"Amenity not found.", (int)HttpStatusCode.NotFound);
-            await _amenityRepository.DeleteAsync(amenity);
+            await _repositoryManager.Amenity.DeleteAsync(amenity);
+            await _repositoryManager.SaveAsync();
             return new Response<int>(amenity.Id);
         }
     }

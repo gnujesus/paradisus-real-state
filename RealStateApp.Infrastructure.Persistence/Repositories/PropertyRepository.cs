@@ -7,16 +7,16 @@ namespace RealStateApp.Infrastructure.Persistence.Repositories
 {
     public class PropertyRepository: GenericRepository<Property>, IPropertyAsync
     {
-        private readonly ApplicationContext _dbContext;
+        private readonly ApplicationContext context;
 
         public PropertyRepository(ApplicationContext dbContext) : base(dbContext)
         {
-            _dbContext = dbContext;
+            context = dbContext;
         }
 
         public override async Task<List<Property>> GetAllAsync()
         {
-            return await _dbContext.Properties
+            return await context.Properties
                 .Include(p => p.Images)
                 .OrderByDescending(p => p.Created)
                 .ToListAsync();
@@ -24,7 +24,7 @@ namespace RealStateApp.Infrastructure.Persistence.Repositories
 
         public async Task<IEnumerable<Property>> GetAllPropertiesWithFavoritesAsync(string userId)
         {
-            return await _dbContext.Properties
+            return await context.Properties
                 .Include(p => p.Favorites)
                 .Include(p => p.Images)
                 .Where(p => p.Favorites.Any(f => f.User_Id == userId))
@@ -34,14 +34,14 @@ namespace RealStateApp.Infrastructure.Persistence.Repositories
 
         public async Task<Property> GetPropertyByCodeAsync(string code)
         {
-            return await _dbContext.Properties
+            return await context.Properties
                 .Include(p => p.Images)
                 .FirstOrDefaultAsync(p => p.Id == code);
         }
 
         public async Task<IEnumerable<Property>> GetPropertiesByAgentIdAsync(string agentId)
         {
-            return await _dbContext.Properties
+            return await context.Properties
                 .Include(p => p.Images)
                 .Where(p => p.User_Id == agentId)
                 .OrderByDescending(p => p.Created)
@@ -50,12 +50,12 @@ namespace RealStateApp.Infrastructure.Persistence.Repositories
 
         public async Task<int> GetTotalPropertiesCountAsync()
         {
-            return await _dbContext.Properties.CountAsync();
+            return await context.Properties.CountAsync();
         }
 
         public async Task<IEnumerable<Property>> FilterPropertiesAsync(string typePropertyId = null, decimal? minPrice = null, decimal? maxPrice = null, int? rooms = null, int? bathrooms = null)
         {
-            var query = _dbContext.Properties
+            var query = context.Properties
                 .Include(p => p.Images)
                 .AsQueryable();
 
