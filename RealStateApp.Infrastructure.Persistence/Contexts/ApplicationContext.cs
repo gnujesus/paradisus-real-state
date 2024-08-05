@@ -34,7 +34,6 @@ namespace RealStateApp.Infrastructure.Persistence.Contexts
                 }
             }
 
-            await AddIdsAsync();
             return await base.SaveChangesAsync(cancellationToken);
         }
 

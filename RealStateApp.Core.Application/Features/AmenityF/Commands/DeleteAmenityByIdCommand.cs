@@ -16,10 +16,10 @@ namespace RealStateApp.Core.Application.Features.AmenityF.Commands
         public async Task<Response<int>> Handle(DeleteAmenityByIdCommand command, CancellationToken cancellationToken)
         {
             var amenity = await _repositoryManager.Amenity.GetByIdAsync(command.Id);
-            if (amenity == null) throw new ApiException($"The amenity with id: {command.Id} doesn't exist in the database.", (int)HttpStatusCode.NotFound);
+            if (amenity == null) 
+                throw new ApiException($"The amenity with id: {command.Id} doesn't exist in the database.", (int)HttpStatusCode.NotFound);
 
             await _repositoryManager.Amenity.DeleteAsync(amenity);
-            await _repositoryManager.SaveAsync();
 
             return new Response<int>(amenity.Id);
         }
