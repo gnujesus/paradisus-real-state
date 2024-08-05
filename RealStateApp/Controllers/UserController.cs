@@ -1,12 +1,11 @@
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RealStateApp.Core.Application.DataTransferObjects.Account;
 using RealStateApp.Core.Application.Enums;
+using RealStateApp.Core.Application.Helpers;
 using RealStateApp.Core.Application.Interfaces.Services;
 using RealStateApp.Core.Application.ViewModels.UserModels;
-using RealStateApp.Core.Application.Helpers;
 using RealStateApp.Models;
 using System.Diagnostics;
-using RealStateApp.Core.Application.DataTransferObjects.Account;
 
 namespace RealStateApp.Controllers
 {
@@ -25,30 +24,30 @@ namespace RealStateApp.Controllers
 
         public async Task<IActionResult> Login()
         {
+            await Task.Run(() => { });
 
-            var admin = _httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>(Roles.Admin.ToString());
-            var agent = _httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>(Roles.Agent.ToString());
-            var client = _httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>(Roles.Client.ToString());
+            if (_httpContextAccessor.HttpContext != null)
+            {
+                var admin = _httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>(Roles.Admin.ToString());
+                var agent = _httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>(Roles.Agent.ToString());
+                var client = _httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>(Roles.Client.ToString());
 
-            if (admin != null)
-            {
-                return RedirectToRoute(new { Controller = "Home", Action = "Index" });
-            }
-            else if (agent != null)
-            {
-                return RedirectToRoute(new { Controller = "Home", Action = "Index" });
-            }
-            else if (client != null)
-            {
-                // TODO: Make client home page (it must be a different page since it has it's own model and post request)
-                return RedirectToRoute(new { Controller = "Home", Action = "Index" });
-            }
-            else
-            {
-                return View(new LoginViewModel() { });
+                if (admin != null)
+                {
+                    return RedirectToRoute(new { Controller = "Home", Action = "Index" });
+                }
+                else if (agent != null)
+                {
+                    return RedirectToRoute(new { Controller = "Home", Action = "Index" });
+                }
+                else if (client != null)
+                {
+                    // TODO: Make client home page (it must be a different page since it has it's own model and post request)
+                    return RedirectToRoute(new { Controller = "Home", Action = "Index" });
+                }
             }
 
-            
+            return View(new LoginViewModel() { });
         }
 
         public IActionResult Register()

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RealStateApp.Core.Application.Wrappers
+﻿namespace RealStateApp.Core.Application.Wrappers
 {
     public class Response<T>
     {
@@ -23,8 +17,8 @@ namespace RealStateApp.Core.Application.Wrappers
             Message = message;
         }
         public bool Succeeded { get; set; }
-        public string Message { get; set; }
-        public List<string> Errors { get; set; }
-        public T Data { get; set; }
+        public string? Message { get; set; }
+        public List<string>? Errors { get; set; }
+        public T? Data { get; set; }
     }
 }

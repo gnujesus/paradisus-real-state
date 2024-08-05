@@ -14,7 +14,7 @@ namespace RealStateApp.Infrastructure.Persistence.Repositories
             context = dbContext;
         }
 
-        public override async Task<List<Property>> GetAllAsync()
+        public override async Task<List<Property>> GetAllAsync(bool trackChanges = false)
         {
             return await context.Properties
                 .Include(p => p.Images)
@@ -34,7 +34,7 @@ namespace RealStateApp.Infrastructure.Persistence.Repositories
 
         public async Task<Property> GetPropertyByCodeAsync(string code)
         {
-            return await context.Properties
+            return await context.Properties.AsNoTracking()
                 .Include(p => p.Images)
                 .FirstOrDefaultAsync(p => p.Id == code);
         }
@@ -53,7 +53,7 @@ namespace RealStateApp.Infrastructure.Persistence.Repositories
             return await context.Properties.CountAsync();
         }
 
-        public async Task<IEnumerable<Property>> FilterPropertiesAsync(string typePropertyId = null, decimal? minPrice = null, decimal? maxPrice = null, int? rooms = null, int? bathrooms = null)
+        public async Task<IEnumerable<Property>> FilterPropertiesAsync(string typePropertyId = null!, decimal? minPrice = null, decimal? maxPrice = null, int? rooms = null, int? bathrooms = null)
         {
             var query = context.Properties
                 .Include(p => p.Images)

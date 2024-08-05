@@ -13,9 +13,5 @@ namespace RealStateApp.Infrastructure.Persistence.Repositories
         {
             _dbContext = dbContext;
         }
-
-        public async Task<Amenity> GetAmenityAsync(string amenityId, bool trackChanges) =>
-            await FindByCondition(a => a.Id.Equals(amenityId), trackChanges)
-            .SingleOrDefaultAsync();
     }
 }

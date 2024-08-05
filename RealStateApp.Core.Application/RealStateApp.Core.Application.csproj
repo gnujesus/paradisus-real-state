@@ -8,17 +8,8 @@
 
   <ItemGroup>
     <Compile Remove="Features\AmenityF\Commands\DeleteAmenityById\**" />
-    <Compile Remove="Features\AmenityF\Commands\UpdateAmenity\**" />
-    <Compile Remove="Features\AmenityF\Queries\GetAllAmenities\**" />
-    <Compile Remove="Features\AmenityF\Queries\GetAmenityById\**" />
     <EmbeddedResource Remove="Features\AmenityF\Commands\DeleteAmenityById\**" />
-    <EmbeddedResource Remove="Features\AmenityF\Commands\UpdateAmenity\**" />
-    <EmbeddedResource Remove="Features\AmenityF\Queries\GetAllAmenities\**" />
-    <EmbeddedResource Remove="Features\AmenityF\Queries\GetAmenityById\**" />
     <None Remove="Features\AmenityF\Commands\DeleteAmenityById\**" />
-    <None Remove="Features\AmenityF\Commands\UpdateAmenity\**" />
-    <None Remove="Features\AmenityF\Queries\GetAllAmenities\**" />
-    <None Remove="Features\AmenityF\Queries\GetAmenityById\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -41,15 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-<<<<<<< HEAD
     <Folder Include="Exceptions\" />
-    <Folder Include="Features\AmenityF\Commands\CreateAmenity\" />
-    <Folder Include="Features\AmenityF\Commands\DeleteAmenityById\" />
-    <Folder Include="Features\AmenityF\Commands\UpdateAmenity\" />
-    <Folder Include="Features\AmenityF\Queries\GetAllAmenities\" />
-    <Folder Include="Features\AmenityF\Queries\GetAmenityById\" />
-=======
->>>>>>> 66735fc0ef7f372fca9f8588e730a81fca8c1ced
     <Folder Include="Features\FavoritesF\Commands\CreateFavorites\" />
     <Folder Include="Features\FavoritesF\Commands\DeleteFavorites\" />
     <Folder Include="Features\FavoritesF\Commands\UpdateFavorites\" />

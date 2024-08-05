@@ -6,13 +6,9 @@
            where Model : class
     {
         Task Update(SaveViewModel vm, string id);
-
         Task<SaveViewModel> Add(SaveViewModel vm);
-
         Task Delete(string id);
-
-        Task<SaveViewModel> GetByIdSaveViewModel(string id);
-
-        Task<List<ViewModel>> GetAllViewModel();
+        Task<SaveViewModel> GetByIdSaveViewModel(string id, bool trackChanges = false);
+        Task<List<ViewModel>> GetAllViewModel(bool trackChanges = false);
     }
 }

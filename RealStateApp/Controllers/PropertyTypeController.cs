@@ -17,6 +17,7 @@ namespace RealStateApp.Controllers
 
         public async Task<IActionResult> Index()
         {
+            await Task.Run(() => { });
             return View(new List<SavePropertyViewModel>());
         }
     }
