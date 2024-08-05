@@ -21,10 +21,11 @@ namespace RealStateApp.Core.Application.Services.MainServices
             _mapper = mapper;
         }
         //Cambiado a propertyviewmodel 
-        public async Task<IEnumerable<PropertyViewModel>> GetFavoritePropertiesByUserId(string userId)
+        public async Task<List<PropertyViewModel>> GetFavoritePropertiesByUserId(string userId)
         {
-           var Properties =   await _repositoryManager.Favorite.GetFavoritePropertiesByUserIdAsync(userId);
-            return  _mapper.Map<List<PropertyViewModel>>(Properties);
+           var properties =   await _repositoryManager.Favorite.GetFavoritePropertiesByUserIdAsync(userId);
+            var propertiesList = _mapper.Map<List<PropertyViewModel>>(properties);
+            return propertiesList;
         }
         public async Task MarkFavorite(string userId, string propertyId)
         {

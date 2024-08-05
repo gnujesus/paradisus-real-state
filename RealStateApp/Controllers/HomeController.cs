@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using RealStateApp.Core.Application.Interfaces.Services;
+using RealStateApp.Core.Application.ViewModels.PropertyModels;
 using RealStateApp.Models;
 using System.Diagnostics;
 
@@ -17,6 +18,9 @@ namespace RealStateApp.Controllers
         public async Task<IActionResult> Index()
         {
             var properties = await _serviceManager.Property.GetAllProperties();
+
+            List<PropertyViewModel> properties = new();
+            properties = await _serviceManager.Property.GetAllViewModel();
 
             return View(properties);
         }

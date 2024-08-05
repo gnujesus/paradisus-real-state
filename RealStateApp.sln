@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.34916.146
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealStateApp", "RealStateApp\RealStateApp.csproj", "{6C009172-1E71-4014-9071-7430F61E70CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RealStateApp", "RealStateApp\RealStateApp.csproj", "{6C009172-1E71-4014-9071-7430F61E70CD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{FB1B21A4-8722-4FAF-9753-A00B957A3D26}"
 EndProject
@@ -15,19 +15,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentatio
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApp", "WebApp", "{7A26033C-D699-4E92-8E46-53926E454A1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealStateApp.Core.Application", "RealStateApp.Core.Application\RealStateApp.Core.Application.csproj", "{458F76B8-F621-4F98-A34F-A9A3C01697B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RealStateApp.Core.Application", "RealStateApp.Core.Application\RealStateApp.Core.Application.csproj", "{458F76B8-F621-4F98-A34F-A9A3C01697B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealStateApp.Core.Domain", "RealStateApp.Core.Domain\RealStateApp.Core.Domain.csproj", "{AFD70B65-136A-4ECA-AC16-D7AFA52BBB73}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RealStateApp.Core.Domain", "RealStateApp.Core.Domain\RealStateApp.Core.Domain.csproj", "{AFD70B65-136A-4ECA-AC16-D7AFA52BBB73}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealStateApp.Infrastructure.Persistence", "RealStateApp.Infrastructure.Persistence\RealStateApp.Infrastructure.Persistence.csproj", "{B30DC758-EADE-43E6-BBCE-601273203D4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RealStateApp.Infrastructure.Persistence", "RealStateApp.Infrastructure.Persistence\RealStateApp.Infrastructure.Persistence.csproj", "{B30DC758-EADE-43E6-BBCE-601273203D4B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealStateApp.Infrastructure.Identity", "RealStateApp.Infrastructure.Identity\RealStateApp.Infrastructure.Identity.csproj", "{2A88A200-0D6C-44E0-8F5E-D173BAE920C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RealStateApp.Infrastructure.Identity", "RealStateApp.Infrastructure.Identity\RealStateApp.Infrastructure.Identity.csproj", "{2A88A200-0D6C-44E0-8F5E-D173BAE920C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealStateApp.Infrastructure.Shared", "RealStateApp.Infrastructure.Shared\RealStateApp.Infrastructure.Shared.csproj", "{79F6F446-0A26-4082-8441-9CED4B718AB6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RealStateApp.Infrastructure.Shared", "RealStateApp.Infrastructure.Shared\RealStateApp.Infrastructure.Shared.csproj", "{79F6F446-0A26-4082-8441-9CED4B718AB6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApi", "WebApi", "{510AD282-2D9D-42AF-9BA2-0B9EAF45E968}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealStateApp.WebApi", "RealStateApp.WebApi\RealStateApp.WebApi.csproj", "{FC48C091-FC96-453F-8102-2294AF71EA2B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RealStateApp.WebApi", "RealStateApp.WebApi\RealStateApp.WebApi.csproj", "{FC48C091-FC96-453F-8102-2294AF71EA2B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
