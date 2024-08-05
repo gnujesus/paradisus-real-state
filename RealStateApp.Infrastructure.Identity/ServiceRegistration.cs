@@ -50,8 +50,7 @@ namespace RealStateApp.Core.Application
             #endregion
 
             #region JSON Web Tokens
-            var jwtSettings = configuration.GetSection("JWTSettings").Get<JWTSettings>();
-            Console.WriteLine($"Key: {jwtSettings.Key}, Issuer: {jwtSettings.Issuer}, Audience: {jwtSettings.Audience}");
+            services.Configure<JWTSettings>(configuration.GetSection("JWTSettings"));
 
             services.AddAuthentication(options =>
             {

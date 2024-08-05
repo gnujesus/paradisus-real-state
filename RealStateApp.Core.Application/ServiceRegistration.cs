@@ -23,6 +23,7 @@ namespace RealStateApp.Core.Application
             services.AddTransient<IPropertyService, PropertyService>();
             services.AddTransient<ITypePropertyService, TypePropertyService>();
             services.AddTransient<ITypeSaleService, TypeSaleService>();
+            services.AddTransient<IUserService, UserService>();
             services.AddScoped<IServiceManager, ServiceManager>();
         }
     }

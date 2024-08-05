@@ -4,22 +4,21 @@ using RealStateApp.Infrastructure.Identity.Entities;
 using RealStateApp.Infrastructure.Identity.Seeds;
 using RealStateApp.Infrastructure.Persistence;
 using RealStateApp.Infrastructure.Shared;
+using RealStateApp.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddSession();
-
-builder.Services.AddIdentityInfrastructure(builder.Configuration);
-
 builder.Services.AddPersistenceInfrastructure(builder.Configuration);
-
-builder.Services.AddApplicationLayer();
-
-builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
+builder.Services.AddIdentityInfrastructure(builder.Configuration);
 builder.Services.AddSharedInfrastructure(builder.Configuration);
+builder.Services.AddApplicationLayer();
+builder.Services.AddScoped<LoginAuthorize>();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddTransient<ValidateUserSession, ValidateUserSession>();
+
 
 
 var app = builder.Build();

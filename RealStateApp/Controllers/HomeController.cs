@@ -17,7 +17,7 @@ namespace RealStateApp.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var properties = await _serviceManager.Property.GetAllProperties();
+            var propertie = await _serviceManager.Property.GetAllProperties();
 
             List<PropertyViewModel> properties = new();
             properties = await _serviceManager.Property.GetAllViewModel();
