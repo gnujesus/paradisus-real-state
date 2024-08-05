@@ -24,6 +24,7 @@ namespace RealStateApp.Controllers
         public async Task<IActionResult> Index()
         {
             var properties = await _serviceManager.Property.GetAllViewModel();
+
             return View(properties);
         }
 
@@ -31,19 +32,16 @@ namespace RealStateApp.Controllers
         {
 
             List<PropertyViewModel> favoriteProperties = new();
-
             var user = _httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>(Roles.Client.ToString());
 
-            if(user == null)
+            if (user == null)
             {
                 return RedirectToRoute(new {Controller="Login", Action="Login"});
             }
-
-
             favoriteProperties = await _serviceManager.Favorite.GetFavoritePropertiesByUserId(user.Id);
-
             return View(favoriteProperties);
         }
+
 
         public async Task<IActionResult> Save()
         {
@@ -60,6 +58,7 @@ namespace RealStateApp.Controllers
         // the idea is that, if you click into a property, 
         // it'll send you to a page where the data rendered
         // will depend on the clicked property
+
         public async Task<IActionResult> Single(string id)
         {
             var favorite = await _serviceManager.Property.GetByIdSaveViewModel(id);
