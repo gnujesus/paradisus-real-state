@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using RealStateApp.Core.Application.Dtos.Account;
+using RealStateApp.Core.Application.DataTransferObjects.Account;
 using RealStateApp.Core.Application.Interfaces.Services;
 
 namespace RealStateApp.WebApi.Controllers

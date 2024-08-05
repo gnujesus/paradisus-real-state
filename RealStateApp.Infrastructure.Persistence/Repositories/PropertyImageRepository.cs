@@ -7,16 +7,16 @@ namespace RealStateApp.Infrastructure.Persistence.Repositories
 {
     public class PropertyImageRepository : GenericRepository<PropertyImage>, IPropertyImageRepository
     {
-        private readonly ApplicationContext _dbContext;
+        private readonly ApplicationContext context;
 
         public PropertyImageRepository(ApplicationContext dbContext) : base(dbContext)
         {
-            _dbContext = dbContext;
+            context = dbContext;
         }
 
         public async Task AddImagesToPropertyAsync(string propertyId, List<byte[]> images)
         {
-            var property = await _dbContext.Properties
+            var property = await context.Properties
                 .Include(p => p.Images)
                 .FirstOrDefaultAsync(p => p.Id == propertyId);
 
@@ -30,12 +30,12 @@ namespace RealStateApp.Infrastructure.Persistence.Repositories
                 property.Images.Add(new PropertyImage { Id = Guid.NewGuid().ToString(), Image = image, PropertyId = propertyId });
             }
 
-            await _dbContext.SaveChangesAsync();
+            await context.SaveChangesAsync();
         }
 
         public async Task RemoveImageFromPropertyAsync(string propertyId, string imageId)
         {
-            var property = await _dbContext.Properties
+            var property = await context.Properties
                 .Include(p => p.Images)
                 .FirstOrDefaultAsync(p => p.Id == propertyId);
 
@@ -51,9 +51,9 @@ namespace RealStateApp.Infrastructure.Persistence.Repositories
             }
 
             property.Images.Remove(image);
-            _dbContext.PropertyImages.Remove(image);
+            context.PropertyImages.Remove(image);
 
-            await _dbContext.SaveChangesAsync();
+            await context.SaveChangesAsync();
         }
     }
 }

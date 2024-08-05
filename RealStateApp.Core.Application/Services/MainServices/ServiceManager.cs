@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using RealStateApp.Core.Application.Interfaces.Repositories;
 using RealStateApp.Core.Application.Interfaces.Services;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace RealStateApp.Core.Application.Services.MainServices
 {
@@ -18,6 +19,7 @@ namespace RealStateApp.Core.Application.Services.MainServices
         private readonly Lazy<IPropertyImageService> _propertyImageService;
         private readonly Lazy<ITypePropertyService> _typePropertyService;
         private readonly Lazy<ITypeSaleService> _typeSaleService;
+        private readonly Lazy<IUserService> _userService;
 
         public ServiceManager(IRepositoryManager repositoryManager, IHttpContextAccessor contextAccessor, IMapper mapper)
         {
@@ -32,6 +34,7 @@ namespace RealStateApp.Core.Application.Services.MainServices
             _propertyImageService = new Lazy<IPropertyImageService>(() => new PropertyImageService(repositoryManager, contextAccessor, mapper));
             _typePropertyService = new Lazy<ITypePropertyService>(() => new TypePropertyService(repositoryManager, contextAccessor, mapper));
             _typeSaleService = new Lazy<ITypeSaleService>(() => new TypeSaleService(repositoryManager, contextAccessor, mapper));
+            //_userService = new Lazy<IUserService>(() => new UserService(repositoryManager, contextAccessor, mapper);
         }
 
         public IAmenityService Amenity => _amenityService.Value;

@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
-using RealStateApp.Core.Application.Dtos.Account;
+using RealStateApp.Core.Application.DataTransferObjects.Account;
 using RealStateApp.Core.Application.Interfaces.Services;
 using RealStateApp.Core.Domain.Settings;
 using RealStateApp.Infrastructure.Identity.Contexts;
@@ -50,8 +50,7 @@ namespace RealStateApp.Core.Application
             #endregion
 
             #region JSON Web Tokens
-            var jwtSettings = configuration.GetSection("JWTSettings").Get<JWTSettings>();
-            Console.WriteLine($"Key: {jwtSettings.Key}, Issuer: {jwtSettings.Issuer}, Audience: {jwtSettings.Audience}");
+            services.Configure<JWTSettings>(configuration.GetSection("JWTSettings"));
 
             services.AddAuthentication(options =>
             {

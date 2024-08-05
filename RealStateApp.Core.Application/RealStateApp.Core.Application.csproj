@@ -7,8 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="12.0.1" />
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <Compile Remove="Features\AmenityF\Commands\DeleteAmenityById\**" />
+    <EmbeddedResource Remove="Features\AmenityF\Commands\DeleteAmenityById\**" />
+    <None Remove="Features\AmenityF\Commands\DeleteAmenityById\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="FluentValidation" Version="11.9.2" />
     <PackageReference Include="MediatR" Version="12.4.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
@@ -18,6 +24,7 @@
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="7.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.6.2" />
+    <PackageReference Include="System.Text.Encodings.Web" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,12 +32,18 @@
   </ItemGroup>
 
   <ItemGroup>
+<<<<<<< HEAD
+
     <Folder Include="Exceptions\" />
     <Folder Include="Features\AmenityF\Commands\CreateAmenity\" />
-    <Folder Include="Features\AmenityF\Commands\DeleteAmenity\" />
+    <Folder Include="Features\AmenityF\Commands\DeleteAmenityById\" />
     <Folder Include="Features\AmenityF\Commands\UpdateAmenity\" />
     <Folder Include="Features\AmenityF\Queries\GetAllAmenities\" />
     <Folder Include="Features\AmenityF\Queries\GetAmenityById\" />
+
+=======
+    <Folder Include="Exceptions\" />
+>>>>>>> 3848cd37d5b32d16b20c5f802f34f3772990e629
     <Folder Include="Features\FavoritesF\Commands\CreateFavorites\" />
     <Folder Include="Features\FavoritesF\Commands\DeleteFavorites\" />
     <Folder Include="Features\FavoritesF\Commands\UpdateFavorites\" />
@@ -56,7 +69,6 @@
     <Folder Include="Features\TypePropertyF\Queries\" />
     <Folder Include="Features\TypeSaleF\Commands\" />
     <Folder Include="Features\TypeSaleF\Queries\" />
-    <Folder Include="Wrappers\" />
   </ItemGroup>
 
 </Project>

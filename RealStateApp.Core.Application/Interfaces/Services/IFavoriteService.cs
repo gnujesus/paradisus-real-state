@@ -9,7 +9,5 @@ namespace RealStateApp.Core.Application.Interfaces.Services
         Task<List<PropertyViewModel>> GetFavoritePropertiesByUserId(string userId);
         Task MarkFavorite(string userId, string propertyId);
         Task UnmarkFavorite(string userId, string propertyId);
-
-
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using RealStateApp.Core.Domain.Common;
 using RealStateApp.Core.Domain.Entities;
+using RealStateApp.Infrastructure.Persistence.Services;
 
 namespace RealStateApp.Infrastructure.Persistence.Contexts
 {
@@ -16,7 +17,7 @@ namespace RealStateApp.Infrastructure.Persistence.Contexts
         public DbSet<TypeSale> TypeSales { get; set; }
         public DbSet<PropertyImage> PropertyImages { get; set; }
 
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        public async override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             foreach (var entry in ChangeTracker.Entries<AuditableBaseEntity>())
             {
@@ -33,7 +34,28 @@ namespace RealStateApp.Infrastructure.Persistence.Contexts
                 }
             }
 
-            return base.SaveChangesAsync(cancellationToken);
+            await AddIdsAsync();
+            return await base.SaveChangesAsync(cancellationToken);
+        }
+
+        private async Task AddIdsAsync()
+        {
+            foreach (var entry in ChangeTracker.Entries())
+            {
+                if (entry.State == EntityState.Added)
+                {
+                    var idProperty = entry.Entity.GetType().GetProperty("Id");
+                    if (idProperty != null && idProperty.PropertyType == typeof(string))
+                    {
+                        var currentId = idProperty.GetValue(entry.Entity) as string;
+                        if (string.IsNullOrEmpty(currentId))
+                        {
+                            var generatedId = await CodeGenerator.GenerateUniqueCodeAsync(this);
+                            idProperty.SetValue(entry.Entity, generatedId);
+                        }
+                    }
+                }
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -25,7 +25,6 @@ namespace RealStateApp.Controllers
 
         public async Task<IActionResult> Login()
         {
-
             var admin = _httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>(Roles.Admin.ToString());
             var agent = _httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>(Roles.Agent.ToString());
             var client = _httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>(Roles.Client.ToString());
@@ -46,9 +45,7 @@ namespace RealStateApp.Controllers
             else
             {
                 return View(new LoginViewModel() { });
-            }
-
-            
+            }     
         }
 
         public IActionResult Register()

@@ -8,7 +8,6 @@ namespace RealStateApp.Core.Application.Interfaces.Repositories
         Task<Property> GetPropertyByCodeAsync(string code);
         Task<IEnumerable<Property>> GetPropertiesByAgentIdAsync(string agentId);
         Task<int> GetTotalPropertiesCountAsync();
-        Task<IEnumerable<Property>> FilterPropertiesAsync(string typePropertyId = null, decimal? minPrice = null, decimal? maxPrice = null, int? rooms = null, int? bathrooms = null);
-        new Task<List<Property>> GetAllAsync();
+        Task<IEnumerable<Property>> FilterPropertiesAsync(string typePropertyId = null!, decimal? minPrice = null, decimal? maxPrice = null, int? rooms = null, int? bathrooms = null);
     }
 }
