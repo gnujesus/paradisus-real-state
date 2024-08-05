@@ -178,7 +178,7 @@ namespace RealStateApp.Infrastructure.Identity.Services
             {
                 return $"No accounts registered with this user";
             }
-
+            user.IsActive = true;
             token = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(token));
             var result = await _userManager.ConfirmEmailAsync(user, token);
             if (result.Succeeded)

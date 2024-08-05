@@ -44,7 +44,7 @@ namespace RealStateApp.Controllers
                 if (userVm.Roles.Any(r => r == "Developer"))
                 {
                     vm.HasError = true;
-                    vm.Error = "Los usuarios desarrolladores no se pueden registrar en la webApp";
+                    vm.Error = "Los usuarios desarrolladores no se pueden loguar en la webApp";
                     return View(vm);
                     
                 }

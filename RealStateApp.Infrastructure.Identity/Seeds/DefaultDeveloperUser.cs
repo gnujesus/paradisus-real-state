@@ -24,7 +24,7 @@ namespace RealStateApp.Infrastructure.Identity.Seeds
                 if (user == null)
                 {
                     await userManager.CreateAsync(defaultUser, "123Pa$$word!");
-                    await userManager.AddToRoleAsync(defaultUser, Roles.Agent.ToString());
+                    await userManager.AddToRoleAsync(defaultUser, Roles.Developer.ToString());
                 }
             }
 
