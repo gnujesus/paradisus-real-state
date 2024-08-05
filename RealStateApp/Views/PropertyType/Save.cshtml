@@ -7,7 +7,7 @@
             <div class="bg-gray-100 p-4 mb-4">
                 <img src="https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/006-Gmax.png" alt="Property Image" class="w-full h-80 object-cover mb-4">
                 <div class="flex items-center justify-between">
-                    <span class="text-sm text-gray-600">Código: @Model.Id</span>
+                    <span class="text-sm text-gray-600">Código: @Model.Code</span>
                     <span class="text-sm text-gray-600"> <i class="fas fa-expand"></i>  +9 Fotos disponibles</span>
                 </div>
             </div>
@@ -15,21 +15,21 @@
         <!-- Right column for details and contact -->
         <div class="w-full lg:w-1/3 px-3">
             <div class="bg-white p-6 shadow-lg mb-4">
-                <h2 class="text-2xl font-bold mb-2">@Model.Type_Property.Name</h2>
-                <p class="text-lg text-gray-600 mb-4">@Model.Type_sale.Name</p>
-                <p class="text-2xl text-red-600 font-bold mb-4">@Model.Value_Sale.ToString("C")</p>
+                <h2 class="text-2xl font-bold mb-2">@Model.Title</h2>
+                <p class="text-lg text-gray-600 mb-4">@Model.SaleType</p>
+                <p class="text-2xl text-red-600 font-bold mb-4">@Model.Price</p>
                 <div class="flex space-x-4 mb-4">
                     <div class="flex items-center space-x-2">
                         <i class="fas fa-bed"></i>
-                        <span>@Model.Rooms Habitaciones</span>
+                        <span>@Model.Beds Habitaciones</span>
                     </div>
                     <div class="flex items-center space-x-2">
                         <i class="fas fa-bath"></i>
-                        <span>@Model.BathRooms Baños</span>
+                        <span>@Model.Baths Baños</span>
                     </div>
                     <div class="flex items-center space-x-2">
                         <i class="fas fa-ruler-combined"></i>
-                        <span>@Model.Size_Property mt²</span>
+                        <span>@Model.Size mt²</span>
                     </div>
                 </div>
                 <h3 class="text-lg font-bold mb-2">Descripción</h3>
