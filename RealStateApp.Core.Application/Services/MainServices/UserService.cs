@@ -3,15 +3,10 @@ using RealStateApp.Core.Application.DataTransferObjects.Account;
 using RealStateApp.Core.Application.Enums;
 using RealStateApp.Core.Application.Interfaces.Services;
 using RealStateApp.Core.Application.ViewModels.UserModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RealStateApp.Core.Application.Services.MainServices
 {
-    public class UserService: IUserService
+    public class UserService : IUserService
     {
         private readonly IAccountService _accountService;
         private readonly IMapper _mapper;
@@ -45,7 +40,6 @@ namespace RealStateApp.Core.Application.Services.MainServices
             {
                 return await _accountService.RegisterAgentUserAsync(registerRequest);
             }
-            
         }
 
         public async Task<string> ConfirmEmailAsync(string userId, string token)

@@ -9,13 +9,9 @@ namespace RealStateApp.Infrastructure.Persistence.Repositories
     {
         private readonly ApplicationContext _dbContext;
 
-        public AmenityRepository(ApplicationContext dbContext): base(dbContext)
+        public AmenityRepository(ApplicationContext dbContext) : base(dbContext)
         {
             _dbContext = dbContext;
         }
-
-        public async Task<Amenity> GetAmenityAsync(string amenityId, bool trackChanges) =>
-            await FindByCondition(a => a.Id.Equals(amenityId), trackChanges)
-            .SingleOrDefaultAsync();
     }
 }

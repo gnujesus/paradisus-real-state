@@ -7,68 +7,71 @@ namespace RealStateApp.Infrastructure.Persistence.Repositories
 {
     public class GenericRepository<Entity> : IGenericRepositoryAsync<Entity> where Entity : class
     {
-        private readonly ApplicationContext _dbContext;
+        private readonly ApplicationContext context;
 
         public GenericRepository(ApplicationContext dbContext)
         {
-            _dbContext = dbContext;
+            context = dbContext;
         }
 
         public virtual async Task<Entity> AddAsync(Entity entity)
         {
-            await _dbContext.Set<Entity>().AddAsync(entity);
-            await _dbContext.SaveChangesAsync();
+            await context.Set<Entity>().AddAsync(entity);
+            await context.SaveChangesAsync();
             return entity;
         }
 
         public virtual async Task UpdateAsync(Entity entity, string id)
         {
-            var entry = await _dbContext.Set<Entity>().FindAsync(id);
-            _dbContext.Entry(entry).CurrentValues.SetValues(entity);
-            await _dbContext.SaveChangesAsync();
+            var entry = await context.Set<Entity>().FindAsync(id);
+            if (entry != null)
+            {
+                context.Entry(entry).CurrentValues.SetValues(entity);
+                await context.SaveChangesAsync();
+            }
         }
 
         public virtual async Task DeleteAsync(Entity entity)
         {
-            _dbContext.Set<Entity>().Remove(entity);
-            await _dbContext.SaveChangesAsync();
+            context.Set<Entity>().Remove(entity);
+            await context.SaveChangesAsync();
         }
 
-        public virtual async Task<List<Entity>> GetAllAsync()
+        public virtual async Task<List<Entity>> GetAllAsync(bool trackChanges = false)
         {
-            return await _dbContext.Set<Entity>().ToListAsync();//Deferred execution
+            return await FindAll(trackChanges).ToListAsync();
         }
 
-        public virtual async Task<Entity> GetByIdAsync(string id)
+        public virtual async Task<Entity> GetByIdAsync(string id, bool trackChanges = false)
         {
-            return await _dbContext.Set<Entity>().FindAsync(id);
+            return (await FindByCondition(e => EF.Property<string>(e, "Id") == id, trackChanges).FirstOrDefaultAsync())!;
         }
 
-        public IQueryable<Entity> FindAll(bool trackChanges) =>
-            !trackChanges ?
-              _dbContext.Set<Entity>()
-                .AsNoTracking() :
-              _dbContext.Set<Entity>();
-
-        public IQueryable<Entity> FindByCondition(Expression<Func<Entity, bool>> expression,
-            bool trackChanges) =>
-                !trackChanges ?
-                  _dbContext.Set<Entity>()
-                    .Where(expression)
-                    .AsNoTracking() :
-                  _dbContext.Set<Entity>()
-                    .Where(expression);
-
-        public virtual async Task<List<Entity>> GetAllWithIncludeAsync(List<string> properties)
+        public virtual async Task<List<Entity>> GetAllWithIncludeAsync(List<string> properties, bool trackChanges = false)
         {
-            var query = _dbContext.Set<Entity>().AsQueryable();
+            var query = FindAll(trackChanges);
 
-            foreach (string property in properties)
+            foreach (var property in properties)
             {
                 query = query.Include(property);
             }
 
             return await query.ToListAsync();
         }
+
+        private IQueryable<Entity> FindAll(bool trackChanges) =>
+            !trackChanges ?
+              context.Set<Entity>()
+                .AsNoTracking() :
+              context.Set<Entity>();
+
+        private IQueryable<Entity> FindByCondition(Expression<Func<Entity, bool>> expression,
+            bool trackChanges) =>
+                !trackChanges ?
+                  context.Set<Entity>()
+                    .Where(expression)
+                    .AsNoTracking() :
+                  context.Set<Entity>()
+                    .Where(expression);
     }
 }

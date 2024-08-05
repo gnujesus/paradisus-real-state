@@ -19,8 +19,6 @@ builder.Services.AddScoped<LoginAuthorize>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddTransient<ValidateUserSession, ValidateUserSession>();
 
-
-
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())

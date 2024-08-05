@@ -30,27 +30,32 @@ namespace RealStateApp.Controllers
 
         public async Task<IActionResult> Favorites()
         {
-
-            List<PropertyViewModel> favoriteProperties = new();
-            var user = _httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>(Roles.Client.ToString());
-
-            if (user == null)
+            if (_httpContextAccessor.HttpContext != null)
             {
-                return RedirectToRoute(new {Controller="Login", Action="Login"});
-            }
-            favoriteProperties = await _serviceManager.Favorite.GetFavoritePropertiesByUserId(user.Id);
-            return View(favoriteProperties);
-        }
+                var user = _httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>(Roles.Client.ToString());
 
+                if (user == null)
+                {
+                    return RedirectToRoute(new { Controller = "Login", Action = "Login" });
+                }
+
+                List<PropertyViewModel> favoriteProperties = await _serviceManager.Favorite.GetFavoritePropertiesByUserId(user.Id);
+                return View(favoriteProperties);
+            }
+
+            return View();
+        }
 
         public async Task<IActionResult> Save()
         {
+            await Task.Run(() => { });
             return View(new PropertyViewModel());
         }
 
         [HttpPost]
         public async Task<IActionResult> Save(PropertyViewModel vm)
         {
+            await Task.Run(() => { });
             return View();
         }
 

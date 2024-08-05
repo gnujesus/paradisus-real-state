@@ -6,6 +6,7 @@ namespace RealStateApp.Components
     {
         public async Task<IViewComponentResult> InvokeAsync()
         {
+            await Task.Run(() => { });
             return View();
         }
     }
