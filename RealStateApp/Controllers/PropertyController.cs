@@ -13,10 +13,12 @@ namespace RealStateApp.Controllers
     {
         private readonly IServiceManager _serviceManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IUserService _userService;
 
-        public PropertyController(IServiceManager serviceManager, IHttpContextAccessor httpContextAccessor)
+        public PropertyController(IServiceManager serviceManager, IUserService userService, IHttpContextAccessor httpContextAccessor)
         {
             _serviceManager = serviceManager;
+            _userService = userService;
             _httpContextAccessor = httpContextAccessor;
 
         }
@@ -59,15 +61,29 @@ namespace RealStateApp.Controllers
             return View();
         }
 
-        // TODO: Single page of the selected property 
-        // the idea is that, if you click into a property, 
-        // it'll send you to a page where the data rendered
-        // will depend on the clicked property
-
+        // TODO: Make the views send you to the single page using asp-route-id on each property card
         public async Task<IActionResult> Single(string id)
         {
-            var favorite = await _serviceManager.Property.GetByIdSaveViewModel(id);
-            return View(favorite);
+            var property = await _serviceManager.Property.GetByIdSaveViewModel(id);
+
+            if (property == null)
+            {
+                return NotFound();
+            }
+
+            var agent = await _userService.GetUserByUsernameAsync(property.User_Id);
+
+            if (agent != null)
+            {
+                ViewBag.AgentName = $"{agent.FirstName} {agent.LastName}";
+                ViewBag.AgentTitle = "Real Estate Agent"; // You can replace this with a dynamic value if available
+                ViewBag.AgentPhone = agent.Phone;
+                ViewBag.AgentWhatsapp = agent.Phone; // Assuming the WhatsApp number is the same as the phone number
+                ViewBag.AgentEmail = agent.Email;
+                ViewBag.AgentImage = agent.Image; // Assuming this is the image byte array
+            }
+
+            return View(property);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
