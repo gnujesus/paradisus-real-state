@@ -32,18 +32,12 @@
   </ItemGroup>
 
   <ItemGroup>
-<<<<<<< HEAD
-
     <Folder Include="Exceptions\" />
     <Folder Include="Features\AmenityF\Commands\CreateAmenity\" />
     <Folder Include="Features\AmenityF\Commands\DeleteAmenityById\" />
     <Folder Include="Features\AmenityF\Commands\UpdateAmenity\" />
     <Folder Include="Features\AmenityF\Queries\GetAllAmenities\" />
     <Folder Include="Features\AmenityF\Queries\GetAmenityById\" />
-
-=======
-    <Folder Include="Exceptions\" />
->>>>>>> 3848cd37d5b32d16b20c5f802f34f3772990e629
     <Folder Include="Features\FavoritesF\Commands\CreateFavorites\" />
     <Folder Include="Features\FavoritesF\Commands\DeleteFavorites\" />
     <Folder Include="Features\FavoritesF\Commands\UpdateFavorites\" />
