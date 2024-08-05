@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
-using RealStateApp.Core.Application.Dtos.Account;
+using RealStateApp.Core.Application.DataTransferObjects.Account;
 using RealStateApp.Core.Application.Helpers;
 
 namespace RealStateApp.Middlewares

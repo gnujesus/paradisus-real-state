@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using RealStateApp.Core.Application.Dtos.Account;
+using RealStateApp.Core.Application.DataTransferObjects.Account;
 using RealStateApp.Core.Application.ViewModels.AmenityModels;
 using RealStateApp.Core.Application.ViewModels.FavoritesModels;
 using RealStateApp.Core.Application.ViewModels.PropertyAmenityModels;

@@ -5,11 +5,6 @@ using RealStateApp.Core.Application.Interfaces.Services;
 using RealStateApp.Core.Application.Wrappers;
 using RealStateApp.Core.Domain.Entities;
 using Swashbuckle.AspNetCore.Annotations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RealStateApp.Core.Application.Features.AmenityF.Commands.CreateAmenity
 {

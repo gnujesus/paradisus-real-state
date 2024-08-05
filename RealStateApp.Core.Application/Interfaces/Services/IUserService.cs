@@ -1,4 +1,4 @@
-﻿using RealStateApp.Core.Application.Dtos.Account;
+﻿using RealStateApp.Core.Application.DataTransferObjects.Account;
 using RealStateApp.Core.Application.ViewModels.UserModels;
 using System;
 using System.Collections.Generic;

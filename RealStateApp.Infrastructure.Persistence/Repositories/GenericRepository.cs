@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RealStateApp.Core.Application.Interfaces.Repositories;
 using RealStateApp.Infrastructure.Persistence.Contexts;
+using System.Linq.Expressions;
 
 namespace RealStateApp.Infrastructure.Persistence.Repositories
 {
@@ -42,6 +43,21 @@ namespace RealStateApp.Infrastructure.Persistence.Repositories
         {
             return await _dbContext.Set<Entity>().FindAsync(id);
         }
+
+        public IQueryable<Entity> FindAll(bool trackChanges) =>
+            !trackChanges ?
+              _dbContext.Set<Entity>()
+                .AsNoTracking() :
+              _dbContext.Set<Entity>();
+
+        public IQueryable<Entity> FindByCondition(Expression<Func<Entity, bool>> expression,
+            bool trackChanges) =>
+                !trackChanges ?
+                  _dbContext.Set<Entity>()
+                    .Where(expression)
+                    .AsNoTracking() :
+                  _dbContext.Set<Entity>()
+                    .Where(expression);
 
         public virtual async Task<List<Entity>> GetAllWithIncludeAsync(List<string> properties)
         {

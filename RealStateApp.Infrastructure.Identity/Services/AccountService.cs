@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using RealStateApp.Core.Application.Dtos.Account;
+using RealStateApp.Core.Application.DataTransferObjects.Account;
 using RealStateApp.Core.Application.Enums;
 using RealStateApp.Core.Application.Interfaces.Services;
 using RealStateApp.Core.Application.ViewModels.UserModels;
@@ -209,7 +209,7 @@ namespace RealStateApp.Infrastructure.Identity.Services
 
             var verificationUri = await SendForgotPasswordUri(user, origin);
 
-            await _emailService.SendAsync(new Core.Application.Dtos.Email.EmailRequest()
+            await _emailService.SendAsync(new Core.Application.DataTransferObjects.Email.EmailRequest()
             {
                 To = user.Email,
                 Body = $"Please reset your account visiting this URL {verificationUri}",
@@ -399,7 +399,7 @@ namespace RealStateApp.Infrastructure.Identity.Services
             {
                 await _userManager.AddToRoleAsync(user, Roles.Client.ToString());
                 var verificationUri = await SendVerificationEmailUri(user, origin);
-                await _emailService.SendAsync(new Core.Application.Dtos.Email.EmailRequest()
+                await _emailService.SendAsync(new Core.Application.DataTransferObjects.Email.EmailRequest()
                 {
                     To = user.Email,
                     Body = $"Please confirm your account visiting this URL {verificationUri}",

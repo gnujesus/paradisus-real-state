@@ -3,9 +3,9 @@ using RealStateApp.Core.Application.Interfaces.Services;
 using RealStateApp.Core.Application.Helpers;
 using RealStateApp.Models;
 using System.Diagnostics;
-using RealStateApp.Core.Application.Dtos.Account;
 using RealStateApp.Core.Application.Enums;
 using RealStateApp.Core.Application.ViewModels.PropertyModels;
+using RealStateApp.Core.Application.DataTransferObjects.Account;
 
 namespace RealStateApp.Controllers
 {
