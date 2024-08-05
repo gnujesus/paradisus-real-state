@@ -7,11 +7,11 @@ namespace RealStateApp.Infrastructure.Persistence.Repositories
 {
     public class AmenityRepository: GenericRepository<Amenity>, IAmenityAsync
     {
-        private readonly ApplicationContext _dbContext;
+        private readonly ApplicationContext _context;
 
-        public AmenityRepository(ApplicationContext dbContext): base(dbContext)
+        public AmenityRepository(ApplicationContext context) : base(context)
         {
-            _dbContext = dbContext;
+            _context = context;
         }
 
         public async Task<Amenity> GetAmenityAsync(string amenityId, bool trackChanges) =>
