@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using RealStateApp.Core.Application.Dtos.Account;
 using RealStateApp.Core.Application.Interfaces.Services;
 using RealStateApp.Core.Application.ViewModels.UserModels;
 using RealStateApp.Core.Application.Helpers;
 using RealStateApp.Middlewares;
 using RealStateApp.Core.Application.Services.MainServices;
 using RealStateApp.Core.Application.Enums;
+using RealStateApp.Core.Application.DataTransferObjects.Account;
 
 namespace RealStateApp.Controllers
 {
@@ -20,7 +20,6 @@ namespace RealStateApp.Controllers
             _contextAccessor = contextAccessor;
             _userService = userService;
         }
-
 
         #region Index
         [ServiceFilter(typeof(LoginAuthorize))]
@@ -54,7 +53,6 @@ namespace RealStateApp.Controllers
                     HttpContext.Session.Set<AuthenticationResponse>("user", userVm);
                     return RedirectToRoute(new { controller = "Home", action = "Index" });
                 }
-                
             }
             else
             {
@@ -188,6 +186,5 @@ namespace RealStateApp.Controllers
         {
             return View();
         }
-
     }
 }
