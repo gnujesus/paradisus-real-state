@@ -7,23 +7,23 @@ namespace RealStateApp.Infrastructure.Persistence.Repositories
 {
     public class TypeSaleRepository: GenericRepository<TypeSale>, ITypeSaleAsync
     {
-        private readonly ApplicationContext _dbContext;
+        private readonly ApplicationContext context;
 
         public TypeSaleRepository(ApplicationContext dbContext) : base(dbContext)
         {
-            _dbContext = dbContext;
+            context = dbContext;
         }
 
-        public async Task<IEnumerable<Core.Domain.Entities.Property>> GetPropertiesByTypeSaleIdAsync(string typeSaleId)
+        public async Task<IEnumerable<Property>> GetPropertiesByTypeSaleIdAsync(string typeSaleId)
         {
-            return await _dbContext.Properties
+            return await context.Properties
                 .Where(p => p.TypeSale_Id == typeSaleId)
                 .ToListAsync();
         }
 
         public async Task<int> GetPropertiesCountByTypeSaleIdAsync(string typeSaleId)
         {
-            return await _dbContext.Properties
+            return await context.Properties
                 .CountAsync(p => p.TypeSale_Id == typeSaleId);
         }
     }

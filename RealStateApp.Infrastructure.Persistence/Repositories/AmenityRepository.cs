@@ -1,4 +1,5 @@
-﻿using RealStateApp.Core.Application.Interfaces.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+using RealStateApp.Core.Application.Interfaces.Repositories;
 using RealStateApp.Core.Domain.Entities;
 using RealStateApp.Infrastructure.Persistence.Contexts;
 
@@ -8,7 +9,7 @@ namespace RealStateApp.Infrastructure.Persistence.Repositories
     {
         private readonly ApplicationContext _dbContext;
 
-        public AmenityRepository(ApplicationContext dbContext): base(dbContext)
+        public AmenityRepository(ApplicationContext dbContext) : base(dbContext)
         {
             _dbContext = dbContext;
         }

@@ -7,16 +7,16 @@ namespace RealStateApp.Infrastructure.Persistence.Repositories
 {
     public class FavoritesRepository: GenericRepository<Favorites>, IFavoriteAsync
     {
-        private readonly ApplicationContext _dbContext;
+        private readonly ApplicationContext context;
 
         public FavoritesRepository(ApplicationContext dbContext) : base(dbContext)
         {
-            _dbContext = dbContext;
+            context = dbContext;
         }
 
         public async Task<IEnumerable<Property>> GetFavoritePropertiesByUserIdAsync(string userId)
         {
-            return await _dbContext.Favorites
+            return await context.Favorites
                 .Where(f => f.User_Id == userId)
                 .Include(f => f.Property)
                 .Select(f => f.Property)
@@ -26,17 +26,17 @@ namespace RealStateApp.Infrastructure.Persistence.Repositories
         public async Task MarkFavoriteAsync(string userId, string propertyId)
         {
             var favorite = new Favorites { User_Id = userId, Property_Id = propertyId };
-            _dbContext.Favorites.Add(favorite);
-            await _dbContext.SaveChangesAsync();
+            context.Favorites.Add(favorite);
+            await context.SaveChangesAsync();
         }
 
         public async Task UnmarkFavoriteAsync(string userId, string propertyId)
         {
-            var favorite = await _dbContext.Favorites.FirstOrDefaultAsync(f => f.User_Id == userId && f.Property_Id == propertyId);
+            var favorite = await context.Favorites.FirstOrDefaultAsync(f => f.User_Id == userId && f.Property_Id == propertyId);
             if (favorite != null)
             {
-                _dbContext.Favorites.Remove(favorite);
-                await _dbContext.SaveChangesAsync();
+                context.Favorites.Remove(favorite);
+                await context.SaveChangesAsync();
             }
         }
     }

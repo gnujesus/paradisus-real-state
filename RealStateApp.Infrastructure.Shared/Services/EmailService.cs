@@ -1,7 +1,7 @@
 ﻿using MailKit.Security;
 using Microsoft.Extensions.Options;
 using MimeKit;
-using RealStateApp.Core.Application.Dtos.Email;
+using RealStateApp.Core.Application.DataTransferObjects.Email;
 using RealStateApp.Core.Application.Interfaces.Services;
 using RealStateApp.Core.Domain.Settings;
 

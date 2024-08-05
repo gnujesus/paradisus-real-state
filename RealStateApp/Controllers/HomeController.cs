@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using RealStateApp.Core.Application.Interfaces.Services;
+using RealStateApp.Core.Application.ViewModels.PropertyModels;
 using RealStateApp.Models;
 using System.Diagnostics;
 
@@ -16,15 +17,12 @@ namespace RealStateApp.Controllers
 
         public async Task<IActionResult> Index()
         {
-            //await _serviceManager.Amenity.Add(new Core.Application.ViewModels.AmenityModels.SaveAmenityViewModel() { Name = "Brahiam", Description = "My desc" });
-            //var list = await _serviceManager.Amenity.GetAllViewModel();
+            var properties = await _serviceManager.Property.GetAllProperties();
 
-            //foreach (var item in list)
-            //{
-            //    Console.WriteLine(item);
-            //}
+            properties = new();
+            properties = await _serviceManager.Property.GetAllViewModel();
 
-            return View();
+            return View(properties);
         }
 
         public IActionResult Privacy()
@@ -39,3 +37,4 @@ namespace RealStateApp.Controllers
         }
     }
 }
+

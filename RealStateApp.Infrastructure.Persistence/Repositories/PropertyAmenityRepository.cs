@@ -6,11 +6,11 @@ namespace RealStateApp.Infrastructure.Persistence.Repositories
 {
     public class PropertyAmenityRepository: GenericRepository<PropertyAmenity>, IPropertyAmenityAsync
     {
-        private readonly ApplicationContext _dbContext;
+        private readonly ApplicationContext context;
 
         public PropertyAmenityRepository(ApplicationContext dbContext) : base(dbContext)
         {
-            _dbContext = dbContext;
+            context = dbContext;
         }
     }
 }

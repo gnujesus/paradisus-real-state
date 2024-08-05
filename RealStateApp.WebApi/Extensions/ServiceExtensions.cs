@@ -5,6 +5,10 @@ namespace RealStateApp.WebApi.Extensions
 {
     public static class ServiceExtensions
     {
+        public static void Configure(this IServiceCollection services)
+        {
+
+        }
         public static void ConfigureCors(this IServiceCollection services)
         {
             services.AddCors(options =>
@@ -41,7 +45,7 @@ namespace RealStateApp.WebApi.Extensions
                     Contact = new OpenApiContact
                     {
                         Name = "Gilthong Emmanuel",
-                        Email = "gilthong@gmail.com"
+                        Email = "gilthong09@gmail.com"
                     }
                 });
 
