@@ -19,7 +19,7 @@ namespace RealStateApp.Controllers
         {
             var properties = await _serviceManager.Property.GetAllProperties();
 
-            List<PropertyViewModel> properties = new();
+            properties = new();
             properties = await _serviceManager.Property.GetAllViewModel();
 
             return View(properties);

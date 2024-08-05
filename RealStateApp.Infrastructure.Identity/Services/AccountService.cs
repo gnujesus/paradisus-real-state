@@ -209,7 +209,7 @@ namespace RealStateApp.Infrastructure.Identity.Services
 
             var verificationUri = await SendForgotPasswordUri(user, origin);
 
-            await _emailService.SendAsync(new Core.Application.Dtos.Email.EmailRequest()
+            await _emailService.SendAsync(new Core.Application.DataTransferObjects.Email.EmailRequest()
             {
                 To = user.Email,
                 Body = $"Please reset your account visiting this URL {verificationUri}",
@@ -399,7 +399,7 @@ namespace RealStateApp.Infrastructure.Identity.Services
             {
                 await _userManager.AddToRoleAsync(user, Roles.Client.ToString());
                 var verificationUri = await SendVerificationEmailUri(user, origin);
-                await _emailService.SendAsync(new Core.Application.Dtos.Email.EmailRequest()
+                await _emailService.SendAsync(new Core.Application.DataTransferObjects.Email.EmailRequest()
                 {
                     To = user.Email,
                     Body = $"Please confirm your account visiting this URL {verificationUri}",
