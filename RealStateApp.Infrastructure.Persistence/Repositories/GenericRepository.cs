@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RealStateApp.Core.Application.Interfaces.Repositories;
 using RealStateApp.Infrastructure.Persistence.Contexts;
+using RealStateApp.Infrastructure.Persistence.Services;
 using System.Linq.Expressions;
 
 namespace RealStateApp.Infrastructure.Persistence.Repositories
@@ -16,6 +17,17 @@ namespace RealStateApp.Infrastructure.Persistence.Repositories
 
         public virtual async Task<Entity> AddAsync(Entity entity)
         {
+            var idProperty = entity.GetType().GetProperty("Id");
+            if (idProperty != null && idProperty.PropertyType == typeof(string))
+            {
+                var currentId = idProperty.GetValue(entity) as string;
+                if (string.IsNullOrEmpty(currentId))
+                {
+                    var generatedId = await CodeGenerator.GenerateUniqueCodeAsync(context);
+                    idProperty.SetValue(entity, generatedId);
+                }
+            }
+
             await context.Set<Entity>().AddAsync(entity);
             await context.SaveChangesAsync();
             return entity;

@@ -7,6 +7,10 @@ using RealStateApp.Infrastructure.Identity; // I was using the Extension Method 
 using RealStateApp.Infrastructure.Persistence;
 using RealStateApp.WebApi.Extensions;
 using RealStateApp.Infrastructure.Shared;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using RealStateApp.Core.Application.Behaviors;
+using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +26,16 @@ builder.Services.AddApplicationLayer();
 builder.Services.AddHealthChecks();
 builder.Services.AddSwaggerExtension();
 builder.Services.AddApiVersioningExtension();
+
+builder.Services.Configure<ApiBehaviorOptions>(options =>
+{
+    options.SuppressModelStateInvalidFilter = true;
+});
+
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(AssemblyReference).Assembly));
+
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+builder.Services.AddValidatorsFromAssembly(typeof(AssemblyReference).Assembly);
 
 builder.Services.AddDistributedMemoryCache();
 
