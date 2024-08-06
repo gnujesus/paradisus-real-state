@@ -4,7 +4,7 @@ using RealStateApp.Core.Domain.Entities;
 
 namespace RealStateApp.Core.Application.Interfaces.Services
 {
-    public interface IFavoriteService: IGenericService<SaveFavoritesViewModel, FavoritesViewModel, Favorites>
+    public interface IFavoriteService: IGenericService<SaveFavoritesViewModel, FavoritesViewModel, Favorite>
     {
         Task<List<PropertyViewModel>> GetFavoritePropertiesByUserId(string userId);
         Task MarkFavorite(string userId, string propertyId);

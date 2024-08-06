@@ -19,7 +19,7 @@ namespace RealStateApp.Core.Domain.Entities
         public TypeProperty Type_Property { get; set; }
         public TypeSale Type_sale { get; set; }
         public ICollection<Amenity> Amenities { get; set; }
-        public ICollection<Favorites> Favorites { get; set; }
+        public ICollection<Favorite> Favorites { get; set; }
         public ICollection<PropertyImage> Images { get; set; } = new List<PropertyImage>();
     }
 }
