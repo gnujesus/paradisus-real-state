@@ -28,16 +28,9 @@ namespace RealStateApp.Core.Application.Features.AmenityF.Commands
 
             if (amenityEntity is null)
                 throw new ApiException($"The amenity with id: {request.Id} doesn't exist in the database.", (int)HttpStatusCode.NotFound);
-
-            var updatedProperties = new List<Property>();
-            foreach (var propertyId in request.Amenity.PropertiesIds)
-            {
-                var prop = await _repository.Property.GetByIdAsync(propertyId);
-                if (prop != null)
-                {
-                    updatedProperties.Add(prop);
-                }
-            }
+                
+            _mapper.Map(request.Amenity, AmenityEntity);
+            await _repository.SaveAsync();
 
             amenityEntity.Properties = updatedProperties;
 

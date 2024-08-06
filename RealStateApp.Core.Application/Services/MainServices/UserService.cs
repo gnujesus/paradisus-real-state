@@ -70,5 +70,37 @@ namespace RealStateApp.Core.Application.Services.MainServices
             SaveUserViewModel user = await _accountService.UpdateUserAsync(model);
             return user;
         }
+
+        public async Task<UserViewModel> GetUserByIdAsync(string userId)
+        {
+            return await _accountService.GetUserByIdAsync(userId);
+        }
+
+        public async Task ActivateDeactivateUserAsync(string userId, bool IsActivate)
+        {
+            await _accountService.ActivateDeactivateUserAsync(userId, IsActivate);
+        }
+
+
+        public async Task<IEnumerable<UserViewModel>> GetAllAgentsAsync()
+        {
+            return await _accountService.GetAgentsAsync();
+        }
+
+        public async Task<IEnumerable<UserViewModel>> GetAllAdminsAsync()
+        {
+            return await _accountService.GetAdminsAsync();
+        }
+
+        public async Task<IEnumerable<UserViewModel>> GetAllDevelopersAsync()
+        {
+            return await _accountService.GetDevelopersAsync();
+        }
+
+        public async Task<UserStatisticsViewModel> GetUserStatisticsAsync()
+        {
+            return await _accountService.GetUserStatisticsAsync();
+        }
+
     }
 }
