@@ -8,7 +8,7 @@ using RealStateApp.Core.Domain.Entities;
 
 namespace RealStateApp.Core.Application.Services.MainServices
 {
-    public class FavoriteService: GenericService<SaveFavoritesViewModel, FavoritesViewModel, Favorites>, IFavoriteService
+    public class FavoriteService: GenericService<SaveFavoritesViewModel, FavoritesViewModel, Favorite>, IFavoriteService
     {
         private readonly IRepositoryManager _repositoryManager;
         private readonly IHttpContextAccessor _contextAccessor;

@@ -5,7 +5,7 @@ using RealStateApp.Infrastructure.Persistence.Contexts;
 
 namespace RealStateApp.Infrastructure.Persistence.Repositories
 {
-    public class FavoritesRepository: GenericRepository<Favorites>, IFavoriteAsync
+    public class FavoritesRepository: GenericRepository<Favorite>, IFavoriteAsync
     {
         private readonly ApplicationContext context;
 
@@ -25,7 +25,7 @@ namespace RealStateApp.Infrastructure.Persistence.Repositories
 
         public async Task MarkFavoriteAsync(string userId, string propertyId)
         {
-            var favorite = new Favorites { User_Id = userId, Property_Id = propertyId };
+            var favorite = new Favorite { User_Id = userId, Property_Id = propertyId };
             context.Favorites.Add(favorite);
             await context.SaveChangesAsync();
         }

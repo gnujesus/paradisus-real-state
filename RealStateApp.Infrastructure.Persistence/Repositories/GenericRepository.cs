@@ -43,6 +43,47 @@ namespace RealStateApp.Infrastructure.Persistence.Repositories
             }
         }
 
+        public virtual async Task UpdateWithNavigationsAsync(Entity entity, string id)
+        {
+            var entry = await context.Set<Entity>().FindAsync(id);
+            if (entry != null)
+            {
+                context.Entry(entry).CurrentValues.SetValues(entity);
+
+                foreach (var navigationProperty in context.Entry(entry).Navigations)
+                {
+                    if (navigationProperty.Metadata.IsCollection)
+                    {
+                        var currentCollection = (IEnumerable<object>)navigationProperty.CurrentValue!;
+                        var newCollection = (IEnumerable<object>)navigationProperty.Metadata.PropertyInfo.GetValue(entity)!;
+
+                        if (currentCollection != null)
+                        {
+                            foreach (var item in currentCollection.ToList())
+                            {
+                                context.Entry(item).State = EntityState.Deleted;
+                            }
+                        }
+
+                        if (newCollection != null)
+                        {
+                            foreach (var item in newCollection)
+                            {
+                                context.Entry(item).State = EntityState.Added;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        var newValue = navigationProperty.Metadata.PropertyInfo.GetValue(entity);
+                        navigationProperty.CurrentValue = newValue;
+                    }
+                }
+
+                await context.SaveChangesAsync();
+            }
+        }
+
         public virtual async Task DeleteAsync(Entity entity)
         {
             context.Set<Entity>().Remove(entity);
@@ -57,6 +98,18 @@ namespace RealStateApp.Infrastructure.Persistence.Repositories
         public virtual async Task<Entity> GetByIdAsync(string id, bool trackChanges = false)
         {
             return (await FindByCondition(e => EF.Property<string>(e, "Id") == id, trackChanges).FirstOrDefaultAsync())!;
+        }
+
+        public virtual async Task<Entity> GetByIdWithIncludeAsync(string id, List<string> properties, bool trackChanges = false)
+        {
+            var query = trackChanges ? context.Set<Entity>() : context.Set<Entity>().AsNoTracking();
+
+            foreach (var property in properties)
+            {
+                query = query.Include(property);
+            }
+
+            return await query.SingleOrDefaultAsync(e => EF.Property<string>(e, "Id") == id);
         }
 
         public virtual async Task<List<Entity>> GetAllWithIncludeAsync(List<string> properties, bool trackChanges = false)
