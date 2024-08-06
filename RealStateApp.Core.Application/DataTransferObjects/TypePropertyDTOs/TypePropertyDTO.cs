@@ -1,5 +1,4 @@
 ﻿using RealStateApp.Core.Domain.Entities;
-using System.ComponentModel.DataAnnotations;
 
 namespace RealStateApp.Core.Application.DataTransferObjects.TypePropertyDTOs
 {

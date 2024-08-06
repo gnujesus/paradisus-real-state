@@ -15,8 +15,8 @@ namespace RealStateApp.Core.Application.Features.TypeSaleF.Validators
         public override ValidationResult Validate(ValidationContext<UpdateTypeSaleCommand> context)
         {
             return context.InstanceToValidate.TypeSale is null
-                ? new ValidationResult(new[] { new ValidationFailure("TypeSaleForCreationDto",
-                "TypeSaleForCreationDto object is null") })
+                ? new ValidationResult(new[] { new ValidationFailure("TypeSaleForUpdateDto",
+                "TypeSaleForUpdateDto object is null") })
                 : base.Validate(context);
         }
     }

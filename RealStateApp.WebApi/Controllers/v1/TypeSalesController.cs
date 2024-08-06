@@ -9,12 +9,12 @@ namespace RealStateApp.WebApi.Controllers.v1
 {
     [ApiVersion("1.0")]
     [Authorize(Roles = "Admin")]
-    public class TypeSaleController : BaseApiController
+    public class TypeSalesController : BaseApiController
     {
         private readonly ISender _sender;
         private readonly IPublisher _publisher;
 
-        public TypeSaleController(ISender sender, IPublisher publisher)
+        public TypeSalesController(ISender sender, IPublisher publisher)
         {
             _sender = sender;
             _publisher = publisher;
@@ -26,9 +26,9 @@ namespace RealStateApp.WebApi.Controllers.v1
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetTypeSales()
         {
-            var amenities = await _sender.Send(new GetTypeSalesQuery(TrackChanges: false));
+            var typeSales = await _sender.Send(new GetTypeSalesQuery(TrackChanges: false));
 
-            return Ok(amenities);
+            return Ok(typeSales);
         }
 
         [HttpGet("{id}", Name = "TypeSaleById")]
@@ -37,9 +37,9 @@ namespace RealStateApp.WebApi.Controllers.v1
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetTypeSale(string id)
         {
-            var amenity = await _sender.Send(new GetTypeSaleQuery(id, TrackChanges: false));
+            var typeSale = await _sender.Send(new GetTypeSaleQuery(id, TrackChanges: false));
 
-            return Ok(amenity);
+            return Ok(typeSale);
         }
 
         [HttpPost]
@@ -47,21 +47,21 @@ namespace RealStateApp.WebApi.Controllers.v1
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateTypeSale(TypeSaleForCreationDTO typeSaleForCreationDto) // [FromBody]
         {
-            var amenity = await _sender.Send(new CreateTypeSaleCommand(typeSaleForCreationDto));
+            var typeSale = await _sender.Send(new CreateTypeSaleCommand(typeSaleForCreationDto));
 
-            return CreatedAtRoute("TypeSaleById", new { id = amenity.Data.Id }, amenity);
+            return CreatedAtRoute("TypeSaleById", new { id = typeSale.Data.Id }, typeSale);
         }
 
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TypeSaleDTO))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdateTypeSale(string id, TypeSaleForUpdateDTO amenityForUpdateDto)
+        public async Task<IActionResult> UpdateTypeSale(string id, TypeSaleForUpdateDTO typeSaleForUpdateDto)
         {
-            if (amenityForUpdateDto is null)
+            if (typeSaleForUpdateDto is null)
                 return BadRequest("TypeSaleForUpdateDto object is null");
 
-            var updatedTypeSale = await _sender.Send(new UpdateTypeSaleCommand(id, amenityForUpdateDto, TrackChanges: true));
+            var updatedTypeSale = await _sender.Send(new UpdateTypeSaleCommand(id, typeSaleForUpdateDto, TrackChanges: true));
 
             return Ok(updatedTypeSale);
         }

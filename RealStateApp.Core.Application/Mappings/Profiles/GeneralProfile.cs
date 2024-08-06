@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using RealStateApp.Core.Application.DataTransferObjects.Account;
 using RealStateApp.Core.Application.DataTransferObjects.AmenityDTOs;
+using RealStateApp.Core.Application.DataTransferObjects.TypePropertyDTOs;
 using RealStateApp.Core.Application.DataTransferObjects.TypeSaleDTOs;
 using RealStateApp.Core.Application.ViewModels.AmenityModels;
 using RealStateApp.Core.Application.ViewModels.FavoritesModels;
@@ -84,6 +85,15 @@ namespace RealStateApp.Core.Application.Mappings.Profiles
             CreateMap<SaveTypePropertyViewModel, TypeProperty>()
                 .ReverseMap()
                 .ForMember(dest => dest.Properties, opt => opt.Condition(src => src.Properties != null));
+
+            CreateMap<TypeProperty, TypePropertyDTO>()
+                .ForMember(dest => dest.Properties, opt => opt.MapFrom(src => src.Properties));
+
+            CreateMap<TypePropertyForCreationDTO, TypeProperty>()
+                .ReverseMap();
+
+            CreateMap<TypePropertyForUpdateDTO, TypeProperty>()
+                .ReverseMap();
             #endregion
 
             #region TypeSaleProfile

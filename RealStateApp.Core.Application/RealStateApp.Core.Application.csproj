@@ -10,18 +10,12 @@
     <Compile Remove="Features\AmenityF\Commands\DeleteAmenityById\**" />
     <Compile Remove="Features\PropertyAmenityF\**" />
     <Compile Remove="Features\PropertyImagesF\**" />
-    <Compile Remove="Features\TypePropertyF\Commands\**" />
-    <Compile Remove="Features\TypePropertyF\Queries\**" />
     <EmbeddedResource Remove="Features\AmenityF\Commands\DeleteAmenityById\**" />
     <EmbeddedResource Remove="Features\PropertyAmenityF\**" />
     <EmbeddedResource Remove="Features\PropertyImagesF\**" />
-    <EmbeddedResource Remove="Features\TypePropertyF\Commands\**" />
-    <EmbeddedResource Remove="Features\TypePropertyF\Queries\**" />
     <None Remove="Features\AmenityF\Commands\DeleteAmenityById\**" />
     <None Remove="Features\PropertyAmenityF\**" />
     <None Remove="Features\PropertyImagesF\**" />
-    <None Remove="Features\TypePropertyF\Commands\**" />
-    <None Remove="Features\TypePropertyF\Queries\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -54,7 +48,6 @@
     <Folder Include="Features\PropertyF\Queries\GetPropertiesByAgent\" />
     <Folder Include="Features\PropertyF\Queries\GetTotalPropertiesCount\" />
     <Folder Include="Features\PropertyF\Queries\FiltersProperties\" />
-    <Folder Include="Features\TypePropertyF\" />
   </ItemGroup>
 
 </Project>

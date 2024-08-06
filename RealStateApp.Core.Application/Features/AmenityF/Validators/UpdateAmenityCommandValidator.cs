@@ -16,8 +16,8 @@ namespace RealStateApp.Core.Application.Features.AmenityF.Validators
         public override ValidationResult Validate(ValidationContext<UpdateAmenityCommand> context)
         {
             return context.InstanceToValidate.Amenity is null
-                ? new ValidationResult(new[] { new ValidationFailure("AmenityForCreationDto",
-                "AmenityForCreationDto object is null") })
+                ? new ValidationResult(new[] { new ValidationFailure("AmenityForUpdateDto",
+                "AmenityForUpdateDto object is null") })
                 : base.Validate(context);
         }
     }
