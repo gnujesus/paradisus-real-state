@@ -4,12 +4,12 @@
 
 <form asp-action="CreateProperty" method="post" class="w-full max-w-lg">
     <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="Value_Sale">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="Price">
             Value Sale
         </label>
         <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-               id="Value_Sale" name="Value_Sale" type="text" value="@Model.Value_Sale" />
-        <span asp-validation-for="Value_Sale" class="text-red-500 text-xs italic"></span>
+               id="Price" name="Price" type="text" value="@Model.Price" />
+        <span asp-validation-for="Price" class="text-red-500 text-xs italic"></span>
     </div>
 
     <div class="mb-4">
@@ -22,21 +22,21 @@
     </div>
 
     <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="BathRooms">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="Bathrooms">
             Bathrooms
         </label>
         <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-               id="BathRooms" name="BathRooms" type="number" value="@Model.BathRooms" />
-        <span asp-validation-for="BathRooms" class="text-red-500 text-xs italic"></span>
+               id="Bathrooms" name="Bathrooms" type="number" value="@Model.Bathrooms" />
+        <span asp-validation-for="Bathrooms" class="text-red-500 text-xs italic"></span>
     </div>
 
     <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="Size_Property">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="Size">
             Size (m²)
         </label>
         <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-               id="Size_Property" name="Size_Property" type="text" value="@Model.Size_Property" />
-        <span asp-validation-for="Size_Property" class="text-red-500 text-xs italic"></span>
+               id="Size" name="Size" type="text" value="@Model.Size" />
+        <span asp-validation-for="Size" class="text-red-500 text-xs italic"></span>
     </div>
 
     <div class="mb-4">
@@ -49,21 +49,21 @@
     </div>
 
     <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="TypeProperty_Id">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="TypePropertyId">
             Property Type
         </label>
         <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-               id="TypeProperty_Id" name="TypeProperty_Id" type="text" value="@Model.TypeProperty_Id" />
-        <span asp-validation-for="TypeProperty_Id" class="text-red-500 text-xs italic"></span>
+               id="TypePropertyId" name="TypePropertyId" type="text" value="@Model.TypePropertyId" />
+        <span asp-validation-for="TypePropertyId" class="text-red-500 text-xs italic"></span>
     </div>
 
     <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="TypeSale_Id">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="PropertyTypeSaleId">
             Sale Type
         </label>
         <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-               id="TypeSale_Id" name="TypeSale_Id" type="text" value="@Model.TypeSale_Id" />
-        <span asp-validation-for="TypeSale_Id" class="text-red-500 text-xs italic"></span>
+               id="PropertyTypeSaleId" name="PropertyTypeSaleId" type="text" value="@Model.PropertyTypeSaleId" />
+        <span asp-validation-for="PropertyTypeSaleId" class="text-red-500 text-xs italic"></span>
     </div>
 
     <div class="flex items-center justify-between">

@@ -21,16 +21,17 @@ namespace RealStateApp.Core.Application.Features.TypeSaleF.Queries
 
         public async Task<Response<IEnumerable<TypeSaleDTO>>> Handle(GetTypeSalesQuery request, CancellationToken cancellationToken)
         {
-            var allAmenities = await _repository.TypeSale.GetAllWithIncludeAsync(new List<string> { "Properties" }, request.TrackChanges);
+            var allTypeSales = await _repository.TypeSale.GetAllWithIncludeAsync(new List<string> { "Properties" }, request.TrackChanges);
             IEnumerable<TypeSaleDTO> typeSales = null!;
 
-            if (allAmenities.Count == 0)
+            if (allTypeSales.Count == 0)
             {
-                //throw new ApiException($"No typeSales were found.", (int)HttpStatusCode.NotFound);
                 return new Response<IEnumerable<TypeSaleDTO>>() { Message = "No type sales were found." };
             }
 
-            return new Response<IEnumerable<TypeSaleDTO>>(typeSales);
+            typeSales = allTypeSales.Select(_mapper.Map<TypeSaleDTO>);
+
+            return new Response<IEnumerable<TypeSaleDTO>>(typeSales) { Succeeded = true };
         }
     }
 }

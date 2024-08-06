@@ -24,16 +24,18 @@ namespace RealStateApp.Core.Application.Features.AmenityF.Commands
         {
             var amenityEntity = _mapper.Map<Amenity>(request.Amenity);
 
-            if (request.Amenity.PropertiesIds.Count() > 0)
-            {
-                request.Amenity.PropertiesIds.Select(async (id) =>
-                {
-                    if (id.Length == 6)
-                        amenityEntity.Properties.Add(await _repositoryManager.Property.GetByIdAsync(id));
+            #region Deleted PropertiesIds
+            //if (request.Amenity.PropertiesIds.Count() > 0)
+            //{
+            //    request.Amenity.PropertiesIds.Select(async (id) =>
+            //    {
+            //        if (id.Length == 6)
+            //            amenityEntity.Properties.Add(await _repositoryManager.Property.GetByIdAsync(id));
 
-                    return id;
-                });
-            }
+            //        return id;
+            //    });
+            //}
+            #endregion
 
             await _repositoryManager.Amenity.AddAsync(amenityEntity);
 

@@ -8,7 +8,6 @@ using RealStateApp.Core.Application.Features.TypePropertyF.Queries;
 namespace RealStateApp.WebApi.Controllers.v1
 {
     [ApiVersion("1.0")]
-    [Authorize(Roles = "Admin")]
     public class TypePropertyController : BaseApiController
     {
         private readonly ISender _sender;
@@ -20,32 +19,12 @@ namespace RealStateApp.WebApi.Controllers.v1
             _publisher = publisher;
         }
 
-        [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<TypePropertyDTO>))]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetTypeProperties()
-        {
-            var typeProperties = await _sender.Send(new GetTypePropertiesQuery(TrackChanges: false));
-
-            return Ok(typeProperties);
-        }
-
-        [HttpGet("{id}", Name = "TypePropertyById")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TypePropertyDTO))]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetTypeProperty(string id)
-        {
-            var typeProperty = await _sender.Send(new GetTypePropertyQuery(id, TrackChanges: false));
-
-            return Ok(typeProperty);
-        }
-
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> CreateTypeProperty(TypePropertyForCreationDTO typePropertyForCreationDto) // [FromBody]
+        public async Task<IActionResult> CreateTypeProperty(TypePropertyForCreationDTO typePropertyForCreationDto)
         {
             var typeProperty = await _sender.Send(new CreateTypePropertyCommand(typePropertyForCreationDto));
 
@@ -53,9 +32,11 @@ namespace RealStateApp.WebApi.Controllers.v1
         }
 
         [HttpPut("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TypePropertyDTO))]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TypePropertyDTO))]
+
         public async Task<IActionResult> UpdateTypeProperty(string id, TypePropertyForUpdateDTO typePropertyForUpdateDto)
         {
             if (typePropertyForUpdateDto is null)
@@ -66,9 +47,34 @@ namespace RealStateApp.WebApi.Controllers.v1
             return Ok(updatedTypeProperty);
         }
 
-        [HttpDelete("{id}")]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpGet]
+        [Authorize(Roles = "Admin, Developer")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<TypePropertyDTO>))]
+        public async Task<IActionResult> ListTypeProperties()
+        {
+            var typeProperties = await _sender.Send(new GetTypePropertiesQuery(TrackChanges: false));
+
+            return Ok(typeProperties);
+        }
+
+        [HttpGet("{id}")]
+        [Authorize(Roles = "Admin, Developer")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TypePropertyDTO))]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetTypeProperty(string id)
+        {
+            var typeProperty = await _sender.Send(new GetTypePropertyQuery(id, TrackChanges: false));
+
+            return Ok(typeProperty);
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> DeleteTypeProperty(string id)
         {
             await _publisher.Publish(new TypePropertyDeletedNotification(id, TrackChanges: false));

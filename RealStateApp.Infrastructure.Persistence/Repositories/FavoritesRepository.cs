@@ -17,7 +17,7 @@ namespace RealStateApp.Infrastructure.Persistence.Repositories
         public async Task<IEnumerable<Property>> GetFavoritePropertiesByUserIdAsync(string userId)
         {
             return await context.Favorites
-                .Where(f => f.User_Id == userId)
+                .Where(f => f.UserId == userId)
                 .Include(f => f.Property)
                 .Select(f => f.Property)
                 .ToListAsync();
@@ -25,14 +25,14 @@ namespace RealStateApp.Infrastructure.Persistence.Repositories
 
         public async Task MarkFavoriteAsync(string userId, string propertyId)
         {
-            var favorite = new Favorite { User_Id = userId, Property_Id = propertyId };
+            var favorite = new Favorite { UserId = userId, Property_Id = propertyId };
             context.Favorites.Add(favorite);
             await context.SaveChangesAsync();
         }
 
         public async Task UnmarkFavoriteAsync(string userId, string propertyId)
         {
-            var favorite = await context.Favorites.FirstOrDefaultAsync(f => f.User_Id == userId && f.Property_Id == propertyId);
+            var favorite = await context.Favorites.FirstOrDefaultAsync(f => f.UserId == userId && f.Property_Id == propertyId);
             if (favorite != null)
             {
                 context.Favorites.Remove(favorite);

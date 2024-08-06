@@ -1,5 +1,6 @@
 ﻿using RealStateApp.Core.Application.DataTransferObjects.Account;
 using RealStateApp.Core.Application.ViewModels.UserModels;
+using RealStateApp.Core.Domain.Entities;
 
 namespace RealStateApp.Core.Application.Interfaces.Services
 {
@@ -24,8 +25,10 @@ namespace RealStateApp.Core.Application.Interfaces.Services
 
         #region Agent Methods
         Task<RegisterResponse> RegisterAgentUserAsync(RegisterRequest request);
-        Task<IEnumerable<UserViewModel>> GetAgentsAsync();
-        Task<UserViewModel> GetAgentByNameAsync(string name);
+        Task<IEnumerable<Agent>> GetAgentsAsync();
+        Task<Agent> GetAgentByIdAsync(string id);
+        Task<Agent> GetAgentByNameAsync(string name);
+        Task<Agent> UpdateAgentAsync(string id, bool status);
         #endregion
 
         #region Developers Methods

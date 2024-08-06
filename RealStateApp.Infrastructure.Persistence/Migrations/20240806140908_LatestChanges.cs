@@ -6,11 +6,31 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RealStateApp.Infrastructure.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class LatestChanges : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Agent",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PropertiesAmount = table.Column<int>(type: "int", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastModified = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Agent", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Amenities",
                 columns: table => new
@@ -67,14 +87,14 @@ namespace RealStateApp.Infrastructure.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Value_Sale = table.Column<decimal>(type: "decimal(5,2)", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(5,2)", nullable: false),
                     Rooms = table.Column<int>(type: "int", nullable: false),
-                    BathRooms = table.Column<int>(type: "int", nullable: false),
-                    Size_Property = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Bathrooms = table.Column<int>(type: "int", nullable: false),
+                    Size = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    User_Id = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TypeProperty_Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    TypeSale_Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    TypePropertyId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    PropertyTypeSaleId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: true),
                     LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -84,14 +104,20 @@ namespace RealStateApp.Infrastructure.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_Properties", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Properties_TypeProperties_TypeProperty_Id",
-                        column: x => x.TypeProperty_Id,
+                        name: "FK_Properties_Agent_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Agent",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Properties_TypeProperties_TypePropertyId",
+                        column: x => x.TypePropertyId,
                         principalTable: "TypeProperties",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Properties_TypeSales_TypeSale_Id",
-                        column: x => x.TypeSale_Id,
+                        name: "FK_Properties_TypeSales_PropertyTypeSaleId",
+                        column: x => x.PropertyTypeSaleId,
                         principalTable: "TypeSales",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -126,7 +152,7 @@ namespace RealStateApp.Infrastructure.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    User_Id = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Property_Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     PropertyId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -185,14 +211,19 @@ namespace RealStateApp.Infrastructure.Persistence.Migrations
                 column: "PropertyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Properties_TypeProperty_Id",
+                name: "IX_Properties_PropertyTypeSaleId",
                 table: "Properties",
-                column: "TypeProperty_Id");
+                column: "PropertyTypeSaleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Properties_TypeSale_Id",
+                name: "IX_Properties_TypePropertyId",
                 table: "Properties",
-                column: "TypeSale_Id");
+                column: "TypePropertyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Properties_UserId",
+                table: "Properties",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PropertyImages_PropertyId",
@@ -217,6 +248,9 @@ namespace RealStateApp.Infrastructure.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "Properties");
+
+            migrationBuilder.DropTable(
+                name: "Agent");
 
             migrationBuilder.DropTable(
                 name: "TypeProperties");

@@ -12,8 +12,8 @@ using RealStateApp.Infrastructure.Persistence.Contexts;
 namespace RealStateApp.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20240801215423_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20240806140908_LatestChanges")]
+    partial class LatestChanges
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -38,6 +38,47 @@ namespace RealStateApp.Infrastructure.Persistence.Migrations
                     b.HasIndex("PropertiesId");
 
                     b.ToTable("AmenityProperty");
+                });
+
+            modelBuilder.Entity("RealStateApp.Core.Domain.Entities.Agent", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PropertiesAmount")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Agent");
                 });
 
             modelBuilder.Entity("RealStateApp.Core.Domain.Entities.Amenity", b =>
@@ -70,7 +111,7 @@ namespace RealStateApp.Infrastructure.Persistence.Migrations
                     b.ToTable("Amenities", (string)null);
                 });
 
-            modelBuilder.Entity("RealStateApp.Core.Domain.Entities.Favorites", b =>
+            modelBuilder.Entity("RealStateApp.Core.Domain.Entities.Favorite", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -94,7 +135,7 @@ namespace RealStateApp.Infrastructure.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("User_Id")
+                    b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -112,7 +153,7 @@ namespace RealStateApp.Infrastructure.Persistence.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("BathRooms")
+                    b.Property<int>("Bathrooms")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("Created")
@@ -131,33 +172,35 @@ namespace RealStateApp.Infrastructure.Persistence.Migrations
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(5, 2)");
+
+                    b.Property<string>("PropertyTypeSaleId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int>("Rooms")
                         .HasColumnType("int");
 
-                    b.Property<string>("Size_Property")
+                    b.Property<string>("Size")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TypeProperty_Id")
+                    b.Property<string>("TypePropertyId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("TypeSale_Id")
+                    b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("User_Id")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Value_Sale")
-                        .HasColumnType("decimal(5, 2)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TypeProperty_Id");
+                    b.HasIndex("PropertyTypeSaleId");
 
-                    b.HasIndex("TypeSale_Id");
+                    b.HasIndex("TypePropertyId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Properties", (string)null);
                 });
@@ -257,7 +300,7 @@ namespace RealStateApp.Infrastructure.Persistence.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("RealStateApp.Core.Domain.Entities.Favorites", b =>
+            modelBuilder.Entity("RealStateApp.Core.Domain.Entities.Favorite", b =>
                 {
                     b.HasOne("RealStateApp.Core.Domain.Entities.Property", null)
                         .WithMany("Favorites")
@@ -274,21 +317,29 @@ namespace RealStateApp.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("RealStateApp.Core.Domain.Entities.Property", b =>
                 {
-                    b.HasOne("RealStateApp.Core.Domain.Entities.TypeProperty", "Type_Property")
+                    b.HasOne("RealStateApp.Core.Domain.Entities.TypeSale", "TypeSale")
                         .WithMany("Properties")
-                        .HasForeignKey("TypeProperty_Id")
+                        .HasForeignKey("PropertyTypeSaleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RealStateApp.Core.Domain.Entities.TypeSale", "Type_sale")
+                    b.HasOne("RealStateApp.Core.Domain.Entities.TypeProperty", "TypeProperty")
                         .WithMany("Properties")
-                        .HasForeignKey("TypeSale_Id")
+                        .HasForeignKey("TypePropertyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Type_Property");
+                    b.HasOne("RealStateApp.Core.Domain.Entities.Agent", "Agent")
+                        .WithMany("Properties")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Type_sale");
+                    b.Navigation("Agent");
+
+                    b.Navigation("TypeProperty");
+
+                    b.Navigation("TypeSale");
                 });
 
             modelBuilder.Entity("RealStateApp.Core.Domain.Entities.PropertyImage", b =>
@@ -300,6 +351,11 @@ namespace RealStateApp.Infrastructure.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Property");
+                });
+
+            modelBuilder.Entity("RealStateApp.Core.Domain.Entities.Agent", b =>
+                {
+                    b.Navigation("Properties");
                 });
 
             modelBuilder.Entity("RealStateApp.Core.Domain.Entities.Property", b =>
