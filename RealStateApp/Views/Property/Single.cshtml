@@ -40,19 +40,19 @@
                 <div class="flex items-center mb-4">
                     <img src="/path/to/agent/image.jpg" alt="Agent Image" class="w-16 h-16 rounded-full mr-4">
                     <div>
-                        <h4 class="text-xl font-bold">@Model.AgentName</h4>
-                        <p class="text-sm text-gray-600">@Model.AgentTitle</p>
+                        <h4 class="text-xl font-bold">@Model.User.Username</h4>
+                        <p class="text-sm text-gray-600">@Model.User.Username</p>
                     </div>
                 </div>
                 <div class="flex flex-col space-y-2">
-                    <a href="tel:@Model.AgentPhone" class="flex items-center text-blue-500">
-                        <i class="fas fa-phone-alt mr-2"></i> @Model.AgentPhone
+                    <a href="tel:@Model.User.Phone" class="flex items-center text-blue-500">
+                        <i class="fas fa-phone-alt mr-2"></i> @Model.User.Phone
                     </a>
-                    <a href="https://wa.me/@Model.AgentWhatsapp" class="flex items-center text-green-500">
-                        <i class="fab fa-whatsapp mr-2"></i> @Model.AgentWhatsapp
+                    <a href="https://wa.me/@Model.User.Phone" class="flex items-center text-green-500">
+                        <i class="fab fa-whatsapp mr-2"></i> @Model.@Model.User.Phone
                     </a>
-                    <a href="mailto:@Model.AgentEmail" class="flex items-center text-gray-700">
-                        <i class="fas fa-envelope mr-2"></i> @Model.AgentEmail
+                    <a href="mailto:@Model.User.Email" class="flex items-center text-gray-700">
+                        <i class="fas fa-envelope mr-2"></i> @Model.User.Email
                     </a>
                 </div>
             </div>

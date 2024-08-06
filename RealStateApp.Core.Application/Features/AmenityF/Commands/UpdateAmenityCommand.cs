@@ -52,6 +52,9 @@ namespace RealStateApp.Core.Application.Features.AmenityF.Commands
                 response.PropertiesQuantity = amenity.Properties.Count();
             else
                 response.PropertiesQuantity = 0;
+                
+            _mapper.Map(request.Amenity, AmenityEntity);
+            await _repository.SaveAsync();
 
             return new Response<AmenityWithoutPropertiesDTO> { Data = response, Succeeded = true};
         }
