@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using RealStateApp.Core.Application.DataTransferObjects.Account;
+using RealStateApp.Core.Application.DataTransferObjects.AmenityDTOs;
 using RealStateApp.Core.Application.ViewModels.AmenityModels;
 using RealStateApp.Core.Application.ViewModels.FavoritesModels;
 using RealStateApp.Core.Application.ViewModels.PropertyAmenityModels;
@@ -16,7 +17,6 @@ namespace RealStateApp.Core.Application.Mappings.Profiles
     {
         public GeneralProfile()
         {
-
             #region PropertyProfile
             CreateMap<Property, PropertyViewModel>()
                 .ForMember(dest => dest.Images, opt => opt.MapFrom(src => src.Images))
@@ -43,6 +43,19 @@ namespace RealStateApp.Core.Application.Mappings.Profiles
             CreateMap<SaveAmenityViewModel, Amenity>()
                 .ReverseMap()
                 .ForMember(dest => dest.Properties, opt => opt.Condition(src => src.Properties != null));
+
+            CreateMap<Amenity, AmenityDTO>()
+                .ForMember(dest => dest.Properties, opt => opt.MapFrom(src => src.Properties))
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.ToString()));
+
+            CreateMap<AmenityForCreationDTO, Amenity>()
+                .ReverseMap();
+
+            CreateMap<AmenityForUpdateDTO, Amenity>()
+                .ReverseMap();
+
+            CreateMap<AmenityWithoutPropertiesDTO, Amenity>()
+                .ReverseMap();
             #endregion
 
             #region FavoritesProfile
@@ -91,7 +104,6 @@ namespace RealStateApp.Core.Application.Mappings.Profiles
                 .ForMember(dest => dest.Property, opt => opt.Ignore())
                 .ForMember(dest => dest.Amenity, opt => opt.Ignore());
             #endregion
-
 
             #region UserIdentityProfile
             CreateMap<AuthenticationRequest, LoginViewModel>()

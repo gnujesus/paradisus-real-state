@@ -24,8 +24,18 @@ namespace RealStateApp.Core.Application.Features.AmenityF.Commands
         {
             var AmenityEntity = _mapper.Map<Amenity>(request.Amenity);
 
+            if (request.Amenity.PropertiesIds.Count() > 0)
+            {
+                request.Amenity.PropertiesIds.Select(async (id) =>
+                {
+                    if (id.Length == 6)
+                        AmenityEntity.Properties.Add(await _repositoryManager.Property.GetByIdAsync(id));
+
+                    return id;
+                });
+            }
+
             await _repositoryManager.Amenity.AddAsync(AmenityEntity);
-            await _repositoryManager.SaveAsync();
 
             var AmenityToReturn = _mapper.Map<AmenityDTO>(AmenityEntity);
 

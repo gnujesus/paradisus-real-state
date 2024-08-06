@@ -7,6 +7,7 @@ namespace RealStateApp.Core.Application.Interfaces.Services
     {
 
         #region General Methods
+        Task<UserViewModel> GetUserByIdAsync(string userId);
         Task<AuthenticationResponse> AuthenticateAsync(AuthenticationRequest request);
         Task<string> ConfirmAccountAsync(string userId, string token);
         Task<ForgotPasswordResponse> ForgotPasswordAsync(ForgotPasswordRequest request, string origin);

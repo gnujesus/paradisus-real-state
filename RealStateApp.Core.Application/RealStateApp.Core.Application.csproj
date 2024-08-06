@@ -7,9 +7,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Features\AmenityF\Commands\CreateAmenity\**" />
     <Compile Remove="Features\AmenityF\Commands\DeleteAmenityById\**" />
+    <Compile Remove="Features\AmenityF\Commands\UpdateAmenity\**" />
+    <Compile Remove="Features\AmenityF\Queries\GetAllAmenities\**" />
+    <Compile Remove="Features\AmenityF\Queries\GetAmenityById\**" />
+    <EmbeddedResource Remove="Features\AmenityF\Commands\CreateAmenity\**" />
     <EmbeddedResource Remove="Features\AmenityF\Commands\DeleteAmenityById\**" />
+    <EmbeddedResource Remove="Features\AmenityF\Commands\UpdateAmenity\**" />
+    <EmbeddedResource Remove="Features\AmenityF\Queries\GetAllAmenities\**" />
+    <EmbeddedResource Remove="Features\AmenityF\Queries\GetAmenityById\**" />
+    <None Remove="Features\AmenityF\Commands\CreateAmenity\**" />
     <None Remove="Features\AmenityF\Commands\DeleteAmenityById\**" />
+    <None Remove="Features\AmenityF\Commands\UpdateAmenity\**" />
+    <None Remove="Features\AmenityF\Queries\GetAllAmenities\**" />
+    <None Remove="Features\AmenityF\Queries\GetAmenityById\**" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,13 +1,10 @@
-﻿using RealStateApp.Core.Domain.Entities;
-using Swashbuckle.AspNetCore.Annotations;
+﻿using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel.DataAnnotations;
 
 namespace RealStateApp.Core.Application.DataTransferObjects.AmenityDTOs
 {
     public class AmenityForCreationDTO
     {
-        public string? Id { get; set; }
-
         [SwaggerParameter(Description = "El nombre de la Mejora")]
         [Required(ErrorMessage = "Debe colocar un nombre")]
         [DataType(DataType.Text)]
@@ -18,6 +15,6 @@ namespace RealStateApp.Core.Application.DataTransferObjects.AmenityDTOs
         [Required(ErrorMessage = "Debe colocar la descripción")]
         [DataType(DataType.Text)]
         public string Description { get; set; }
-        public ICollection<Property>? Properties { get; set; }
+        public IEnumerable<string> PropertiesIds { get; set; }
     }
 }
