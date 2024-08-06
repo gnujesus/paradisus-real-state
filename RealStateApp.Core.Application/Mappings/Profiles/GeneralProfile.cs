@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using RealStateApp.Core.Application.DataTransferObjects.Account;
+using RealStateApp.Core.Application.DataTransferObjects.AgentDTOs;
 using RealStateApp.Core.Application.DataTransferObjects.AmenityDTOs;
 using RealStateApp.Core.Application.DataTransferObjects.PropertyDTOs;
 using RealStateApp.Core.Application.DataTransferObjects.TypePropertyDTOs;
@@ -68,6 +69,14 @@ namespace RealStateApp.Core.Application.Mappings.Profiles
                 .ReverseMap();
 
             CreateMap<AmenityDTO, Amenity>()
+                .ReverseMap();
+            #endregion
+
+            #region AgentProfile
+            CreateMap<Agent, AgentDTO>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.ToString()));
+
+            CreateMap<AgentDTO, Agent>()
                 .ReverseMap();
             #endregion
 

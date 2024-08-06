@@ -18,7 +18,7 @@ using System.Text;
 
 namespace RealStateApp.Infrastructure.Identity.Services
 {
-    public class AccountService: IAccountService
+    public class AccountService : IAccountService
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
@@ -511,7 +511,7 @@ namespace RealStateApp.Infrastructure.Identity.Services
             };
         }
 
-        public async Task<UserViewModel> GetAgentByNameAsync(string name)
+        public async Task<Agent> GetAgentByNameAsync(string name)
         {
             var agent = await _userManager.Users
                 .FirstOrDefaultAsync(u => (u.FirstName + " " + u.LastName) == name);
@@ -527,15 +527,13 @@ namespace RealStateApp.Infrastructure.Identity.Services
                 throw new Exception("User is not an agent");
             }
 
-            return new UserViewModel
+            return new Agent
             {
                 Id = agent.Id,
                 FirstName = agent.FirstName,
                 LastName = agent.LastName,
                 Email = agent.Email,
-                Username = agent.UserName,
-                Phone = agent.PhoneNumber,
-                Image = agent.Image
+                IsActive = agent.IsActive
             };
         }
 
