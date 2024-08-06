@@ -29,7 +29,7 @@ namespace RealStateApp.Core.Application.ViewModels.DataTransferObjects.PropertyD
         public TypeProperty? Type_Property { get; set; }
         public TypeSale? Type_sale { get; set; }
         public ICollection<Amenity>? Amenities { get; set; }
-        public ICollection<Favorites>? Favorites { get; set; }
+        public ICollection<Favorite>? Favorites { get; set; }
         public ICollection<RealStateApp.Core.Domain.Entities.PropertyImage>? Images { get; set; } = new List<RealStateApp.Core.Domain.Entities.PropertyImage>();
     }
 }

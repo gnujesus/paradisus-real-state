@@ -4,7 +4,7 @@ using RealStateApp.Core.Application.Features.AmenityF.Commands;
 
 namespace RealStateApp.Core.Application.Features.AmenityF.Validators
 {
-    public sealed class UpdateAmenityCommandValidator : AbstractValidator<CreateAmenityCommand>
+    public sealed class UpdateAmenityCommandValidator : AbstractValidator<UpdateAmenityCommand>
     {
         public UpdateAmenityCommandValidator()
         {
@@ -13,7 +13,7 @@ namespace RealStateApp.Core.Application.Features.AmenityF.Validators
             RuleFor(c => c.Amenity.Description).NotEmpty().MaximumLength(120);
         }
 
-        public override ValidationResult Validate(ValidationContext<CreateAmenityCommand> context)
+        public override ValidationResult Validate(ValidationContext<UpdateAmenityCommand> context)
         {
             return context.InstanceToValidate.Amenity is null
                 ? new ValidationResult(new[] { new ValidationFailure("AmenityForCreationDto",

@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using RealStateApp.Core.Application.DataTransferObjects.AmenityDTOs;
 using RealStateApp.Core.Application.Features.AmenityF.Commands;
 using RealStateApp.Core.Application.Features.AmenityF.Queries;
-using RealStateApp.Core.Application.Features.AmenityF.Queries.GetAllAmenities;
 
 namespace RealStateApp.WebApi.Controllers.v1
 {
@@ -38,31 +37,31 @@ namespace RealStateApp.WebApi.Controllers.v1
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetAmenity(string id)
         {
-            var amenity = await _sender.Send(new GetAmenityQuery(id, TrackChanges: false));
+            var typeSale = await _sender.Send(new GetAmenityQuery(id, TrackChanges: false));
 
-            return Ok(amenity);
+            return Ok(typeSale);
         }
 
+        [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [HttpPost]
-        public async Task<IActionResult> CreateAmenity(AmenityForCreationDTO amenityForCreationDto) // [FromBody]
+        public async Task<IActionResult> CreateAmenity(AmenityForCreationDTO typeSaleForCreationDto) // [FromBody]
         {
-            var amenity = await _sender.Send(new CreateAmenityCommand(amenityForCreationDto));
+            var typeSale = await _sender.Send(new CreateAmenityCommand(typeSaleForCreationDto));
 
-            return CreatedAtRoute("AmenityById", new { id = amenity.Data.Id }, amenity);
+            return CreatedAtRoute("AmenityById", new { id = typeSale.Data.Id }, typeSale);
         }
 
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AmenityWithoutPropertiesDTO))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdateAmenity(string id, AmenityForUpdateDTO amenityForUpdateDto)
+        public async Task<IActionResult> UpdateAmenity(string id, AmenityForUpdateDTO typeSaleForUpdateDto)
         {
-            if (amenityForUpdateDto is null)
+            if (typeSaleForUpdateDto is null)
                 return BadRequest("AmenityForUpdateDto object is null");
 
-            var updatedAmenity = await _sender.Send(new UpdateAmenityCommand(id, amenityForUpdateDto, TrackChanges: true));
+            var updatedAmenity = await _sender.Send(new UpdateAmenityCommand(id, typeSaleForUpdateDto, TrackChanges: true));
 
             return Ok(updatedAmenity);
         }

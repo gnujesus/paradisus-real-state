@@ -4,9 +4,9 @@ using RealStateApp.Core.Application.Features.AmenityF.Commands;
 
 namespace RealStateApp.Core.Application.Features.AmenityF.Validators
 {
-    public sealed class CreateAmenityCommandValidator : AbstractValidator<CreateAmenityCommand>
+    public sealed class CreateTypeSaleCommandValidator : AbstractValidator<CreateAmenityCommand>
     {
-        public CreateAmenityCommandValidator()
+        public CreateTypeSaleCommandValidator()
         {
             RuleFor(c => c.Amenity.Name).NotEmpty().MaximumLength(60);
 

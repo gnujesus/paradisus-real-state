@@ -11,7 +11,7 @@ namespace RealStateApp.Infrastructure.Persistence.Contexts
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options) { }
 
         public DbSet<Amenity> Amenities { get; set; }
-        public DbSet<Favorites> Favorites { get; set; }
+        public DbSet<Favorite> Favorites { get; set; }
         public DbSet<Property> Properties { get; set; }
         public DbSet<TypeProperty> TypeProperties { get; set; }
         public DbSet<TypeSale> TypeSales { get; set; }
@@ -66,7 +66,7 @@ namespace RealStateApp.Infrastructure.Persistence.Contexts
             modelBuilder.Entity<Amenity>()
                 .ToTable("Amenities");
 
-            modelBuilder.Entity<Favorites>()
+            modelBuilder.Entity<Favorite>()
                 .ToTable("Favorites");
 
             modelBuilder.Entity<Property>()
@@ -91,7 +91,7 @@ namespace RealStateApp.Infrastructure.Persistence.Contexts
             modelBuilder.Entity<Amenity>()
                 .HasKey(x => x.Id);
 
-            modelBuilder.Entity<Favorites>()
+            modelBuilder.Entity<Favorite>()
                 .HasKey(x => x.Id);
 
             modelBuilder.Entity<Property>()
@@ -124,7 +124,7 @@ namespace RealStateApp.Infrastructure.Persistence.Contexts
                         .WithMany(ts => ts.Properties)
                         .HasForeignKey(p => p.TypeSale_Id);
 
-            modelBuilder.Entity<Favorites>()
+            modelBuilder.Entity<Favorite>()
             .HasOne(f => f.Property)
             .WithMany()
             .HasForeignKey(f => f.Property_Id);
