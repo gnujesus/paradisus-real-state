@@ -10,7 +10,7 @@ namespace RealStateApp.Core.Application.ViewModels.TypePropertyModels
 {
     public class SaveTypePropertyViewModel
     {
-        public virtual string Id { get; set; }
+        public virtual string? Id { get; set; }
         [Required(ErrorMessage = "Debe colocar el nombre")]
         public string Name { get; set; }
 
@@ -18,6 +18,6 @@ namespace RealStateApp.Core.Application.ViewModels.TypePropertyModels
         public string Description { get; set; }
 
         // fk not needed
-        public ICollection<Property> Properties { get; set; }
+        public ICollection<Property>? Properties { get; set; }
     }
 }

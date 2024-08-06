@@ -18,8 +18,10 @@ namespace RealStateApp.Controllers
 
         public async Task<IActionResult> Index()
         {
-            await Task.Run(() => { });
-            return View(new List<SaveTypePropertyViewModel>());
+            List<TypePropertyViewModel> vmList = new();
+            vmList = await _serviceManager.TypeProperty.GetAllViewModel();
+
+            return View(vmList);
         }
 
         [HttpPost]
