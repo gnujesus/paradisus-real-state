@@ -45,6 +45,8 @@ namespace RealStateApp.Core.Application.Services.MainServices
         public ITypePropertyService TypeProperty => _typePropertyService.Value;
         public ITypeSaleService TypeSale => _typeSaleService.Value;
 
+        public IUserService user => throw new NotImplementedException();
+
         public async Task SaveAsync() => await _repositoryManager.SaveAsync();
     }
 }
