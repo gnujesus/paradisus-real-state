@@ -72,7 +72,7 @@ namespace RealStateApp.WebApi.Controllers.v1
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> DeleteAmenity(string id)
         {
-            await _publisher.Publish(new DeleteAmenityByIdCommand(id, TrackChanges: false));
+            await _publisher.Publish(new AmenityDeletedNotification(id, TrackChanges: false));
 
             return NoContent();
         }
