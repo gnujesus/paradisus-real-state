@@ -1,12 +1,10 @@
 ﻿using AutoMapper;
 using MediatR;
 using RealStateApp.Core.Application.DataTransferObjects.AmenityDTOs;
-using RealStateApp.Core.Application.Exceptions;
 using RealStateApp.Core.Application.Interfaces.Repositories;
 using RealStateApp.Core.Application.Wrappers;
-using System.Net;
 
-namespace RealStateApp.Core.Application.Features.AmenityF.Queries.GetAllAmenities
+namespace RealStateApp.Core.Application.Features.AmenityF.Queries
 {
     public sealed record GetAmenitiesQuery(bool TrackChanges) : IRequest<Response<IEnumerable<AmenityWithoutPropertiesDTO>>>;
 

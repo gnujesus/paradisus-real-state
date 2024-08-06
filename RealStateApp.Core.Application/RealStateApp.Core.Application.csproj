@@ -1,47 +1,41 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Features\AmenityF\Commands\CreateAmenity\**" />
-    <Compile Remove="Features\AmenityF\Commands\DeleteAmenityById\**" />
-    <Compile Remove="Features\AmenityF\Commands\UpdateAmenity\**" />
-    <Compile Remove="Features\AmenityF\Queries\GetAllAmenities\**" />
-    <Compile Remove="Features\AmenityF\Queries\GetAmenityById\**" />
-    <EmbeddedResource Remove="Features\AmenityF\Commands\CreateAmenity\**" />
-    <EmbeddedResource Remove="Features\AmenityF\Commands\DeleteAmenityById\**" />
-    <EmbeddedResource Remove="Features\AmenityF\Commands\UpdateAmenity\**" />
-    <EmbeddedResource Remove="Features\AmenityF\Queries\GetAllAmenities\**" />
-    <EmbeddedResource Remove="Features\AmenityF\Queries\GetAmenityById\**" />
-    <None Remove="Features\AmenityF\Commands\CreateAmenity\**" />
-    <None Remove="Features\AmenityF\Commands\DeleteAmenityById\**" />
-    <None Remove="Features\AmenityF\Commands\UpdateAmenity\**" />
-    <None Remove="Features\AmenityF\Queries\GetAllAmenities\**" />
-    <None Remove="Features\AmenityF\Queries\GetAmenityById\**" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Remove="Features\AmenityF\Commands\DeleteAmenityById\**" />
+		<Compile Remove="Features\PropertyAmenityF\**" />
+		<Compile Remove="Features\PropertyImagesF\**" />
+		<EmbeddedResource Remove="Features\AmenityF\Commands\DeleteAmenityById\**" />
+		<EmbeddedResource Remove="Features\PropertyAmenityF\**" />
+		<EmbeddedResource Remove="Features\PropertyImagesF\**" />
+		<None Remove="Features\AmenityF\Commands\DeleteAmenityById\**" />
+		<None Remove="Features\PropertyAmenityF\**" />
+		<None Remove="Features\PropertyImagesF\**" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="13.0.1" />
-    <PackageReference Include="FluentValidation" Version="11.9.2" />
-    <PackageReference Include="MediatR" Version="12.4.0" />
-    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.2.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.20" />
-    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="7.0.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.6.2" />
-    <PackageReference Include="System.Text.Encodings.Web" Version="8.0.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="AutoMapper" Version="13.0.1" />
+		<PackageReference Include="FluentValidation" Version="11.9.2" />
+		<PackageReference Include="MediatR" Version="12.4.0" />
+		<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+		<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.2.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.20" />
+		<PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="7.0.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.6.2" />
+		<PackageReference Include="System.Text.Encodings.Web" Version="8.0.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\RealStateApp.Core.Domain\RealStateApp.Core.Domain.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\RealStateApp.Core.Domain\RealStateApp.Core.Domain.csproj" />
+	</ItemGroup>
 
   <ItemGroup>
 
@@ -78,5 +72,6 @@
     <Folder Include="Features\TypeSaleF\Commands\" />
     <Folder Include="Features\TypeSaleF\Queries\" />
   </ItemGroup>
+
 
 </Project>

@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using RealStateApp.Core.Application.DataTransferObjects.Account;
 using RealStateApp.Core.Application.DataTransferObjects.AmenityDTOs;
+using RealStateApp.Core.Application.DataTransferObjects.TypePropertyDTOs;
+using RealStateApp.Core.Application.DataTransferObjects.TypeSaleDTOs;
 using RealStateApp.Core.Application.ViewModels.AmenityModels;
 using RealStateApp.Core.Application.ViewModels.FavoritesModels;
 using RealStateApp.Core.Application.ViewModels.PropertyAmenityModels;
@@ -51,7 +53,7 @@ namespace RealStateApp.Core.Application.Mappings.Profiles
             CreateMap<AmenityForCreationDTO, Amenity>()
                 .ReverseMap();
 
-            CreateMap<AmenityForUpdateDTO, Amenity>()
+            CreateMap<TypeSaleForUpdateDTO, Amenity>()
                 .ReverseMap();
 
             CreateMap<AmenityWithoutPropertiesDTO, Amenity>()
@@ -59,10 +61,10 @@ namespace RealStateApp.Core.Application.Mappings.Profiles
             #endregion
 
             #region FavoritesProfile
-            CreateMap<Favorites, FavoritesViewModel>()
+            CreateMap<Favorite, FavoritesViewModel>()
                 .ForMember(dest => dest.Property, opt => opt.MapFrom(src => src.Property));
 
-            CreateMap<SaveFavoritesViewModel, Favorites>()
+            CreateMap<SaveFavoritesViewModel, Favorite>()
                 .ReverseMap()
                 .ForMember(dest => dest.Property, opt => opt.Ignore());
             #endregion
@@ -83,6 +85,15 @@ namespace RealStateApp.Core.Application.Mappings.Profiles
             CreateMap<SaveTypePropertyViewModel, TypeProperty>()
                 .ReverseMap()
                 .ForMember(dest => dest.Properties, opt => opt.Condition(src => src.Properties != null));
+
+            CreateMap<TypeProperty, TypePropertyDTO>()
+                .ForMember(dest => dest.Properties, opt => opt.MapFrom(src => src.Properties));
+
+            CreateMap<TypePropertyForCreationDTO, TypeProperty>()
+                .ReverseMap();
+
+            CreateMap<TypePropertyForUpdateDTO, TypeProperty>()
+                .ReverseMap();
             #endregion
 
             #region TypeSaleProfile
@@ -92,6 +103,15 @@ namespace RealStateApp.Core.Application.Mappings.Profiles
             CreateMap<SaveTypeSaleViewModel, TypeSale>()
                 .ReverseMap()
                 .ForMember(dest => dest.Properties, opt => opt.Condition(src => src.Properties != null));
+
+            CreateMap<TypeSale, TypeSaleDTO>()
+                .ForMember(dest => dest.Properties, opt => opt.MapFrom(src => src.Properties));
+
+            CreateMap<TypeSaleForCreationDTO, TypeSale>()
+                .ReverseMap();
+
+            CreateMap<TypeSaleForUpdateDTO, TypeSale>()
+                .ReverseMap();
             #endregion
 
             #region PropertyAmenityProfile

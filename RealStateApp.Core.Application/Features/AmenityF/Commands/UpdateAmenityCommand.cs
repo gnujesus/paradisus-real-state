@@ -9,9 +9,9 @@ using System.Net;
 
 namespace RealStateApp.Core.Application.Features.AmenityF.Commands
 {
-    public sealed record UpdateAmenityCommand(string Id, AmenityForUpdateDTO Amenity, bool TrackChanges) : IRequest<Response<Unit>>;
+    public sealed record UpdateAmenityCommand(string Id, AmenityForUpdateDTO Amenity, bool TrackChanges) : IRequest<Response<AmenityWithoutPropertiesDTO>>;
 
-    internal sealed class UpdateAmenityHandler : IRequestHandler<UpdateAmenityCommand, Response<Unit>>
+    internal sealed class UpdateAmenityHandler : IRequestHandler<UpdateAmenityCommand, Response<AmenityWithoutPropertiesDTO>>
     {
         private readonly IRepositoryManager _repository;
         private readonly IMapper _mapper;
@@ -22,17 +22,31 @@ namespace RealStateApp.Core.Application.Features.AmenityF.Commands
             _mapper = mapper;
         }
 
-        public async Task<Response<Unit>> Handle(UpdateAmenityCommand request, CancellationToken cancellationToken)
+        public async Task<Response<AmenityWithoutPropertiesDTO>> Handle(UpdateAmenityCommand request, CancellationToken cancellationToken)
         {
-            var AmenityEntity = await _repository.Amenity.GetByIdAsync(request.Id, request.TrackChanges);
+            var amenityEntity = await _repository.Amenity.GetByIdWithIncludeAsync(request.Id, new List<string> { "Properties" }, request.TrackChanges);
 
-            if (AmenityEntity is null)
+            if (amenityEntity is null)
                 throw new ApiException($"The amenity with id: {request.Id} doesn't exist in the database.", (int)HttpStatusCode.NotFound);
                 
             _mapper.Map(request.Amenity, AmenityEntity);
             await _repository.SaveAsync();
 
-            return new Response<Unit> { Data = Unit.Value };
+            amenityEntity.Properties = updatedProperties;
+
+            _mapper.Map(request.Amenity, amenityEntity);
+
+            await _repository.Amenity.UpdateWithNavigationsAsync(amenityEntity, request.Id);
+
+            var amenity = await _repository.Amenity.GetByIdAsync(request.Id);
+            var response = _mapper.Map<AmenityWithoutPropertiesDTO>(amenity);
+
+            if (amenity.Properties is not null)
+                response.PropertiesQuantity = amenity.Properties.Count();
+            else
+                response.PropertiesQuantity = 0;
+
+            return new Response<AmenityWithoutPropertiesDTO> { Data = response, Succeeded = true};
         }
     }
 }

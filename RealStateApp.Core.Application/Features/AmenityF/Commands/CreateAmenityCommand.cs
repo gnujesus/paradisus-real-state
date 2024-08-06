@@ -22,22 +22,22 @@ namespace RealStateApp.Core.Application.Features.AmenityF.Commands
 
         public async Task<Response<AmenityDTO>> Handle(CreateAmenityCommand request, CancellationToken cancellationToken)
         {
-            var AmenityEntity = _mapper.Map<Amenity>(request.Amenity);
+            var amenityEntity = _mapper.Map<Amenity>(request.Amenity);
 
             if (request.Amenity.PropertiesIds.Count() > 0)
             {
                 request.Amenity.PropertiesIds.Select(async (id) =>
                 {
                     if (id.Length == 6)
-                        AmenityEntity.Properties.Add(await _repositoryManager.Property.GetByIdAsync(id));
+                        amenityEntity.Properties.Add(await _repositoryManager.Property.GetByIdAsync(id));
 
                     return id;
                 });
             }
 
-            await _repositoryManager.Amenity.AddAsync(AmenityEntity);
+            await _repositoryManager.Amenity.AddAsync(amenityEntity);
 
-            var AmenityToReturn = _mapper.Map<AmenityDTO>(AmenityEntity);
+            var AmenityToReturn = _mapper.Map<AmenityDTO>(amenityEntity);
 
             return new Response<AmenityDTO>(data: AmenityToReturn);
         }
