@@ -16,7 +16,8 @@ namespace RealStateApp.Controllers
         }
 
         public async Task<IActionResult> Index() {
-            List<TypeSaleViewModel> vmList = await _serviceManager.TypeSale.GetAllViewModel();
+            List<TypeSaleViewModel> vmList = new();
+            vmList = await _serviceManager.TypeSale.GetAllViewModel();
             return View(vmList);
         }
 
@@ -25,6 +26,23 @@ namespace RealStateApp.Controllers
         {
             await _serviceManager.TypeSale.Delete(id);
             return RedirectToRoute(new {Controller="SaleType", Action="Index"});
+        }
+
+        public IActionResult Save()
+        {
+            return View(new SaveTypeSaleViewModel());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Save(SaveTypeSaleViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                await _serviceManager.TypeSale.Add(vm);
+                return RedirectToRoute(new {Controller="SaleType", Action="Index"});
+            }
+
+            return View(vm);
         }
     }
 }

@@ -30,11 +30,29 @@ namespace RealStateApp.Controllers
             return RedirectToRoute(new {Controller="Amenity", Action="Index"});
         }
 
+<<<<<<< HEAD
         [HttpPost]
         public async Task<IActionResult> Delete(string id)
         {
             await _serviceManager.Amenity.Delete(id);
             return RedirectToRoute(new { Controller = "Amenity", Action = "Index" });
+=======
+        public async Task<IActionResult> Save()
+        {
+            return View(new SaveAmenityViewModel());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Save(SaveAmenityViewModel vm)
+        {
+
+            if (ModelState.IsValid)
+            {
+                await _serviceManager.Amenity.Add(vm);
+                return RedirectToAction("Index");
+            }
+            return View(vm);
+>>>>>>> 1a04e01c4cfb284a70e3cf9c1158e110de366c9f
         }
 
     }
