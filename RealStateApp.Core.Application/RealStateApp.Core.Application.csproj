@@ -72,6 +72,17 @@
     <Folder Include="Features\TypeSaleF\Commands\" />
     <Folder Include="Features\TypeSaleF\Queries\" />
   </ItemGroup>
-
+	<ItemGroup>
+		<Folder Include="Exceptions\" />
+		<Folder Include="Features\PropertyF\Commands\CreateProperty\" />
+		<Folder Include="Features\PropertyF\Commands\DeleteProperty\" />
+		<Folder Include="Features\PropertyF\Commands\UpdateProperty\" />
+		<Folder Include="Features\PropertyF\Queries\GetAllProperties\" />
+		<Folder Include="Features\PropertyF\Queries\GetPropertyByID\" />
+		<Folder Include="Features\PropertyF\Queries\GetPropertiesWithFavorites\" />
+		<Folder Include="Features\PropertyF\Queries\GetPropertiesByAgent\" />
+		<Folder Include="Features\PropertyF\Queries\GetTotalPropertiesCount\" />
+		<Folder Include="Features\PropertyF\Queries\FiltersProperties\" />
+	</ItemGroup>
 
 </Project>

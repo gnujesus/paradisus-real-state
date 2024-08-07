@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using RealStateApp.Core.Application.DataTransferObjects.Account;
 using RealStateApp.Core.Application.Enums;
 using RealStateApp.Core.Application.Interfaces.Services;
@@ -9,10 +10,12 @@ namespace RealStateApp.Core.Application.Services.MainServices
     public class UserService : IUserService
     {
         private readonly IAccountService _accountService;
+        private readonly IHttpContextAccessor _contextAccessor;
         private readonly IMapper _mapper;
 
-        public UserService(IAccountService accountService, IMapper mapper)
+        public UserService(IAccountService accountService, IMapper mapper, IHttpContextAccessor contextAccessor)
         {
+            _contextAccessor = contextAccessor;
             _accountService = accountService;
             _mapper = mapper;
         }

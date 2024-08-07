@@ -29,14 +29,9 @@ namespace RealStateApp.Core.Application.Features.AmenityF.Commands
             if (amenityEntity is null)
                 throw new ApiException($"The amenity with id: {request.Id} doesn't exist in the database.", (int)HttpStatusCode.NotFound);
                 
-            _mapper.Map(request.Amenity, Amenity);
-            await _repository.SaveAsync();
-
-            amenityEntity.Properties = updatedProperties;
-
             _mapper.Map(request.Amenity, amenityEntity);
 
-            await _repository.Amenity.UpdateWithNavigationsAsync(amenityEntity, request.Id);
+            await _repository.Amenity.UpdateAsync(amenityEntity, request.Id);
 
             var amenity = await _repository.Amenity.GetByIdAsync(request.Id);
             var response = _mapper.Map<AmenityWithoutPropertiesDTO>(amenity);
@@ -45,6 +40,8 @@ namespace RealStateApp.Core.Application.Features.AmenityF.Commands
                 response.PropertiesQuantity = amenity.Properties.Count();
             else
                 response.PropertiesQuantity = 0;
+                
+            await _repository.SaveAsync();
 
             return new Response<AmenityWithoutPropertiesDTO> { Data = response, Succeeded = true};
         }
