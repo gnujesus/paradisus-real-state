@@ -1,4 +1,5 @@
-﻿using RealStateApp.Core.Domain.Entities;
+﻿using Microsoft.AspNetCore.Http;
+using RealStateApp.Core.Domain.Entities;
 using System.ComponentModel.DataAnnotations;
 
 namespace RealStateApp.Core.Application.ViewModels.PropertyModels
@@ -26,6 +27,7 @@ namespace RealStateApp.Core.Application.ViewModels.PropertyModels
         public string TypeSale_Id { get; set; }
 
         //Navigation Properties
+        public List<IFormFile> ImagesR { get; set; }
         public TypeProperty? Type_Property { get; set; }
         public TypeSale? Type_sale { get; set; }
         public ICollection<Amenity>? Amenities { get; set; }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using RealStateApp.Core.Application.DataTransferObjects.TypePropertyDTOs;
 using RealStateApp.Core.Application.DataTransferObjects.TypeSaleDTOs;
 using RealStateApp.Core.Application.Interfaces.Repositories;
 using RealStateApp.Core.Application.Wrappers;
@@ -21,10 +22,10 @@ namespace RealStateApp.Core.Application.Features.TypeSaleF.Queries
 
         public async Task<Response<IEnumerable<TypeSaleDTO>>> Handle(GetTypeSalesQuery request, CancellationToken cancellationToken)
         {
-            var allAmenities = await _repository.TypeSale.GetAllWithIncludeAsync(new List<string> { "Properties" }, request.TrackChanges);
-            IEnumerable<TypeSaleDTO> typeSales = null!;
+            var alltypeSales = await _repository.TypeSale.GetAllWithIncludeAsync(new List<string> { "Properties" }, request.TrackChanges);
+            IEnumerable<TypeSaleDTO> typeSales = _mapper.Map<List<TypeSaleDTO>>(alltypeSales);
 
-            if (allAmenities.Count == 0)
+            if (alltypeSales.Count == 0)
             {
                 //throw new ApiException($"No typeSales were found.", (int)HttpStatusCode.NotFound);
                 return new Response<IEnumerable<TypeSaleDTO>>() { Message = "No type sales were found." };
@@ -32,5 +33,6 @@ namespace RealStateApp.Core.Application.Features.TypeSaleF.Queries
 
             return new Response<IEnumerable<TypeSaleDTO>>(typeSales);
         }
+
     }
 }

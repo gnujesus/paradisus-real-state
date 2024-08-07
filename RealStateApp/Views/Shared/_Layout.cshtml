@@ -41,20 +41,52 @@
                         {
                             if (isAdmin)
                             {
-
+                                <li class="nav-item">
+                                    <a class="nav-link text-gray-700 hover:text-gray-900 px-2 py-1" asp-area="" asp-controller="Login" asp-action="Index">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-gray-700 hover:text-gray-900 px-2 py-1" asp-area="" asp-controller="Login" asp-action="Index">Lista de agentes</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-gray-700 hover:text-gray-900 px-2 py-1" asp-area="" asp-controller="Login" asp-action="Index">Mantenimiento de admistradores</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-gray-700 hover:text-gray-900 px-2 py-1" asp-area="" asp-controller="Login" asp-action="Index">Mantenimiento de desarrollaores</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-gray-700 hover:text-gray-900 px-2 py-1" asp-area="" asp-controller="Login" asp-action="Index">Mantenimiento de tipo de propiedades</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-gray-700 hover:text-gray-900 px-2 py-1" asp-area="" asp-controller="Login" asp-action="Index">Mantenimiento de ventas</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-gray-700 hover:text-gray-900 px-2 py-1" asp-area="" asp-controller="Login" asp-action="Index">Mantenimiento de mejoras</a>
+                                </li>
                             }
                             else if (isAgent)
                             {
-
+                                <li class="nav-item">
+                                    <a class="nav-link text-gray-700 hover:text-gray-900 px-2 py-1" asp-area="" asp-controller="Login" asp-action="Index">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-gray-700 hover:text-gray-900 px-2 py-1" asp-area="" asp-controller="Login" asp-action="Index">Mi perfil</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-gray-700 hover:text-gray-900 px-2 py-1" asp-area="" asp-controller="Login" asp-action="Index">Mantenimiento de propiedades</a>
+                                </li>
                             }
                             else if (isClient)
                             {
-                                
+                                <li class="nav-item">
+                                    <a class="nav-link text-gray-700 hover:text-gray-900 px-2 py-1" asp-area="" asp-controller="Login" asp-action="Index">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-gray-700 hover:text-gray-900 px-2 py-1" asp-area="" asp-controller="Login" asp-action="Index">Agentes</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-gray-700 hover:text-gray-900 px-2 py-1" asp-area="" asp-controller="Login" asp-action="Index">Mis propiedades</a>
+                                </li>
                             }
-
-                            <li class="nav-item">
-                                <a class="nav-link text-gray-700 hover:text-gray-900 px-2 py-1" asp-area="" asp-controller="Login" asp-action="Index">Favorites</a>
-                            </li>
                             <li class="nav-item align-content-end">
                                 <a class="nav-link text-dark fw-bold" asp-area="" asp-controller="Login" asp-action="LogOut">Cerrar session (@(User.UserName))</a>
                             </li>

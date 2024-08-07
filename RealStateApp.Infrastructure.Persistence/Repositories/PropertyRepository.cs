@@ -43,6 +43,8 @@ namespace RealStateApp.Infrastructure.Persistence.Repositories
         {
             return await context.Properties
                 .Include(p => p.Images)
+                .Include (p => p.Type_Property)
+                .Include(p => p.Type_sale)
                 .Where(p => p.User_Id == agentId)
                 .OrderByDescending(p => p.Created)
                 .ToListAsync();

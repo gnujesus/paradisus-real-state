@@ -26,14 +26,15 @@ namespace RealStateApp.Infrastructure.Persistence
 
             #region Repositories
             services.AddScoped<IRepositoryManager, RepositoryManager>();
-            //services.AddTransient(typeof(IGenericRepositoryAsync<>), typeof(GenericRepository<>));
-            //services.AddTransient<IAmenityAsync, AmenityRepository>();
-            //services.AddTransient<IFavoriteAsync, FavoritesRepository>();
-            //services.AddTransient<IPropertyAsync, PropertyRepository>();
-            //services.AddTransient<IPropertyAmenityAsync, PropertyAmenityRepository>();
-            //services.AddTransient<ITypePropertyAsync, TypePropertyRepository>();
-            //services.AddTransient<ITypeSaleAsync, TypeSaleRepository>();
-            #endregion*/
+            services.AddTransient(typeof(IGenericRepositoryAsync<>), typeof(GenericRepository<>));
+            services.AddTransient<IAmenityAsync, AmenityRepository>();
+            services.AddTransient<IFavoriteAsync, FavoritesRepository>();
+            services.AddTransient<IPropertyAsync, PropertyRepository>();
+            services.AddTransient<IPropertyImageRepository, PropertyImageRepository>();
+            services.AddTransient<IPropertyAmenityAsync, PropertyAmenityRepository>();
+            services.AddTransient<ITypePropertyAsync, TypePropertyRepository>();
+            services.AddTransient<ITypeSaleAsync, TypeSaleRepository>();
+            #endregion
         }
     }
 }
