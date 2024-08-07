@@ -22,20 +22,33 @@
                         <th class="px-6 py-3 border-b border-gray-300 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rooms</th>
                         <th class="px-6 py-3 border-b border-gray-300 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Bathrooms</th>
                         <th class="px-6 py-3 border-b border-gray-300 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amenities</th>
+                        <th class="px-6 py-3 border-b border-gray-300 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var property in Model)
                     {
                         <tr>
-                            <td class="px-6 py-4 border-b border-gray-300">ID</td>
-                            <td class="px-6 py-4 border-b border-gray-300">Name</td>
-                            <td class="px-6 py-4 border-b border-gray-300">Type</td>
-                            <td class="px-6 py-4 border-b border-gray-300">Description</td>
-                            <td class="px-6 py-4 border-b border-gray-300">Price</td>
-                            <td class="px-6 py-4 border-b border-gray-300">Rooms</td>
-                            <td class="px-6 py-4 border-b border-gray-300">Bathrooms</td>
-                            <td class="px-6 py-4 border-b border-gray-300">Amenities</td>
+                            <td class="px-6 py-4 border-b border-gray-300">@property.Id</td>
+                            <td class="px-6 py-4 border-b border-gray-300">@property.Type_Property.Name</td>
+                            <td class="px-6 py-4 border-b border-gray-300">@property.Type_sale.Name</td>
+                            <td class="px-6 py-4 border-b border-gray-300">@property.Description</td>
+                            <td class="px-6 py-4 border-b border-gray-300">@property.Value_Sale.ToString("C")</td>
+                            <td class="px-6 py-4 border-b border-gray-300">@property.Rooms</td>
+                            <td class="px-6 py-4 border-b border-gray-300">@property.BathRooms</td>
+                            <td class="px-6 py-4 border-b border-gray-300">
+                                @foreach (var amenity in property.Amenities)
+                                {
+                                    <span class="bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">@amenity.Name</span>
+                                }
+                            </td>
+                            <td class="px-6 py-4 border-b border-gray-300">
+                                <a href="@Url.Action("Edit", "Property", new { id = property.Id })" class="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600">Edit</a>
+                                <form asp-action="Delete" method="post" class="inline">
+                                    <input type="hidden" name="id" value="@property.Id" />
+                                    <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 ml-2">Delete</button>
+                                </form>
+                            </td>
                         </tr>
                     }
                 </tbody>
@@ -43,3 +56,4 @@
         </div>
     </div>
 </section>
+

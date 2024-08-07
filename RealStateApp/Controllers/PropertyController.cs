@@ -51,7 +51,7 @@ namespace RealStateApp.Controllers
         public async Task<IActionResult> Save()
         {
             await Task.Run(() => { });
-            return View(new PropertyViewModel());
+            return View(new SavePropertyViewModel());
         }
 
         [HttpPost]
