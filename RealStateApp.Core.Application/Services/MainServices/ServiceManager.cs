@@ -36,7 +36,11 @@ namespace RealStateApp.Core.Application.Services.MainServices
             _propertyImageService = new Lazy<IPropertyImageService>(() => new PropertyImageService(repositoryManager, contextAccessor, mapper));
             _typePropertyService = new Lazy<ITypePropertyService>(() => new TypePropertyService(repositoryManager, contextAccessor, mapper));
             _typeSaleService = new Lazy<ITypeSaleService>(() => new TypeSaleService(repositoryManager, contextAccessor, mapper));
+<<<<<<< HEAD
             _userService = new Lazy<IUserService>(() => new UserService(accountService, mapper, contextAccessor));
+=======
+            //_userService = new Lazy<IUserService>(() => new UserService(repositoryManager, contextAccessor, mapper));
+>>>>>>> d7da0004611b730c4ef9f7e9ee8e4a309fef9d6c
         }
 
         public IAmenityService Amenity => _amenityService.Value;

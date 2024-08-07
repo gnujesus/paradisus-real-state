@@ -5,10 +5,10 @@
         <!-- Left column for images -->
         <div class="w-full lg:w-2/3 px-3">
             <div class="bg-gray-100 p-4 mb-4">
-                <img src="https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/006-Gmax.png" alt="Property Image" class="w-full h-80 object-cover mb-4">
+                <img src="" alt="Property Image" class="w-full h-80 object-cover mb-4">
                 <div class="flex items-center justify-between">
                     <span class="text-sm text-gray-600">Código: @Model.Id</span>
-                    <span class="text-sm text-gray-600"> <i class="fas fa-expand"></i>  +9 Fotos disponibles</span>
+                    <span class="text-sm text-gray-600"><i class="fas fa-expand"></i> +9 Fotos disponibles</span>
                 </div>
             </div>
         </div>
@@ -38,21 +38,21 @@
             <div class="bg-white p-6 shadow-lg">
                 <h3 class="text-lg font-bold mb-4">¿Estás interesado(a)? ¡Solicita Asesoría!</h3>
                 <div class="flex items-center mb-4">
-                    <img src="/path/to/agent/image.jpg" alt="Agent Image" class="w-16 h-16 rounded-full mr-4">
+                    <img src="@($"data:image/jpeg;base64,{Convert.ToBase64String(ViewBag.AgentImage ?? new byte[0])}")" alt="Agent Image" class="w-16 h-16 rounded-full mr-4">
                     <div>
-                        <h4 class="text-xl font-bold">@Model.User.Username</h4>
-                        <p class="text-sm text-gray-600">@Model.User.Username</p>
+                        <h4 class="text-xl font-bold">@ViewBag.AgentName</h4>
+                        <p class="text-sm text-gray-600">@ViewBag.AgentTitle</p>
                     </div>
                 </div>
                 <div class="flex flex-col space-y-2">
-                    <a href="tel:@Model.User.Phone" class="flex items-center text-blue-500">
-                        <i class="fas fa-phone-alt mr-2"></i> @Model.User.Phone
+                    <a href="tel:@ViewBag.AgentPhone" class="flex items-center text-blue-500">
+                        <i class="fas fa-phone-alt mr-2"></i> @ViewBag.AgentPhone
                     </a>
-                    <a href="https://wa.me/@Model.User.Phone" class="flex items-center text-green-500">
-                        <i class="fab fa-whatsapp mr-2"></i> @Model.@Model.User.Phone
+                    <a href="https://wa.me/@ViewBag.AgentWhatsapp" class="flex items-center text-green-500">
+                        <i class="fab fa-whatsapp mr-2"></i> @ViewBag.AgentWhatsapp
                     </a>
-                    <a href="mailto:@Model.User.Email" class="flex items-center text-gray-700">
-                        <i class="fas fa-envelope mr-2"></i> @Model.User.Email
+                    <a href="mailto:@ViewBag.AgentEmail" class="flex items-center text-gray-700">
+                        <i class="fas fa-envelope mr-2"></i> @ViewBag.AgentEmail
                     </a>
                 </div>
             </div>

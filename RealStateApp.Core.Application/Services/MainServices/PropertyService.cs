@@ -57,17 +57,18 @@ namespace RealStateApp.Core.Application.Services.MainServices
         //}
         public async Task<List<PropertyViewModel>> GetAllProperties()
         {
-            List<string> pr = new List<string>();
-            pr.AddRange(new List<string>(){ "Type_Property", "Type_sale", "Amenities", "Favorites", "Images" });
-            PropertyViewModel Properties = await _repositoryManager.Property.GetAllWithIncludeAsync(pr);
-            foreach(var pro in Properties)
-            {
-                var user = _serviceManager.user.GetUserByIdAsync(pro.User_Id);
-                pro.User = user;
+            List<string> includeProperties = new List<string> { "Type_Property", "Type_sale", "Amenities", "Favorites", "Images" };
+            var properties = await _repositoryManager.Property.GetAllWithIncludeAsync(includeProperties);
+            var propertyModels = _mapper.Map<List<PropertyViewModel>>(properties);
 
-            }
-            
-            return _mapper.Map<List<PropertyViewModel>>(Properties);
+            var userTasks = propertyModels.Select(async property =>
+            {
+                property.User = await _serviceManager.user.GetUserByIdAsync(property.User_Id);
+            }).ToList();
+
+            await Task.WhenAll(userTasks);
+
+            return propertyModels;
         }
     }
 }

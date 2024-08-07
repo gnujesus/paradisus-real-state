@@ -1,0 +1,46 @@
+﻿@model List<TypeSaleViewModel>
+@{
+    ViewData["Title"] = "Sale Types";
+}
+
+<h2 class="text-4xl font-bold mb-8">Sale Types</h2>
+
+<div class="mb-4 flex justify-between items-center">
+    <input type="text" id="searchBar" onkeyup="filterBadges()" placeholder="Search for sale types.." class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+    <a href="@Url.Action("Create", "SaleTypes")" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 ml-4">New</a>
+</div>
+
+<div id="badgesContainer" class="flex flex-wrap gap-4">
+    @foreach (var saleType in Model)
+    {
+        <div class="inline-flex items-center px-2 py-1 bg-gray-800 text-white rounded-lg badge">
+            <svg class="w-4 h-4 text-white mr-1" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 11L12 14L22 4"></path>
+                <path d="M2 12L9 19L22 6"></path>
+            </svg>
+            <span>@saleType.Name</span>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        function filterBadges() {
+            var input, filter, container, badges, span, i, txtValue;
+            input = document.getElementById('searchBar');
+            filter = input.value.toUpperCase();
+            container = document.getElementById('badgesContainer');
+            badges = container.getElementsByClassName('badge');
+
+            for (i = 0; i < badges.length; i++) {
+                span = badges[i].getElementsByTagName("span")[0];
+                txtValue = span.textContent || span.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    badges[i].style.display = "";
+                } else {
+                    badges[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+}
