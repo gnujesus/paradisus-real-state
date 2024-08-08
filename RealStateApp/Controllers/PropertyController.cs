@@ -24,6 +24,13 @@ namespace RealStateApp.Controllers
 
         }
 
+        public async Task<IActionResult> Index()
+        {
+            var trackChanges = true;
+            var properties = await _serviceManager.Property.GetAllViewModel(new List<string> { "Amenities" }, trackChanges);
+
+            return View(properties);
+        }
         public async Task<IActionResult> Favorites()
         {
             AuthenticationResponse user = HttpContext.Session.Get<AuthenticationResponse>("user") ?? new();

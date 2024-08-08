@@ -93,6 +93,75 @@ namespace RealStateApp.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Index(
+            string propertyCode = "",
+            string propertyType = "",
+            int minPrice = 0,
+            int maxPrice = 0,
+            int numberOfRooms = 0,
+            int numberOfBathrooms = 0,
+            bool _ = true)
+        {
+            var properties = await _serviceManager.Property.GetAllViewModel();
+
+            if (!string.IsNullOrEmpty(propertyCode))
+            {
+                properties = properties.Where(p => p.Id.Contains(propertyCode, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+
+            if (!string.IsNullOrEmpty(propertyType))
+            {
+                properties = properties.Where(p => p.TypeProperty.Name.Equals(propertyType, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+
+            if (minPrice > 0)
+            {
+                properties = properties.Where(p => p.Price >= minPrice).ToList();
+            }
+
+            if (maxPrice > 0)
+            {
+                properties = properties.Where(p => p.Price <= maxPrice).ToList();
+            }
+
+            if (numberOfRooms > 0)
+            {
+                properties = properties.Where(p => p.Rooms == numberOfRooms).ToList();
+            }
+            if (minPrice > 0)
+            {
+                properties = properties.Where(p => p.Price >= minPrice).ToList();
+            }
+
+            if (maxPrice > 0)
+            {
+                properties = properties.Where(p => p.Price <= maxPrice).ToList();
+            }
+
+            if (numberOfRooms > 0)
+            {
+                properties = properties.Where(p => p.Rooms == numberOfRooms).ToList();
+            }
+
+            if (numberOfBathrooms > 0)
+            {
+                properties = properties.Where(p => p.Bathrooms == numberOfBathrooms).ToList();
+            }
+
+            CustomerHomeViewModel vm = new()
+            {
+                Properties = properties,
+                PropertyCode = propertyCode,
+                PropertyType = propertyType,
+                MinPrice = minPrice,
+                MaxPrice = maxPrice,
+                NumberOfRooms = numberOfRooms,
+                NumberOfBathrooms = numberOfBathrooms
+            };
+
+            return View(vm);
+        }
     }
 }
 

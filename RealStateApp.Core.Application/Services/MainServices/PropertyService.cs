@@ -57,7 +57,7 @@ namespace RealStateApp.Core.Application.Services.MainServices
         //}
         public async Task<List<PropertyViewModel>> GetAllProperties()
         {
-            List<string> includeProperties = new List<string> { "Type_Property", "Type_sale", "Amenities", "Favorites", "Images" };
+            List<string> includeProperties = new List<string> { "TypeProperty", "TypeSale", "Amenities", "Favorites", "Images" };
             var properties = await _repositoryManager.Property.GetAllWithIncludeAsync(includeProperties);
             var propertyModels = _mapper.Map<List<PropertyViewModel>>(properties);
 

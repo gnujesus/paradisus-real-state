@@ -12,18 +12,39 @@
 		<Compile Remove="Features\AmenityF\Queries\GetAmenityById\**" />
 		<Compile Remove="Features\FavoritesF\**" />
 		<Compile Remove="Features\PropertyAmenityF\**" />
+		<Compile Remove="Features\PropertyF\Commands\**" />
+		<Compile Remove="Features\PropertyF\Queries\FiltersProperties\**" />
+		<Compile Remove="Features\PropertyF\Queries\GetAllProperties\**" />
+		<Compile Remove="Features\PropertyF\Queries\GetPropertiesByAgent\**" />
+		<Compile Remove="Features\PropertyF\Queries\GetPropertiesWithFavorites\**" />
+		<Compile Remove="Features\PropertyF\Queries\GetPropertyByID\**" />
+		<Compile Remove="Features\PropertyF\Queries\GetTotalPropertiesCount\**" />
 		<Compile Remove="Features\PropertyImagesF\**" />
 		<EmbeddedResource Remove="Features\AmenityF\Commands\DeleteAmenityById\**" />
 		<EmbeddedResource Remove="Features\AmenityF\Queries\GetAllAmenities\**" />
 		<EmbeddedResource Remove="Features\AmenityF\Queries\GetAmenityById\**" />
 		<EmbeddedResource Remove="Features\FavoritesF\**" />
 		<EmbeddedResource Remove="Features\PropertyAmenityF\**" />
+		<EmbeddedResource Remove="Features\PropertyF\Commands\**" />
+		<EmbeddedResource Remove="Features\PropertyF\Queries\FiltersProperties\**" />
+		<EmbeddedResource Remove="Features\PropertyF\Queries\GetAllProperties\**" />
+		<EmbeddedResource Remove="Features\PropertyF\Queries\GetPropertiesByAgent\**" />
+		<EmbeddedResource Remove="Features\PropertyF\Queries\GetPropertiesWithFavorites\**" />
+		<EmbeddedResource Remove="Features\PropertyF\Queries\GetPropertyByID\**" />
+		<EmbeddedResource Remove="Features\PropertyF\Queries\GetTotalPropertiesCount\**" />
 		<EmbeddedResource Remove="Features\PropertyImagesF\**" />
 		<None Remove="Features\AmenityF\Commands\DeleteAmenityById\**" />
 		<None Remove="Features\AmenityF\Queries\GetAllAmenities\**" />
 		<None Remove="Features\AmenityF\Queries\GetAmenityById\**" />
 		<None Remove="Features\FavoritesF\**" />
 		<None Remove="Features\PropertyAmenityF\**" />
+		<None Remove="Features\PropertyF\Commands\**" />
+		<None Remove="Features\PropertyF\Queries\FiltersProperties\**" />
+		<None Remove="Features\PropertyF\Queries\GetAllProperties\**" />
+		<None Remove="Features\PropertyF\Queries\GetPropertiesByAgent\**" />
+		<None Remove="Features\PropertyF\Queries\GetPropertiesWithFavorites\**" />
+		<None Remove="Features\PropertyF\Queries\GetPropertyByID\**" />
+		<None Remove="Features\PropertyF\Queries\GetTotalPropertiesCount\**" />
 		<None Remove="Features\PropertyImagesF\**" />
 	</ItemGroup>
 
@@ -53,15 +74,6 @@
     <Folder Include="Features\AmenityF\Commands\DeleteAmenityById\" />
     <Folder Include="Features\AmenityF\Commands\UpdateAmenity\" />
     <Folder Include="Exceptions\" />
-    <Folder Include="Features\PropertyF\Commands\CreateProperty\" />
-    <Folder Include="Features\PropertyF\Commands\DeleteProperty\" />
-    <Folder Include="Features\PropertyF\Commands\UpdateProperty\" />
-    <Folder Include="Features\PropertyF\Queries\GetAllProperties\" />
-    <Folder Include="Features\PropertyF\Queries\GetPropertyByID\" />
-    <Folder Include="Features\PropertyF\Queries\GetPropertiesWithFavorites\" />
-    <Folder Include="Features\PropertyF\Queries\GetPropertiesByAgent\" />
-    <Folder Include="Features\PropertyF\Queries\GetTotalPropertiesCount\" />
-    <Folder Include="Features\PropertyF\Queries\FiltersProperties\" />
     <Folder Include="Features\TypePropertyF\Commands\" />
     <Folder Include="Features\TypePropertyF\Queries\" />
     <Folder Include="Features\TypeSaleF\Commands\" />
@@ -69,15 +81,6 @@
   </ItemGroup>
 	<ItemGroup>
 		<Folder Include="Exceptions\" />
-		<Folder Include="Features\PropertyF\Commands\CreateProperty\" />
-		<Folder Include="Features\PropertyF\Commands\DeleteProperty\" />
-		<Folder Include="Features\PropertyF\Commands\UpdateProperty\" />
-		<Folder Include="Features\PropertyF\Queries\GetAllProperties\" />
-		<Folder Include="Features\PropertyF\Queries\GetPropertyByID\" />
-		<Folder Include="Features\PropertyF\Queries\GetPropertiesWithFavorites\" />
-		<Folder Include="Features\PropertyF\Queries\GetPropertiesByAgent\" />
-		<Folder Include="Features\PropertyF\Queries\GetTotalPropertiesCount\" />
-		<Folder Include="Features\PropertyF\Queries\FiltersProperties\" />
 	</ItemGroup>
 
 </Project>

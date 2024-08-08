@@ -34,7 +34,6 @@ namespace RealStateApp.Core.Application.Features.TypePropertyF.Queries
             typeProperties = allTypeProperties.Select(_mapper.Map<TypePropertyDTO>);
 
             return new Response<IEnumerable<TypePropertyDTO>>(typeProperties) { Succeeded = true };
-
         }
     }
 }
