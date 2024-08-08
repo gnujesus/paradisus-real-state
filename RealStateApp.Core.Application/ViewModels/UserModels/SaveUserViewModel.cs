@@ -38,6 +38,8 @@ namespace RealStateApp.Core.Application.ViewModels.UserModels
         [Required(ErrorMessage = "Debe colocar una contraseñá")]
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
+
+        public string NationalId { get; set; }
         public string Type_User { get; set; }
         public string? EmailVerified { get; set; }
         public bool IsActive { get; set; }
