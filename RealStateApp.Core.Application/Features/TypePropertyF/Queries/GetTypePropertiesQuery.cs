@@ -27,13 +27,10 @@ namespace RealStateApp.Core.Application.Features.TypePropertyF.Queries
             var alltypeProperties = await _repository.TypeProperty.GetAllWithIncludeAsync(new List<string> { "Properties" }, request.TrackChanges);
             IEnumerable<TypePropertyDTO> typeProperties = _mapper.Map<List<TypePropertyDTO>>(alltypeProperties);
 
-            if (alltypeProperties.Count == 0)
-=======
             var allTypeProperties = await _repository.TypeSale.GetAllWithIncludeAsync(new List<string> { "Properties" }, request.TrackChanges);
             IEnumerable<TypePropertyDTO> typeProperties = null!;
 
             if (allTypeProperties.Count == 0)
->>>>>>> 53c5862e6774daab7eb431db7809cc52c330f69b
             {
                 return new Response<IEnumerable<TypePropertyDTO>>() { Message = "No type properties were found." };
             }
