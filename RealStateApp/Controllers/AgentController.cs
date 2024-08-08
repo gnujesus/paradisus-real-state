@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using RealStateApp.Core.Application.DataTransferObjects.Account;
 using RealStateApp.Core.Application.Interfaces.Services;
+using RealStateApp.Core.Application.Helpers;
 using RealStateApp.Models;
 using System.Diagnostics;
 
@@ -24,6 +26,14 @@ namespace RealStateApp.Controllers
         // Agent's home page
         public async Task<IActionResult> Home()
         {
+
+            AuthenticationResponse user = HttpContext.Session.Get<AuthenticationResponse>("user") ?? new();
+
+            if (user.Roles[0] == "Guest")
+            {
+                return RedirectToRoute(new { Controller = "Login", Action = "Index" });
+            }
+
             var vmList = await _serviceManager.Property.GetAllViewModel();
             return View(vmList);
         }
