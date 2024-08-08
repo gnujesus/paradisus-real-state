@@ -52,6 +52,11 @@ namespace RealStateApp.Controllers
             return View(new SaveUserViewModel() { });
         }
 
+        public IActionResult Devs()
+        {
+            return View(new SaveUserViewModel() { });
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

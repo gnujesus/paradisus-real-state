@@ -1,0 +1,88 @@
+﻿@model SaveUserViewModel
+
+@{
+    ViewData["Title"] = "Create User";
+}
+
+<h2>Create User</h2>
+
+<form asp-action="CreateUser" method="post" enctype="multipart/form-data" class="w-full max-w-lg">
+    <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="FirstName">
+            First Name
+        </label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+               asp-for="FirstName" type="text" />
+        <span asp-validation-for="FirstName" class="text-red-500 text-xs italic"></span>
+    </div>
+
+    <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="LastName">
+            Last Name
+        </label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+               asp-for="LastName" type="text" />
+        <span asp-validation-for="LastName" class="text-red-500 text-xs italic"></span>
+    </div>
+
+    <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="Phone">
+            Phone
+        </label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+               asp-for="Phone" type="text" />
+        <span asp-validation-for="Phone" class="text-red-500 text-xs italic"></span>
+    </div>
+
+    <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="Email">
+            Email
+        </label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+               asp-for="Email" type="email" />
+        <span asp-validation-for="Email" class="text-red-500 text-xs italic"></span>
+    </div>
+
+    <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="UserName">
+            User Name
+        </label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+               asp-for="UserName" type="text" />
+        <span asp-validation-for="UserName" class="text-red-500 text-xs italic"></span>
+    </div>
+
+    <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="Password">
+            Password
+        </label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+               asp-for="Password" type="password" />
+        <span asp-validation-for="Password" class="text-red-500 text-xs italic"></span>
+    </div>
+
+    <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="ConfirmPassword">
+            Confirm Password
+        </label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+               asp-for="ConfirmPassword" type="password" />
+        <span asp-validation-for="ConfirmPassword" class="text-red-500 text-xs italic"></span>
+    </div>
+
+    <input asp-for="Type_User" value="Developer" />
+
+    <div class="flex items-center justify-between">
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="submit">
+            Save Developer 
+        </button>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
