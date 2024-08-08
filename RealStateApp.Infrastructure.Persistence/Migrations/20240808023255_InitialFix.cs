@@ -6,31 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RealStateApp.Infrastructure.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class LatestChanges : Migration
+    public partial class InitialFix : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Agent",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PropertiesAmount = table.Column<int>(type: "int", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Created = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastModified = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Agent", x => x.Id);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Amenities",
                 columns: table => new
@@ -92,7 +72,7 @@ namespace RealStateApp.Infrastructure.Persistence.Migrations
                     Bathrooms = table.Column<int>(type: "int", nullable: false),
                     Size = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TypePropertyId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     PropertyTypeSaleId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -103,12 +83,6 @@ namespace RealStateApp.Infrastructure.Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Properties", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Properties_Agent_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Agent",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Properties_TypeProperties_TypePropertyId",
                         column: x => x.TypePropertyId,
@@ -221,11 +195,6 @@ namespace RealStateApp.Infrastructure.Persistence.Migrations
                 column: "TypePropertyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Properties_UserId",
-                table: "Properties",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_PropertyImages_PropertyId",
                 table: "PropertyImages",
                 column: "PropertyId");
@@ -248,9 +217,6 @@ namespace RealStateApp.Infrastructure.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "Properties");
-
-            migrationBuilder.DropTable(
-                name: "Agent");
 
             migrationBuilder.DropTable(
                 name: "TypeProperties");

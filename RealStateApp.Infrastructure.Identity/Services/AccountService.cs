@@ -4,11 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using RealStateApp.Core.Application.DataTransferObjects.Account;
-using RealStateApp.Core.Application.DataTransferObjects.AgentDTOs;
 using RealStateApp.Core.Application.Enums;
 using RealStateApp.Core.Application.Interfaces.Services;
 using RealStateApp.Core.Application.ViewModels.UserModels;
-using RealStateApp.Core.Domain.Entities;
 using RealStateApp.Core.Domain.Settings;
 using RealStateApp.Infrastructure.Identity.Entities;
 using System.IdentityModel.Tokens.Jwt;
@@ -500,20 +498,20 @@ namespace RealStateApp.Infrastructure.Identity.Services
             return response;
         }
 
-        public async Task<IEnumerable<Agent>> GetAgentsAsync()
+        public async Task<IEnumerable<UserViewModel>> GetAgentsAsync()
         {
             var agents = await _userManager.GetUsersInRoleAsync(Roles.Agent.ToString());
-            return agents.OrderBy(a => a.LastName).Select(a => new Agent
+            return agents.OrderBy(a => a.LastName).Select(a => new UserViewModel
             {
                 Id = a.Id,
                 FirstName = a.FirstName,
                 LastName = a.LastName,
                 Email = a.Email,
-                PhoneNumber = a.PhoneNumber,
+                Phone = a.PhoneNumber,
             }).ToList();
         }
 
-        public async Task<Agent> GetAgentByIdAsync(string id)
+        public async Task<UserViewModel> GetAgentByIdAsync(string id)
         {
             var agent = await _userManager.Users
                 .FirstOrDefaultAsync(u => u.Id == id);
@@ -529,17 +527,17 @@ namespace RealStateApp.Infrastructure.Identity.Services
                 throw new Exception("That user is not an agent");
             }
 
-            return new Agent
+            return new UserViewModel
             {
                 Id = agent.Id,
                 FirstName = agent.FirstName,
                 LastName = agent.LastName,
                 Email = agent.Email,
-                PhoneNumber = agent.PhoneNumber,
+                Phone = agent.PhoneNumber,
             };
         }
 
-        public async Task<Agent> GetAgentByNameAsync(string name)
+        public async Task<UserViewModel> GetAgentByNameAsync(string name)
         {
             var agent = await _userManager.Users
                 .FirstOrDefaultAsync(u => (u.FirstName + " " + u.LastName) == name);
@@ -555,7 +553,7 @@ namespace RealStateApp.Infrastructure.Identity.Services
                 throw new Exception("User is not an agent");
             }
 
-            return new Agent
+            return new UserViewModel
             {
                 Id = agent.Id,
                 FirstName = agent.FirstName,
@@ -565,7 +563,7 @@ namespace RealStateApp.Infrastructure.Identity.Services
             };
         }
 
-        public async Task<Agent> UpdateAgentAsync(string id, bool status)
+        public async Task<UserViewModel> UpdateAgentAsync(string id, bool status)
         {
             var agent = await _userManager.FindByIdAsync(id);
 
@@ -583,7 +581,7 @@ namespace RealStateApp.Infrastructure.Identity.Services
                 throw new Exception("Error updating agent");
             }
 
-            return new Agent
+            return new UserViewModel
             {
                 Id = agent.Id,
                 FirstName = agent.FirstName,

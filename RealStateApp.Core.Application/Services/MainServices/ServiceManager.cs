@@ -46,7 +46,6 @@ namespace RealStateApp.Core.Application.Services.MainServices
         public IPropertyService Property => _propertyService.Value;
         public IPropertyImageService PropertyImage => _propertyImageService.Value;
         public ITypePropertyService TypeProperty => _typePropertyService.Value;
-
         public ITypeSaleService TypeSale => _typeSaleService.Value;
         public IUserService user => _userService.Value;
 

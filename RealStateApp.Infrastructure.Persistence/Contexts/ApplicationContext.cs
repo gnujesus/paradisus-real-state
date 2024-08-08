@@ -120,11 +120,6 @@ namespace RealStateApp.Infrastructure.Persistence.Contexts
             .HasForeignKey(p => p.TypePropertyId);
 
             modelBuilder.Entity<Property>()
-                .HasOne<Agent>(p => p.Agent)
-                .WithMany(a => a.Properties)
-                .HasForeignKey(p => p.UserId);
-
-            modelBuilder.Entity<Property>()
                         .HasOne<TypeSale>(p => p.TypeSale)
                         .WithMany(ts => ts.Properties)
                         .HasForeignKey(p => p.PropertyTypeSaleId);

@@ -72,12 +72,9 @@ namespace RealStateApp.Core.Application.Mappings.Profiles
                 .ReverseMap();
             #endregion
 
-            #region AgentProfile
-            CreateMap<Agent, AgentDTO>()
+            #region AgentDTOProfile
+            CreateMap<UserViewModel, AgentDTO>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.ToString()));
-
-            CreateMap<AgentDTO, Agent>()
-                .ReverseMap();
             #endregion
 
             #region FavoritesProfile

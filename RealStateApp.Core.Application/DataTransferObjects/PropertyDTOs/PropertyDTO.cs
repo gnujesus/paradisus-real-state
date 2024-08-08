@@ -1,4 +1,5 @@
-﻿using RealStateApp.Core.Domain.Entities;
+﻿using RealStateApp.Core.Application.DataTransferObjects.AgentDTOs;
+using RealStateApp.Core.Domain.Entities;
 
 namespace RealStateApp.Core.Application.DataTransferObjects.PropertyDTOs
 {
@@ -13,7 +14,7 @@ namespace RealStateApp.Core.Application.DataTransferObjects.PropertyDTOs
         public string Description { get; set; }
 
         //Navigation Properties
-        public Agent Agent { get; set; }
+        public AgentDTO Agent { get; set; }
         public TypeProperty TypeProperty { get; set; }
         public TypeSale TypeSale { get; set; }
         public ICollection<Amenity> Amenities { get; set; }
