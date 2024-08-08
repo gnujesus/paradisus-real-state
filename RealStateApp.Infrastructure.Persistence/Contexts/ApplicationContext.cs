@@ -83,7 +83,7 @@ namespace RealStateApp.Infrastructure.Persistence.Contexts
             #endregion
 
             #region Properties configuration
-            modelBuilder.Entity<Property>().Property(p => p.Value_Sale).HasColumnType("decimal(5, 2)");
+            modelBuilder.Entity<Property>().Property(p => p.Price).HasColumnType("decimal(5, 2)");
             #endregion
 
             #region Primary keys
@@ -115,14 +115,19 @@ namespace RealStateApp.Infrastructure.Persistence.Contexts
                 .WithMany(amenity => amenity.Properties);
 
             modelBuilder.Entity<Property>()
-            .HasOne<TypeProperty>(p => p.Type_Property)
+            .HasOne<TypeProperty>(p => p.TypeProperty)
             .WithMany(tp => tp.Properties)
-            .HasForeignKey(p => p.TypeProperty_Id);
+            .HasForeignKey(p => p.TypePropertyId);
 
             modelBuilder.Entity<Property>()
-                        .HasOne<TypeSale>(p => p.Type_sale)
+                .HasOne<Agent>(p => p.Agent)
+                .WithMany(a => a.Properties)
+                .HasForeignKey(p => p.UserId);
+
+            modelBuilder.Entity<Property>()
+                        .HasOne<TypeSale>(p => p.TypeSale)
                         .WithMany(ts => ts.Properties)
-                        .HasForeignKey(p => p.TypeSale_Id);
+                        .HasForeignKey(p => p.PropertyTypeSaleId);
 
             modelBuilder.Entity<Favorite>()
             .HasOne(f => f.Property)

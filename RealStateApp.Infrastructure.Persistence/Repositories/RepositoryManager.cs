@@ -1,4 +1,6 @@
 ﻿using RealStateApp.Core.Application.Interfaces.Repositories;
+using RealStateApp.Core.Application.Interfaces.Services;
+using RealStateApp.Infrastructure.Identity.Services;
 using RealStateApp.Infrastructure.Persistence.Contexts;
 
 namespace RealStateApp.Infrastructure.Persistence.Repositories
@@ -13,8 +15,9 @@ namespace RealStateApp.Infrastructure.Persistence.Repositories
         private readonly Lazy<IPropertyImageRepository> _propertyImageRepository;
         private readonly Lazy<ITypePropertyAsync> _typePropertyRepository;
         private readonly Lazy<ITypeSaleAsync> _typeSaleRepository;
+        private readonly Lazy<IAgentRepository> _agentRepository;
 
-        public RepositoryManager(ApplicationContext repositoryContext)
+        public RepositoryManager(ApplicationContext repositoryContext, IAccountService accountService)
         {
             _repositoryContext = repositoryContext;
             _amenityRepository = new Lazy<IAmenityAsync>(() => new AmenityRepository(repositoryContext));
@@ -24,6 +27,7 @@ namespace RealStateApp.Infrastructure.Persistence.Repositories
             _propertyImageRepository = new Lazy<IPropertyImageRepository>(() => new PropertyImageRepository(repositoryContext));
             _typePropertyRepository = new Lazy<ITypePropertyAsync>(() => new TypePropertyRepository(repositoryContext));
             _typeSaleRepository = new Lazy<ITypeSaleAsync>(() => new TypeSaleRepository(repositoryContext));
+            _agentRepository = new Lazy<IAgentRepository>(() => new AgentRepository(repositoryContext, accountService));
         }
 
         public IAmenityAsync Amenity => _amenityRepository.Value;
@@ -33,6 +37,7 @@ namespace RealStateApp.Infrastructure.Persistence.Repositories
         public IPropertyImageRepository PropertyImage => _propertyImageRepository.Value;
         public ITypePropertyAsync TypeProperty => _typePropertyRepository.Value;
         public ITypeSaleAsync TypeSale => _typeSaleRepository.Value;
+        public IAgentRepository Agent => _agentRepository.Value;
 
         public async Task SaveAsync() => await _repositoryContext.SaveChangesAsync();
     }

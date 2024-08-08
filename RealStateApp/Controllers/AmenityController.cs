@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RealStateApp.Core.Application.Interfaces.Services;
 using RealStateApp.Core.Application.ViewModels.AmenityModels;
 
@@ -15,6 +16,7 @@ namespace RealStateApp.Controllers
             _httpContextAccessor = httpContextAccessor;
         }
 
+        [Authorize(Roles = "Admin, Agent, Developer")]
         public async Task<IActionResult> Index()
         {
             List<AmenityViewModel> vmList = await _serviceManager.Amenity.GetAllViewModel();
@@ -22,12 +24,19 @@ namespace RealStateApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Save(string id)
         {
             await _serviceManager.Amenity.Delete(id);
             return RedirectToRoute(new {Controller="Amenity", Action="Index"});
         }
 
+<<<<<<< HEAD
+        [HttpPost]
+        public async Task<IActionResult> Delete(string id)
+        {
+            await _serviceManager.Amenity.Delete(id);
+            return RedirectToRoute(new { Controller = "Amenity", Action = "Index" });
+=======
         public async Task<IActionResult> Save()
         {
             return View(new SaveAmenityViewModel());
@@ -43,6 +52,7 @@ namespace RealStateApp.Controllers
                 return RedirectToAction("Index");
             }
             return View(vm);
+>>>>>>> 1a04e01c4cfb284a70e3cf9c1158e110de366c9f
         }
 
     }

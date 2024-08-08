@@ -9,7 +9,7 @@ namespace RealStateApp.Core.Application.ViewModels.FavoritesModels
 
         [Required(ErrorMessage = "Debe colocar el Id del usuario")]
         [DataType(DataType.Text)]
-        public string? User_Id { get; set; }
+        public string? UserId { get; set; }
 
         [Required(ErrorMessage = "Debe colocar el Id de la propiedad")]
         [DataType(DataType.Text)]

@@ -4,20 +4,21 @@ namespace RealStateApp.Core.Domain.Entities
 {
     public class Property: AuditableBaseEntity
     {
-        public decimal Value_Sale { get; set; }
+        public decimal Price { get; set; }
         public int Rooms { get; set; }
-        public int BathRooms { get; set; }
-        public string Size_Property { get; set; }
+        public int Bathrooms { get; set; }
+        public string Size { get; set; }
         public string Description { get; set; }
 
         //Foreign Key Properties
-        public string User_Id { get; set; }
-        public string TypeProperty_Id { get; set; }
-        public string TypeSale_Id { get; set; }
+        public string UserId { get; set; }
+        public string TypePropertyId { get; set; }
+        public string PropertyTypeSaleId { get; set; }
 
         //Navigation Properties
-        public TypeProperty Type_Property { get; set; }
-        public TypeSale Type_sale { get; set; }
+        public Agent Agent { get; set; }
+        public TypeProperty TypeProperty { get; set; }
+        public TypeSale TypeSale { get; set; }
         public ICollection<Amenity> Amenities { get; set; }
         public ICollection<Favorite> Favorites { get; set; }
         public ICollection<PropertyImage> Images { get; set; } = new List<PropertyImage>();

@@ -6,9 +6,9 @@ using RealStateApp.Core.Application.Wrappers;
 
 namespace RealStateApp.Core.Application.Features.AmenityF.Queries
 {
-    public sealed record GetAmenitiesQuery(bool TrackChanges) : IRequest<Response<IEnumerable<AmenityWithoutPropertiesDTO>>>;
+    public sealed record GetAmenitiesQuery(bool TrackChanges) : IRequest<Response<IEnumerable<AmenityDTO>>>;
 
-    public class GetAmenitiesQueryHandler : IRequestHandler<GetAmenitiesQuery, Response<IEnumerable<AmenityWithoutPropertiesDTO>>>
+    public class GetAmenitiesQueryHandler : IRequestHandler<GetAmenitiesQuery, Response<IEnumerable<AmenityDTO>>>
     {
         private readonly IRepositoryManager _repository;
         private readonly IMapper _mapper;
@@ -19,26 +19,29 @@ namespace RealStateApp.Core.Application.Features.AmenityF.Queries
             _mapper = mapper;
         }
 
-        public async Task<Response<IEnumerable<AmenityWithoutPropertiesDTO>>> Handle(GetAmenitiesQuery request, CancellationToken cancellationToken)
+        public async Task<Response<IEnumerable<AmenityDTO>>> Handle(GetAmenitiesQuery request, CancellationToken cancellationToken)
         {
             var allAmenities = await _repository.Amenity.GetAllWithIncludeAsync(new List<string> { "Properties" }, request.TrackChanges);
-            IEnumerable<AmenityWithoutPropertiesDTO> amenities = null!;
+            IEnumerable<AmenityDTO> amenities = null!;
 
             if (allAmenities.Count == 0)
             {
-                //throw new ApiException($"No amenities were found.", (int)HttpStatusCode.NotFound);
-                return new Response<IEnumerable<AmenityWithoutPropertiesDTO>>() { Message = "No amenities were found." };
+                return new Response<IEnumerable<AmenityDTO>>() { Message = "No amenities were found." };
             }
 
-            amenities = allAmenities.Select(x =>
-            {
-                var a = _mapper.Map<AmenityWithoutPropertiesDTO>(x);
-                a.PropertiesQuantity = x.Properties.Count();
-                return a;
+            #region Deleted PropertiesQuantity
+            //amenities = allAmenities.Select(x =>
+            //{
+            //    var a = _mapper.Map<AmenityDTO>(x);
+            //    a.PropertiesQuantity = x.Properties.Count();
+            //    return a;
 
-            }).ToList();
+            //}).ToList();
+            #endregion
 
-            return new Response<IEnumerable<AmenityWithoutPropertiesDTO>>(amenities);
+            amenities = allAmenities.Select(_mapper.Map<AmenityDTO>);
+
+            return new Response<IEnumerable<AmenityDTO>>(amenities) { Succeeded = true };
         }
     }
 }

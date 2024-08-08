@@ -9,6 +9,7 @@
         IPropertyImageRepository PropertyImage { get; }
         ITypePropertyAsync TypeProperty { get; }
         ITypeSaleAsync TypeSale { get; }
+        IAgentRepository Agent { get; }
         Task SaveAsync();
     }
 }

@@ -16,7 +16,6 @@ namespace RealStateApp.Core.Application.ViewModels.TypePropertyModels
 
         [Required(ErrorMessage = "Debe colocar la descripción")]
         public string Description { get; set; }
-
         // fk not needed
         public ICollection<Property>? Properties { get; set; }
     }
