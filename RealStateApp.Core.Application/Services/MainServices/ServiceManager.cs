@@ -30,7 +30,7 @@ namespace RealStateApp.Core.Application.Services.MainServices
             _contextAccessor = contextAccessor;
             _mapper = mapper;
             _accountService = accountService;
-            _userService = userService;
+            // _userService = userService;
 
             _amenityService = new Lazy<IAmenityService>(() => new AmenityService(repositoryManager, contextAccessor, mapper));
             _favoriteService = new Lazy<IFavoriteService>(() => new FavoriteService(repositoryManager, contextAccessor, mapper));
