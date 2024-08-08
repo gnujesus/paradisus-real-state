@@ -27,7 +27,7 @@ namespace RealStateApp.Infrastructure.Persistence.Repositories
             return await context.Properties
                 .Include(p => p.Favorites)
                 .Include(p => p.Images)
-                .Where(p => p.Favorites.Any(f => f.UserId == userId))
+                .Where(p => p.Favorites.Any(f => f.User_Id == userId))
                 .OrderByDescending(p => p.Created)
                 .ToListAsync();
         }

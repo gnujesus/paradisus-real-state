@@ -18,6 +18,7 @@ namespace RealStateApp.Core.Application.ViewModels.PropertyModels
         public string PropertyTypeSaleId { get; set; }
 
         //Navigation Properties
+        public Agent Agent { get; set; }
         public TypeProperty TypeProperty { get; set; }
         public TypeSale TypeSale { get; set; }
         public ICollection<Amenity> Amenities { get; set; }

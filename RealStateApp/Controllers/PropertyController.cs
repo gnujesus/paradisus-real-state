@@ -81,7 +81,7 @@ namespace RealStateApp.Controllers
 
             if (ModelState.IsValid)
             {
-                vm.User_Id = user.Id;
+                vm.UserId = user.Id;
                 await _serviceManager.Property.Add(vm);
                 return RedirectToRoute(new { Controller = "Agent", Action = "Home" });
             }
@@ -107,7 +107,7 @@ namespace RealStateApp.Controllers
                 return NotFound();
             }
 
-            var agent = await _userService.GetUserByUsernameAsync(property.User_Id);
+            var agent = await _userService.GetUserByUsernameAsync(property.UserId);
 
             if (agent != null)
             {

@@ -39,12 +39,12 @@
                     {
                         <tr>
                             <td class="px-6 py-4 border-b border-gray-300">@property.Id</td>
-                            <td class="px-6 py-4 border-b border-gray-300">@property.Type_Property.Name</td>
-                            <td class="px-6 py-4 border-b border-gray-300">@property.Type_sale.Name</td>
+                            <td class="px-6 py-4 border-b border-gray-300">@property.TypeProperty.Name</td>
+                            <td class="px-6 py-4 border-b border-gray-300">@property.TypeSale.Name</td>
                             <td class="px-6 py-4 border-b border-gray-300">@property.Description</td>
-                            <td class="px-6 py-4 border-b border-gray-300">@property.Value_Sale.ToString("C")</td>
+                            <td class="px-6 py-4 border-b border-gray-300">@property.Price.ToString("C")</td>
                             <td class="px-6 py-4 border-b border-gray-300">@property.Rooms</td>
-                            <td class="px-6 py-4 border-b border-gray-300">@property.BathRooms</td>
+                            <td class="px-6 py-4 border-b border-gray-300">@property.Bathrooms</td>
                             <td class="px-6 py-4 border-b border-gray-300">
                                 @foreach (var amenity in property.Amenities)
                                 {

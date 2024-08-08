@@ -1,5 +1,6 @@
 ﻿using RealStateApp.Core.Application.DataTransferObjects.Account;
 using RealStateApp.Core.Application.ViewModels.UserModels;
+using RealStateApp.Core.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace RealStateApp.Core.Application.Interfaces.Services
         Task<SaveUserViewModel> UpdateUserAsync(SaveUserViewModel model);
         Task<UserViewModel> GetUserByIdAsync(string userId);
         Task ActivateDeactivateUserAsync(string userId, bool IsActivate);
-        Task<IEnumerable<UserViewModel>> GetAllAgentsAsync();
+        Task<IEnumerable<Agent>> GetAllAgentsAsync();
         Task<IEnumerable<UserViewModel>> GetAllAdminsAsync();
         Task<IEnumerable<UserViewModel>> GetAllDevelopersAsync();
         Task<UserStatisticsViewModel> GetUserStatisticsAsync();
