@@ -30,12 +30,11 @@ namespace RealStateApp.WebApi.Controllers
             return Ok(response);
         }
 
-        [Authorize(Roles = "Admin, Example")]
-        [HttpPost("register/example")]
+        [Authorize(Roles = "Developer")]
+        [HttpPost("register/developer")]
         public async Task<IActionResult> Register(RegisterRequest request)
         {
-            var origin = Request.Headers["origin"];
-            return Ok(await _accountService.RegisterClientUserAsync(request, origin!));
+            return Ok(await _accountService.RegisterDeveloperUserAsync(request));
         }
 
         [Authorize(Roles = "Admin")]
