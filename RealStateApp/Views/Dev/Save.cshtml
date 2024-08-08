@@ -1,12 +1,8 @@
 ﻿@model SaveUserViewModel
 
-@{
-    ViewData["Title"] = "Create User";
-}
-
 <h2>Create User</h2>
 
-<form asp-action="CreateUser" method="post" enctype="multipart/form-data" class="w-full max-w-lg">
+<form asp-controller="Dev" asp-action="Save" method="post" enctype="multipart/form-data" class="w-full max-w-lg">
     <div class="mb-4">
         <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="FirstName">
             First Name
@@ -32,6 +28,15 @@
         <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                asp-for="Phone" type="text" />
         <span asp-validation-for="Phone" class="text-red-500 text-xs italic"></span>
+    </div>
+
+    <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="ImageFile">
+            Image
+        </label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+               asp-for="ImageFile" type="file" />
+        <span asp-validation-for="ImageFile" class="text-red-500 text-xs italic"></span>
     </div>
 
     <div class="mb-4">
@@ -70,12 +75,12 @@
         <span asp-validation-for="ConfirmPassword" class="text-red-500 text-xs italic"></span>
     </div>
 
-    <input asp-for="Type_User" value="Developer" />
+    <input type="hidden" asp-for="Type_User" value="Developer" class="text-red-500 text-xs italic" />
 
     <div class="flex items-center justify-between">
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 type="submit">
-            Save Developer 
+            Create User
         </button>
     </div>
 </form>
@@ -85,4 +90,3 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
-
