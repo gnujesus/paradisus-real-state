@@ -17,11 +17,10 @@
 }
 else
 {
-    <form asp-controller="Property" asp-action="Save" method="post" enctype="multipart/form-data" class="w-full max-w-lg">
+    <form asp-action="Create" method="post" enctype="multipart/form-data" class="w-full max-w-lg">
         <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="TypePropertyId">Tipo de Propiedad</label>
             <select asp-for="TypePropertyId" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-
                 @foreach (var type in propertyTypes)
                 {
                     <option value="@type.Id">@type.Name</option>
@@ -31,6 +30,7 @@ else
         </div>
 
         <div class="mb-4">
+
             <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="PropertyTypeSaleId">Tipo de Venta</label>
             <select asp-for="PropertyTypeSaleId" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                 @foreach (var type in saleTypes)
@@ -43,6 +43,7 @@ else
 
         <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="Price">Precio (en peso dominicano)</label>
+
             <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" asp-for="Price" />
             <span asp-validation-for="Price" class="text-red-500 text-xs italic"></span>
         </div>
@@ -55,6 +56,7 @@ else
 
         <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="Size">Tamaño (m²)</label>
+
             <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" asp-for="Size" />
             <span asp-validation-for="Size" class="text-red-500 text-xs italic"></span>
         </div>
@@ -67,6 +69,7 @@ else
 
         <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="Bathrooms">Baños</label>
+
             <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" asp-for="Bathrooms" />
             <span asp-validation-for="Bathrooms" class="text-red-500 text-xs italic"></span>
         </div>

@@ -32,5 +32,7 @@ namespace RealStateApp.Core.Application.ViewModels.PropertyModels
         public ICollection<Amenity>? Amenities { get; set; }
         public ICollection<Favorite>? Favorites { get; set; }
         public ICollection<RealStateApp.Core.Domain.Entities.PropertyImage>? Images { get; set; } = new List<RealStateApp.Core.Domain.Entities.PropertyImage>();
+
+        public List<IFormFile> ImagesR { get; set; }
     }
 }
