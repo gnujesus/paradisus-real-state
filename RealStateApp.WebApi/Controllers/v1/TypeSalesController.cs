@@ -58,7 +58,7 @@ namespace RealStateApp.WebApi.Controllers.v1
             return Ok(typeSales);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "TypeSaleById")]
         [Authorize(Roles = "Admin, Developer")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

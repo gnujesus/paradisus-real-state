@@ -24,11 +24,11 @@ namespace RealStateApp.WebApi.Controllers.v1
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> CreateAmenity(AmenityForCreationDTO typeSaleForCreationDto) // [FromBody]
+        public async Task<IActionResult> CreateAmenity(AmenityForCreationDTO amenityForCreationDto) // [FromBody]
         {
-            var typeSale = await _sender.Send(new CreateAmenityCommand(typeSaleForCreationDto));
+            var amenity = await _sender.Send(new CreateAmenityCommand(amenityForCreationDto));
 
-            return CreatedAtRoute("AmenityById", new { id = typeSale.Data.Id }, typeSale);
+            return CreatedAtRoute("AmenityById", new { id = amenity.Data.Id }, amenity);
         }
 
         [HttpPut("{id}")]
@@ -36,12 +36,12 @@ namespace RealStateApp.WebApi.Controllers.v1
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AmenityDTO))]
-        public async Task<IActionResult> UpdateAmenity(string id, AmenityForUpdateDTO typeSaleForUpdateDto)
+        public async Task<IActionResult> UpdateAmenity(string id, AmenityForUpdateDTO amenityForUpdateDto)
         {
-            if (typeSaleForUpdateDto is null)
+            if (amenityForUpdateDto is null)
                 return BadRequest("AmenityForUpdateDto object is null");
 
-            var updatedAmenity = await _sender.Send(new UpdateAmenityCommand(id, typeSaleForUpdateDto, TrackChanges: true));
+            var updatedAmenity = await _sender.Send(new UpdateAmenityCommand(id, amenityForUpdateDto, TrackChanges: true));
 
             return Ok(updatedAmenity);
         }
@@ -58,16 +58,16 @@ namespace RealStateApp.WebApi.Controllers.v1
             return Ok(amenities);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "AmenityById")]
         [Authorize(Roles = "Admin, Developer")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AmenityDTO))]
         public async Task<IActionResult> GetAmenity(string id)
         {
-            var typeSale = await _sender.Send(new GetAmenityQuery(id, TrackChanges: false));
+            var amenity = await _sender.Send(new GetAmenityQuery(id, TrackChanges: false));
 
-            return Ok(typeSale);
+            return Ok(amenity);
         }
 
         [HttpDelete("{id}")]

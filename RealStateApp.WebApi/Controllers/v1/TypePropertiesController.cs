@@ -59,7 +59,7 @@ namespace RealStateApp.WebApi.Controllers.v1
             return Ok(typeProperties);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "TypePropertyById")]
         [Authorize(Roles = "Admin, Developer")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TypePropertyDTO))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]

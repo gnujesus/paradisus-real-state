@@ -1,9 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RealStateApp.Core.Application.DataTransferObjects.Account;
-using RealStateApp.Core.Application.Interfaces.Services;
 using RealStateApp.Core.Application.Helpers;
-using RealStateApp.Models;
-using System.Diagnostics;
+using RealStateApp.Core.Application.Interfaces.Services;
 
 namespace RealStateApp.Controllers
 {
@@ -37,7 +35,6 @@ namespace RealStateApp.Controllers
             var vmList = await _serviceManager.Property.GetAllViewModel();
             return View(vmList);
         }
-
     }
 }
 
