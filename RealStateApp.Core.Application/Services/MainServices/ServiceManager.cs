@@ -12,6 +12,8 @@ namespace RealStateApp.Core.Application.Services.MainServices
         private readonly IAccountService _accountService;
         private readonly IHttpContextAccessor _contextAccessor;
         private readonly IMapper _mapper;
+        private readonly IServiceManager _serviceManager;
+
 
         private readonly Lazy<IAmenityService> _amenityService;
         private readonly Lazy<IFavoriteService> _favoriteService;
@@ -28,6 +30,7 @@ namespace RealStateApp.Core.Application.Services.MainServices
             _contextAccessor = contextAccessor;
             _mapper = mapper;
             _accountService = accountService;
+            _userService = userService;
 
             _amenityService = new Lazy<IAmenityService>(() => new AmenityService(repositoryManager, contextAccessor, mapper));
             _favoriteService = new Lazy<IFavoriteService>(() => new FavoriteService(repositoryManager, contextAccessor, mapper));

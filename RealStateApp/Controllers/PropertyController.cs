@@ -7,6 +7,7 @@ using RealStateApp.Core.Application.Enums;
 using RealStateApp.Core.Application.ViewModels.PropertyModels;
 using RealStateApp.Core.Application.DataTransferObjects.Account;
 using RealStateApp.Core.Application.Services.MainServices;
+using RealStateApp.Core.Application.ViewModels.PropertyAmenityModels;
 
 namespace RealStateApp.Controllers
 {
@@ -93,7 +94,6 @@ namespace RealStateApp.Controllers
             return View(vm);
         }
 
-        // TODO: Make the views send you to the single page using asp-route-id on each property card
         public async Task<IActionResult> Single(string id)
         {
             var property = await _serviceManager.Property.GetByIdSaveViewModel(id);
@@ -103,7 +103,7 @@ namespace RealStateApp.Controllers
                 return NotFound();
             }
 
-            var agent = await _userService.GetUserByUsernameAsync(property.UserId);
+            var agent = await _userService.GetUserByIdAsync(property.UserId);
 
             if (agent != null)
             {
@@ -115,8 +115,12 @@ namespace RealStateApp.Controllers
                 ViewBag.AgentImage = agent.Image; // Assuming this is the image byte array
             }
 
+            // Retrieve all amenities related to the property
+            var properties = await _serviceManager.Property.GetAllProperties();
+
             return View(property);
         }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

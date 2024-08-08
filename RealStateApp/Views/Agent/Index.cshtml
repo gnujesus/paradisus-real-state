@@ -1,13 +1,13 @@
 ﻿@model List<UserViewModel>
-@inject IHttpContextAccessor httpContextAccessor
+@inject IHttpContextAccessor _httpContextAccessor
 
 @{
     ViewData["Title"] = "Our Agents";
 
-    var user = httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>("UserSession");
+    var user = _httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>("user");
 
     // This is to be modified since you're not supposed to have two roles
-    bool isAdmin = user != null && user.Roles.Contains(Roles.Admin.ToString());
+    bool isAdmin = user != null && user.Roles[0] == Roles.Admin.ToString();
 }
 
 @if (!isAdmin)
@@ -39,7 +39,8 @@ else
                             <th class="py-2 px-4 border-b">Username</th>
                             <th class="py-2 px-4 border-b">Phone</th>
                             <th class="py-2 px-4 border-b">Email</th>
-                            <th class="py-2 px-4 border-b">User Type</th>
+                            <th class="py-2 px-4 border-b">Status</th>
+                            <th class="py-2 px-4 border-b">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -52,7 +53,25 @@ else
                                 <td class="py-2 px-4 border-b">@agent.Username</td>
                                 <td class="py-2 px-4 border-b">@agent.Phone</td>
                                 <td class="py-2 px-4 border-b">@agent.Email</td>
-                                <td class="py-2 px-4 border-b">@agent.Type_user</td>
+                                <td class="px-6 py-4 border-b border-gray-300">
+                                    @if (agent.IsActive)
+                                    {
+                                        <span class="text-green-600 font-bold">Active</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-red-600 font-bold">Inactive</span>
+                                    }
+                                </td>
+                                <td class="py-2 px-4 border-b">
+                                    <form asp-controller="Agent" asp-action="ToggleStatus" method="post" class="inline">
+                                        <input type="hidden" name="id" value="@agent.Id" />
+                                        <button type="submit" class="px-4 py-2 rounded-md hover:bg-opacity-75 @(agent.IsActive ? "bg-red-500 text-white hover:bg-red-600" : "bg-green-500 text-white hover:bg-green-600")">
+                                            @(agent.IsActive ? "Deactivate" : "Activate")
+                                        </button>
+                                    </form>
+                                    <a href="@Url.Action("Update", "Agent", new { id = agent.Id })" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 ml-2">Edit</a>
+                                </td>
                             </tr>
                         }
                     </tbody>
@@ -67,4 +86,3 @@ else
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
-

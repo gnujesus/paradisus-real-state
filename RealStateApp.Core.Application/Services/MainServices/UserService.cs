@@ -39,6 +39,11 @@ namespace RealStateApp.Core.Application.Services.MainServices
             {
                 return await _accountService.RegisterClientUserAsync(registerRequest, origin);
             }
+            else if (vm.Type_User == Roles.Developer.ToString())
+            {
+
+                return await _accountService.RegisterDeveloperUserAsync(registerRequest);
+            }
             else
             {
                 return await _accountService.RegisterAgentUserAsync(registerRequest);
@@ -74,7 +79,7 @@ namespace RealStateApp.Core.Application.Services.MainServices
             return user;
         }
 
-        public async Task<UserViewModel> GetUserByIdAsync(string userId)
+        public async Task<SaveUserViewModel> GetUserByIdAsync(string userId)
         {
             return await _accountService.GetUserByIdAsync(userId);
         }

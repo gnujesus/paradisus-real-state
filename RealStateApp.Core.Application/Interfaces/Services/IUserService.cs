@@ -19,7 +19,7 @@ namespace RealStateApp.Core.Application.Interfaces.Services
         Task SignOutAsync();
         Task<SaveUserViewModel> GetUserByUsernameAsync(string username);
         Task<SaveUserViewModel> UpdateUserAsync(SaveUserViewModel model);
-        Task<UserViewModel> GetUserByIdAsync(string userId);
+        Task<SaveUserViewModel> GetUserByIdAsync(string userId);
         Task ActivateDeactivateUserAsync(string userId, bool IsActivate);
         Task<IEnumerable<UserViewModel>> GetAllAgentsAsync();
         Task<IEnumerable<UserViewModel>> GetAllAdminsAsync();

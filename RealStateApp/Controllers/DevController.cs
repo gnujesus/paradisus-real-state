@@ -4,6 +4,7 @@ using RealStateApp.Core.Application.Interfaces.Services;
 using RealStateApp.Core.Application.Services.MainServices;
 using RealStateApp.Core.Application.ViewModels.UserModels;
 using RealStateApp.Middlewares;
+using System.Runtime.Intrinsics.X86;
 
 namespace RealStateApp.Controllers
 {
@@ -48,6 +49,7 @@ namespace RealStateApp.Controllers
                     await vm.ImageFile.CopyToAsync(memoryStream);
                     vm.Image = memoryStream.ToArray();
                     vm.EmailVerified = "True";
+                    vm.IsActive = true;
                 }
             }
 
@@ -65,6 +67,31 @@ namespace RealStateApp.Controllers
             return RedirectToRoute(new { controller = "Login", action = "Index" });
         }
 
+
+        [HttpPost]
+        public async Task<IActionResult> ToggleStatus(string id)
+        {
+            SaveUserViewModel vm = await _serviceManager.user.GetUserByIdAsync(id);
+            vm.IsActive = !vm.IsActive;
+            await _userService.UpdateUserAsync(vm);
+
+            return RedirectToRoute(new { Controller = "Dev", Action = "Index" });
+        }
+
+
+        public async Task<IActionResult> Update(string id)
+        {
+            SaveUserViewModel vm = await _serviceManager.user.GetUserByIdAsync(id);
+            return View("Save", vm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(SaveUserViewModel vm)
+        {
+            await _userService.UpdateUserAsync(vm);
+
+            return RedirectToRoute(new { Controller = "Dev", Action = "Index" });
+        }
 
     }
 }

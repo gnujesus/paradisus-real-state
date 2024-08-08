@@ -2,6 +2,9 @@
 
 @{
     ViewData["Title"] = "All Properties";
+    var typeProperties = ViewBag.TypeProperties as List<TypePropertyViewModel>;
+    var typeSales = ViewBag.TypeSales as List<TypeSaleViewModel>;
+    var amenities = ViewBag.Amenities as List<AmenityViewModel>;
 }
 
 <section class="py-12 bg-gray-100">
@@ -12,10 +15,11 @@
         </div>
 
         <!-- Search Bar -->
-        <form method="get" asp-action="Index" class="mb-4">
+        <form method="post" asp-controller="Agent" asp-action="Home" class="mb-4">
             <div class="flex items-center">
-                <input type="text" name="searchString" placeholder="Search properties..." class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="@ViewData["CurrentFilter"]">
+                <input type="text" name="searchString" placeholder="Search properties by code..." class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="@ViewData["CurrentFilter"]">
                 <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 ml-2">Search</button>
+                <a asp-controller="Agent" asp-action="Home" type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 ml-2">Clear Filters</a>
             </div>
         </form>
 
@@ -24,8 +28,8 @@
                 <thead>
                     <tr>
                         <th class="px-6 py-3 border-b border-gray-300 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Property ID</th>
-                        <th class="px-6 py-3 border-b border-gray-300 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Property Name</th>
-                        <th class="px-6 py-3 border-b border-gray-300 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+                        <th class="px-6 py-3 border-b border-gray-300 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Property Type</th>
+                        <th class="px-6 py-3 border-b border-gray-300 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sale Type</th>
                         <th class="px-6 py-3 border-b border-gray-300 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
                         <th class="px-6 py-3 border-b border-gray-300 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
                         <th class="px-6 py-3 border-b border-gray-300 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rooms</th>
@@ -39,16 +43,22 @@
                     {
                         <tr>
                             <td class="px-6 py-4 border-b border-gray-300">@property.Id</td>
-                            <td class="px-6 py-4 border-b border-gray-300">@property.TypeProperty.Name</td>
-                            <td class="px-6 py-4 border-b border-gray-300">@property.TypeSale.Name</td>
+                            <td class="px-6 py-4 border-b border-gray-300">
+                                @typeProperties.FirstOrDefault(tp => tp.Id == property.TypePropertyId)?.Name
+                            </td>
+                            <td class="px-6 py-4 border-b border-gray-300">
+                                @typeSales.FirstOrDefault(ts => ts.Id == property.PropertyTypeSaleId)?.Name
+                            </td>
                             <td class="px-6 py-4 border-b border-gray-300">@property.Description</td>
                             <td class="px-6 py-4 border-b border-gray-300">@property.Price.ToString("C")</td>
                             <td class="px-6 py-4 border-b border-gray-300">@property.Rooms</td>
                             <td class="px-6 py-4 border-b border-gray-300">@property.Bathrooms</td>
                             <td class="px-6 py-4 border-b border-gray-300">
-                                @foreach (var amenity in property.Amenities)
+                                @foreach (var amenityId in property.Amenities.Select(a => a.Id))
                                 {
-                                    <span class="bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">@amenity.Name</span>
+                                    <span class="bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                                        @amenities.FirstOrDefault(a => a.Id == amenityId)?.Name
+                                    </span>
                                 }
                             </td>
                             <td class="px-6 py-4 border-b border-gray-300">

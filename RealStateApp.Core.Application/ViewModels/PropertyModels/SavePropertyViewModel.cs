@@ -22,7 +22,7 @@ namespace RealStateApp.Core.Application.ViewModels.PropertyModels
         public string Description { get; set; }
 
         //Foreign Key Properties
-        public string UserId { get; set; }
+        public string? UserId { get; set; }
         public string TypePropertyId { get; set; }
         public string PropertyTypeSaleId { get; set; }
 

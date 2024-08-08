@@ -36,13 +36,14 @@ namespace RealStateApp.Infrastructure.Identity.Services
 
         #region General Methods
 
-        public async Task<UserViewModel> GetUserByIdAsync(string userId)
+        // gnu: Modified this to make it returna SaveUserViewModel. Needed to make the update method.
+        public async Task<SaveUserViewModel> GetUserByIdAsync(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
 
             var rolesList = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
 
-            var UserModel = new UserViewModel
+            var UserModel = new SaveUserViewModel
             {
                 Id = userId,
                 FirstName = user.FirstName,
@@ -50,11 +51,11 @@ namespace RealStateApp.Infrastructure.Identity.Services
                 Phone = user.PhoneNumber,
                 Image = user.Image,
                 Email = user.Email,
-                Username = user.UserName,
+                UserName = user.UserName,
                 Password = user.PasswordHash,
-                Type_user = rolesList.ToList(),
-                EmailVerified = user.Email,
-                NationalId = user.NationalId,
+                IsActive = user.IsActive,
+                Type_User = rolesList.ToList()[0],
+                EmailVerified = user.Email
             };
 
             if (user == null)
@@ -317,6 +318,7 @@ namespace RealStateApp.Infrastructure.Identity.Services
             user.Email = model.Email;
             user.UserName = model.UserName;
             user.PhoneNumber = model.Phone;
+            user.IsActive = model.IsActive;
             user.Image = model.Image ?? user.Image;
             user.NationalId = model.NationalId; 
 
@@ -516,8 +518,10 @@ namespace RealStateApp.Infrastructure.Identity.Services
                 Id = a.Id,
                 FirstName = a.FirstName,
                 LastName = a.LastName,
+                Username = a.UserName,
                 Email = a.Email,
                 Phone = a.PhoneNumber,
+                IsActive = a.IsActive,
                 NationalId=a.NationalId,
             }).ToList();
         }
@@ -669,6 +673,7 @@ namespace RealStateApp.Infrastructure.Identity.Services
                 LastName = d.LastName,
                 Email = d.Email,
                 Username = d.UserName,
+                IsActive = d.IsActive,
                 Phone = d.PhoneNumber,
                 Image = d.Image,
                 IsActive = d.IsActive,
