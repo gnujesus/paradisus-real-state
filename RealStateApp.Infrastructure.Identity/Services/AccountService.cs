@@ -509,8 +509,10 @@ namespace RealStateApp.Infrastructure.Identity.Services
                 Id = a.Id,
                 FirstName = a.FirstName,
                 LastName = a.LastName,
+                Username = a.UserName,
                 Email = a.Email,
                 Phone = a.PhoneNumber,
+                IsActive = a.IsActive,
             }).ToList();
         }
 

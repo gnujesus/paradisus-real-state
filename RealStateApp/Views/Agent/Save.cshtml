@@ -1,11 +1,13 @@
 ﻿@model SaveUserViewModel
+
 @{
-    ViewData["Title"] = "Create User";
+    ViewData["Title"] = "Create Property Type";
+    bool editMode = @Model.Id != "" && Model.Id != null;
 }
 
-<h2>Create User</h2>
+<h2>Update Agent</h2>
 
-<form asp-action="CreateUser" method="post" enctype="multipart/form-data" class="w-full max-w-lg">
+<form asp-controller="Agent" asp-action="Update" method="post" enctype="multipart/form-data" class="w-full max-w-lg">
     <div class="mb-4">
         <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="FirstName">
             First Name
@@ -79,23 +81,14 @@
     </div>
 
     <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="Type_User">
-            User Type
-        </label>
-        <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                asp-for="Type_User">
-            <option value="Admin">Admin</option>
-            <option value="Agent">Agent</option>
-            <option value="Client">Client</option>
-            <option value="Developer">Developer</option>
-        </select>
-        <span asp-validation-for="Type_User" class="text-red-500 text-xs italic"></span>
+        <input type="hidden" class="hidden"
+               asp-for="Type_User" />
     </div>
 
     <div class="flex items-center justify-between">
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 type="submit">
-            Create User
+           Save Agent 
         </button>
     </div>
 </form>
