@@ -21,6 +21,7 @@ namespace RealStateApp.Controllers
 
         public async Task<IActionResult> Index()
         {
+
             AuthenticationResponse user = HttpContext.Session.Get<AuthenticationResponse>("user") ?? new();
 
             // Preventing any null references with '?? new()' at the end

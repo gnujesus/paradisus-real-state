@@ -103,8 +103,8 @@ namespace RealStateApp.Core.Application.Mappings.Profiles
                 .ForMember(dest => dest.Properties, opt => opt.MapFrom(src => src.Properties));
 
             CreateMap<SaveTypePropertyViewModel, TypeProperty>()
-                .ReverseMap()
-                .ForMember(dest => dest.Properties, opt => opt.Condition(src => src.Properties != null));
+                .ReverseMap();
+                //.ForMember(dest => dest.Properties, opt => opt.Condition(src => src.Properties != null));
 
             CreateMap<TypeProperty, TypePropertyDTO>()
                 .ForMember(dest => dest.Properties, opt => opt.MapFrom(src => src.Properties));

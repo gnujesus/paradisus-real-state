@@ -17,7 +17,8 @@ namespace RealStateApp.Controllers
 
         public async Task<IActionResult> Index() {
             List<TypeSaleViewModel> vmList = new();
-            vmList = await _serviceManager.TypeSale.GetAllViewModel();
+            var trackChanges = true;
+            vmList = await _serviceManager.TypeSale.GetAllViewModel(new List<string> { "Properties" }, trackChanges);
             return View(vmList);
         }
 

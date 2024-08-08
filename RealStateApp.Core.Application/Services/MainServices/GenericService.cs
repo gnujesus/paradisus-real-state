@@ -48,9 +48,9 @@ namespace RealStateApp.Core.Application.Services.MainServices
             return vm;
         }
 
-        public virtual async Task<List<ViewModel>> GetAllViewModel(bool trackChanges = false)
+        public virtual async Task<List<ViewModel>> GetAllViewModel(List<string> properties, bool trackChanges = true)
         {
-            var entityList = await _repository.GetAllAsync(trackChanges);
+            var entityList = await _repository.GetAllWithIncludeAsync(properties, trackChanges);
 
             return _mapper.Map<List<ViewModel>>(entityList);
         }

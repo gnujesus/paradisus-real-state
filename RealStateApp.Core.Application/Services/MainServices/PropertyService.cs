@@ -70,5 +70,10 @@ namespace RealStateApp.Core.Application.Services.MainServices
 
             return propertyModels;
         }
+
+        public Task<List<PropertyViewModel>> GetAllViewModel(bool trackChanges = false)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

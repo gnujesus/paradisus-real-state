@@ -23,6 +23,7 @@ namespace RealStateApp.Core.Application.Features.TypePropertyF.Queries
 
         public async Task<Response<IEnumerable<TypePropertyDTO>>> Handle(GetTypePropertiesQuery request, CancellationToken cancellationToken)
         {
+
             var allTypeProperties = await _repository.TypeSale.GetAllWithIncludeAsync(new List<string> { "Properties" }, request.TrackChanges);
             IEnumerable<TypePropertyDTO> typeProperties = null!;
 

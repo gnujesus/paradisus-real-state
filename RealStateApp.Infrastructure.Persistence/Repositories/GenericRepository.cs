@@ -92,7 +92,9 @@ namespace RealStateApp.Infrastructure.Persistence.Repositories
 
         public virtual async Task<List<Entity>> GetAllAsync(bool trackChanges = false)
         {
-            return await FindAll(trackChanges).ToListAsync();
+            return trackChanges 
+            ? await context.Set<Entity>().ToListAsync()
+            : await context.Set<Entity>().AsNoTracking().ToListAsync();
         }
 
         public virtual async Task<Entity> GetByIdAsync(string id, bool trackChanges = false)
