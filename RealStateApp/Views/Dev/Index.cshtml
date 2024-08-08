@@ -18,6 +18,8 @@
                         <th class="px-6 py-3 border-b border-gray-300 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Last Name</th>
                         <th class="px-6 py-3 border-b border-gray-300 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Username</th>
                         <th class="px-6 py-3 border-b border-gray-300 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                        <th class="px-6 py-3 border-b border-gray-300 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                        <th class="px-6 py-3 border-b border-gray-300 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,6 +30,25 @@
                             <td class="px-6 py-4 border-b border-gray-300">@developer.LastName</td>
                             <td class="px-6 py-4 border-b border-gray-300">@developer.Username</td>
                             <td class="px-6 py-4 border-b border-gray-300">@developer.Email</td>
+                            <td class="px-6 py-4 border-b border-gray-300">
+                                @if (developer.IsActive)
+                                {
+                                    <span class="text-green-600 font-bold">Active</span>
+                                }
+                                else
+                                {
+                                    <span class="text-red-600 font-bold">Inactive</span>
+                                }
+                            </td>
+                            <td class="px-6 py-4 border-b border-gray-300">
+                                <form asp-controller="Dev" asp-action="ToggleStatus" method="post" class="inline">
+                                    <input type="hidden" name="id" value="@developer.Id" />
+                                    <button type="submit" class="px-4 py-2 rounded-md hover:bg-opacity-75 @(developer.IsActive ? "bg-red-500 text-white hover:bg-red-600" : "bg-green-500 text-white hover:bg-green-600")">
+                                        @(developer.IsActive ? "Deactivate" : "Activate")
+                                    </button>
+                                </form>
+                                <a href="@Url.Action("Update", "Dev", new { id = developer.Id })" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 ml-2">Edit</a>
+                            </td>
                         </tr>
                     }
                 </tbody>
