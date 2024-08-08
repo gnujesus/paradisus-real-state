@@ -25,10 +25,6 @@ namespace RealStateApp.Core.Application.Features.TypePropertyF.Queries
         public async Task<Response<IEnumerable<TypePropertyDTO>>> Handle(GetTypePropertiesQuery request, CancellationToken cancellationToken)
         {
             var alltypeProperties = await _repository.TypeProperty.GetAllWithIncludeAsync(new List<string> { "Properties" }, request.TrackChanges);
-
-
-            /*CreateMap<TypeProperty, TypePropertyDTO>()
-                .ForMember(dest => dest.Properties, opt => opt.MapFrom(src => src.Properties));*/
             IEnumerable<TypePropertyDTO> typeProperties = _mapper.Map<List<TypePropertyDTO>>(alltypeProperties);
 
             if (alltypeProperties.Count == 0)

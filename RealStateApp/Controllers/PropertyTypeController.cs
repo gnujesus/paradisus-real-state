@@ -19,7 +19,8 @@ namespace RealStateApp.Controllers
         public async Task<IActionResult> Index()
         {
             List<TypePropertyViewModel> vmList = new();
-            vmList = await _serviceManager.TypeProperty.GetAllViewModel();
+            var trackChanges = true;
+            vmList = await _serviceManager.TypeProperty.GetAllViewModel(new List<string> { "Properties" }, trackChanges);
 
             return View(vmList);
         }
@@ -41,6 +42,7 @@ namespace RealStateApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                //vm.Properties = null;
                 _serviceManager.TypeProperty.Add(vm);
                 return RedirectToAction("Index");
             }

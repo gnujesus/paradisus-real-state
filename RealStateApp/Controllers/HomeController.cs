@@ -17,10 +17,11 @@ namespace RealStateApp.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var properties = await _serviceManager.Property.GetAllProperties();
+            //var properties = await _serviceManager.Property.GetAllProperties();
 
-            properties = new();
-            properties = await _serviceManager.Property.GetAllViewModel();
+           //properties = new();
+            var trackChanges = true;
+            var properties = await _serviceManager.Property.GetAllViewModel(new List<string> { "Images" }, trackChanges);
 
             return View(properties);
         }

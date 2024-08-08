@@ -25,7 +25,8 @@ namespace RealStateApp.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var properties = await _serviceManager.Property.GetAllViewModel();
+            var trackChanges = true;
+            var properties = await _serviceManager.Property.GetAllViewModel(new List<string> { "Amenities" }, trackChanges);
 
             return View(properties);
         }
