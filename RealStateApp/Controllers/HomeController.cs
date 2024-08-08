@@ -30,20 +30,26 @@ namespace RealStateApp.Controllers
                 Properties = await _serviceManager.Property.GetAllViewModel(),
             };
 
-            switch (user.Roles[0])
+            if (user.Roles.Count > 0)
             {
-                case "Client":
-                    return View(vm);
+                switch (user.Roles[0])
+                {
+                    case "Client":
+                        return View(vm);
 
-                case "Admin":
-                    return View("~/Views/Administrator/Home.cshtml");
+                    case "Admin":
+                        return RedirectToRoute(new {Controller="Admin", Action="Home"});
 
-                case "Agent":
-                    return View("~/Views/Agent/Home.cshtml");
+                    case "Agent":
+                        return RedirectToRoute(new {Controller="Agent", Action="Home"});
 
-                default:
-                    return View(vm);
+                    default:
+                        return View(vm);
+                }
             }
+
+            return View(vm);
+
         }
 
         [HttpPost]

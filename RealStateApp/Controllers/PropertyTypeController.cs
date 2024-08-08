@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using RealStateApp.Core.Application.Interfaces.Services;
 using RealStateApp.Core.Application.ViewModels.PropertyModels;
 using RealStateApp.Core.Application.ViewModels.TypePropertyModels;
+using RealStateApp.Core.Application.ViewModels.UserModels;
 
 namespace RealStateApp.Controllers
 {
@@ -18,9 +19,7 @@ namespace RealStateApp.Controllers
 
         public async Task<IActionResult> Index()
         {
-            List<TypePropertyViewModel> vmList = new();
-            var trackChanges = true;
-            vmList = await _serviceManager.TypeProperty.GetAllViewModel(new List<string> { "Properties" }, trackChanges);
+            List<TypePropertyViewModel> vmList = await _serviceManager.TypeProperty.GetAllViewModel() ?? new();
 
             return View(vmList);
         }
@@ -42,12 +41,29 @@ namespace RealStateApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                //vm.Properties = null;
                 _serviceManager.TypeProperty.Add(vm);
                 return RedirectToAction("Index");
             }
             return View(vm);
         }
+
+        public async Task<IActionResult> Update(string id)
+        {
+            SaveTypePropertyViewModel vm = await _serviceManager.TypeProperty.GetByIdSaveViewModel(id);
+            return View("Save", vm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(SaveTypePropertyViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                await _serviceManager.TypeProperty.Update(vm, vm.Id);
+            }
+
+            return RedirectToRoute(new {Controller="PropertyType", Action="Index"});
+        }
+        
     }
 }
 

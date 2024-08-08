@@ -1,0 +1,100 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+    var totalProperties = ViewBag.TotalProperties ?? 0;
+    var activeAgents = ViewBag.ActiveAgents ?? 0;
+    var inactiveAgents = ViewBag.InactiveAgents ?? 0;
+    var activeClients = ViewBag.ActiveClients ?? 0;
+    var inactiveClients = ViewBag.InactiveClients ?? 0;
+    var activeDevelopers = ViewBag.ActiveDevelopers ?? 0;
+    var inactiveDevelopers = ViewBag.InactiveDevelopers ?? 0;
+}
+
+<section class="py-12 bg-gray-100">
+    <div class="container mx-auto px-6 md:px-12 lg:px-24">
+        <div class="mb-8">
+            <h2 class="text-4xl font-bold mb-4">Admin Dashboard</h2>
+            <div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+                <div class="bg-white shadow rounded p-4">
+                    <h3 class="text-lg font-bold">Total Properties</h3>
+                    <p class="text-2xl">@totalProperties</p>
+                </div>
+                <div class="bg-white shadow rounded p-4">
+                    <h3 class="text-lg font-bold">Active Agents</h3>
+                    <p class="text-2xl">@activeAgents</p>
+                </div>
+                <div class="bg-white shadow rounded p-4">
+                    <h3 class="text-lg font-bold">Inactive Agents</h3>
+                    <p class="text-2xl">@inactiveAgents</p>
+                </div>
+                <div class="bg-white shadow rounded p-4">
+                    <h3 class="text-lg font-bold">Active Clients</h3>
+                    <p class="text-2xl">@activeClients</p>
+                </div>
+                <div class="bg-white shadow rounded p-4">
+                    <h3 class="text-lg font-bold">Inactive Clients</h3>
+                    <p class="text-2xl">@inactiveClients</p>
+                </div>
+                <div class="bg-white shadow rounded p-4">
+                    <h3 class="text-lg font-bold">Active Developers</h3>
+                    <p class="text-2xl">@activeDevelopers</p>
+                </div>
+                <div class="bg-white shadow rounded p-4">
+                    <h3 class="text-lg font-bold">Inactive Developers</h3>
+                    <p class="text-2xl">@inactiveDevelopers</p>
+                </div>
+            </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <a asp-controller="Agent" asp-action="Index" class="bg-blue-500 text-white px-6 py-4 rounded-md text-center hover:bg-blue-600">
+                <div class="flex flex-col items-center">
+                    <svg class="w-8 h-8 mb-2" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                    </svg>
+                    <span>Listado de los agentes</span>
+                </div>
+            </a>
+            <a asp-controller="Admin" asp-action="Index" class="bg-blue-500 text-white px-6 py-4 rounded-md text-center hover:bg-blue-600">
+                <div class="flex flex-col items-center">
+                    <svg class="w-8 h-8 mb-2" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                    </svg>
+                    <span>Mantenimiento de administradores</span>
+                </div>
+            </a>
+            <a asp-controller="Devs" asp-action="Index" class="bg-blue-500 text-white px-6 py-4 rounded-md text-center hover:bg-blue-600">
+                <div class="flex flex-col items-center">
+                    <svg class="w-8 h-8 mb-2" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                    </svg>
+                    <span>Mantenimiento de desarrolladores</span>
+                </div>
+            </a>
+            <a asp-controller="PropertyType" asp-action="Index" class="bg-blue-500 text-white px-6 py-4 rounded-md text-center hover:bg-blue-600">
+                <div class="flex flex-col items-center">
+                    <svg class="w-8 h-8 mb-2" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                    </svg>
+                    <span>Mantenimiento de tipo de propiedades</span>
+                </div>
+            </a>
+            <a asp-controller="SaleType" asp-action="Index" class="bg-blue-500 text-white px-6 py-4 rounded-md text-center hover:bg-blue-600">
+                <div class="flex flex-col items-center">
+                    <svg class="w-8 h-8 mb-2" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                    </svg>
+                    <span>Mantenimiento de tipo de ventas</span>
+                </div>
+            </a>
+            <a asp-controller="Amenity" asp-action="Index" class="bg-blue-500 text-white px-6 py-4 rounded-md text-center hover:bg-blue-600">
+                <div class="flex flex-col items-center">
+                    <svg class="w-8 h-8 mb-2" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                    </svg>
+                    <span>Mantenimiento de mejoras</span>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+    

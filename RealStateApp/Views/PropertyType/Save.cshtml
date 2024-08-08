@@ -2,11 +2,13 @@
 
 @{
     ViewData["Title"] = "Create Property Type";
+    bool editMode = @Model.Id != "" && Model.Id != null;
+    string action = editMode ? "Update" : "Save";
 }
 
-<h2 class="text-4xl font-bold mb-8">Create Property Type</h2>
+<h2 class="text-4xl font-bold mb-8">@action Property Type</h2>
 
-<form asp-controller="PropertyType" asp-action="Save" method="post" class="w-full max-w-lg">
+<form asp-controller="PropertyType" asp-action="@action" method="post" class="w-full max-w-lg">
     <div class="mb-4">
         <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="Name">
             Name
@@ -28,9 +30,11 @@
             Cancel
         </a>
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-            Create
+           Save 
         </button>
     </div>
+
+    <input type="hidden" asp-for="Id"/>
 </form>
 
 @section Scripts {

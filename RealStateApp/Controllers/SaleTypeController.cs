@@ -45,5 +45,23 @@ namespace RealStateApp.Controllers
 
             return View(vm);
         }
+
+        public async Task<IActionResult> Update(string id)
+        {
+            SaveTypeSaleViewModel vm = await _serviceManager.TypeSale.GetByIdSaveViewModel(id);
+            return View("Save", vm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(SaveTypeSaleViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                await _serviceManager.TypeSale.Update(vm, vm.Id);
+            }
+
+            return RedirectToRoute(new {Controller="SaleType", Action="Index"});
+        }
+
     }
 }

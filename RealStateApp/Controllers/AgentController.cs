@@ -17,7 +17,7 @@ namespace RealStateApp.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var agents = await _accountService.GetAgentsAsync();
+            var agents = await _serviceManager.user.GetAllAgentsAsync();
             return View(agents);
         }
 
@@ -27,7 +27,7 @@ namespace RealStateApp.Controllers
 
             AuthenticationResponse user = HttpContext.Session.Get<AuthenticationResponse>("user") ?? new();
 
-            if (user.Roles[0] == "Guest")
+            if (user.Roles.Count() == 0)
             {
                 return RedirectToRoute(new { Controller = "Login", Action = "Index" });
             }

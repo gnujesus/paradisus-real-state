@@ -16,21 +16,12 @@ namespace RealStateApp.Controllers
             _httpContextAccessor = httpContextAccessor;
         }
 
-        [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
-            var trackChanges = true;
-            List<AmenityViewModel> vmList = await _serviceManager.Amenity.GetAllViewModel(new List<string> {"Properties"}, trackChanges);
+            List<AmenityViewModel> vmList = await _serviceManager.Amenity.GetAllViewModel();
             return View(vmList);
         }
-
-        [HttpPost]
-        public async Task<IActionResult> Save(string id)
-        {
-            await _serviceManager.Amenity.Delete(id);
-            return RedirectToRoute(new {Controller="Amenity", Action="Index"});
-        }
-
 
         [HttpPost]
         public async Task<IActionResult> Delete(string id)
@@ -55,6 +46,23 @@ namespace RealStateApp.Controllers
             }
             return View(vm);
 
+        }
+
+        public async Task<IActionResult> Update(string id)
+        {
+            SaveAmenityViewModel vm = await _serviceManager.Amenity.GetByIdSaveViewModel(id);
+            return View("Save", vm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(SaveAmenityViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                await _serviceManager.Amenity.Update(vm, vm.Id);
+            }
+
+            return RedirectToRoute(new {Controller="Amenity", Action="Index"});
         }
 
     }
