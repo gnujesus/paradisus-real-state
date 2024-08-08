@@ -1,4 +1,4 @@
-@model List<PropertyViewModel>
+﻿@model List<PropertyViewModel>
 
 @{
     ViewData["Title"] = "All Properties";
@@ -8,8 +8,17 @@
     <div class="container mx-auto px-6 md:px-12 lg:px-24">
         <div class="flex justify-between items-center mb-4">
             <h2 class="text-4xl font-bold">All Properties</h2>
-            <a href="@Url.Action("Create", "Property")" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Create Property</a>
+            <a asp-controller="Property" asp-action="Save" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Create Property</a>
         </div>
+
+        <!-- Search Bar -->
+        <form method="get" asp-action="Index" class="mb-4">
+            <div class="flex items-center">
+                <input type="text" name="searchString" placeholder="Search properties..." class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="@ViewData["CurrentFilter"]">
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 ml-2">Search</button>
+            </div>
+        </form>
+
         <div class="overflow-x-auto">
             <table class="min-w-full bg-white border border-gray-300">
                 <thead>
@@ -56,4 +65,3 @@
         </div>
     </div>
 </section>
-

@@ -6,6 +6,7 @@ using System.Diagnostics;
 using RealStateApp.Core.Application.Enums;
 using RealStateApp.Core.Application.ViewModels.PropertyModels;
 using RealStateApp.Core.Application.DataTransferObjects.Account;
+using RealStateApp.Core.Application.Services.MainServices;
 
 namespace RealStateApp.Controllers
 {
@@ -23,43 +24,66 @@ namespace RealStateApp.Controllers
 
         }
 
-        public async Task<IActionResult> Index()
-        {
-            var trackChanges = true;
-            var properties = await _serviceManager.Property.GetAllViewModel(new List<string> { "Amenities" }, trackChanges);
-
-            return View(properties);
-        }
-
         public async Task<IActionResult> Favorites()
         {
-            if (_httpContextAccessor.HttpContext != null)
+            AuthenticationResponse user = HttpContext.Session.Get<AuthenticationResponse>("user") ?? new();
+
+            if (user.Roles[0] == "Guest")
             {
-                var user = _httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>(Roles.Client.ToString());
-
-                if (user == null)
-                {
-                    return RedirectToRoute(new { Controller = "Login", Action = "Login" });
-                }
-
-                List<PropertyViewModel> favoriteProperties = await _serviceManager.Favorite.GetFavoritePropertiesByUserId(user.Id);
-                return View(favoriteProperties);
+                return RedirectToRoute(new { Controller = "Login", Action = "Login" });
             }
 
-            return View();
+            List<PropertyViewModel> favoriteProperties = await _serviceManager.Favorite.GetFavoritePropertiesByUserId(user.Id) ?? new();
+            return View(favoriteProperties);
         }
 
         public async Task<IActionResult> Save()
         {
-            await Task.Run(() => { });
+
+            AuthenticationResponse user = HttpContext.Session.Get<AuthenticationResponse>("user") ?? new();
+
+            if (user.Roles[0] == "Guest")
+            {
+                return RedirectToRoute(new { Controller = "Login", Action = "Index" });
+            }
+
+            var propertyTypes = await _serviceManager.TypeProperty.GetAllViewModel();
+            var saleTypes = await _serviceManager.TypeSale.GetAllViewModel();
+            var amenities = await _serviceManager.Amenity.GetAllViewModel();
+
+            ViewBag.PropertyTypes = propertyTypes;
+            ViewBag.SaleTypes = saleTypes;
+            ViewBag.Amenities = amenities;
+
             return View(new SavePropertyViewModel());
         }
 
         [HttpPost]
-        public async Task<IActionResult> Save(PropertyViewModel vm)
+        public async Task<IActionResult> Save(SavePropertyViewModel vm)
         {
-            await Task.Run(() => { });
-            return View();
+            AuthenticationResponse user = HttpContext.Session.Get<AuthenticationResponse>("user") ?? new();
+
+            if (user.Roles[0] == "Guest")
+            {
+                return RedirectToRoute(new { Controller = "Login", Action = "Index" });
+            }
+
+            if (ModelState.IsValid)
+            {
+                vm.User_Id = user.Id;
+                await _serviceManager.Property.Add(vm);
+                return RedirectToRoute(new { Controller = "Agent", Action = "Home" });
+            }
+
+            var propertyTypes = await _serviceManager.TypeProperty.GetAllViewModel();
+            var saleTypes = await _serviceManager.TypeSale.GetAllViewModel();
+            var amenities = await _serviceManager.Amenity.GetAllViewModel();
+
+            ViewBag.PropertyTypes = propertyTypes;
+            ViewBag.SaleTypes = saleTypes;
+            ViewBag.Amenities = amenities;
+
+            return View(vm);
         }
 
         // TODO: Make the views send you to the single page using asp-route-id on each property card

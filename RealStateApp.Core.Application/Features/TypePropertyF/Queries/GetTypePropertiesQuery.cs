@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
 using RealStateApp.Core.Application.DataTransferObjects.TypePropertyDTOs;
-using RealStateApp.Core.Application.DataTransferObjects.TypeSaleDTOs;
 using RealStateApp.Core.Application.Interfaces.Repositories;
 using RealStateApp.Core.Application.ViewModels.PropertyModels;
 using RealStateApp.Core.Application.Wrappers;
@@ -24,16 +23,19 @@ namespace RealStateApp.Core.Application.Features.TypePropertyF.Queries
 
         public async Task<Response<IEnumerable<TypePropertyDTO>>> Handle(GetTypePropertiesQuery request, CancellationToken cancellationToken)
         {
-            var alltypeProperties = await _repository.TypeProperty.GetAllWithIncludeAsync(new List<string> { "Properties" }, request.TrackChanges);
-            IEnumerable<TypePropertyDTO> typeProperties = _mapper.Map<List<TypePropertyDTO>>(alltypeProperties);
 
-            if (alltypeProperties.Count == 0)
+            var allTypeProperties = await _repository.TypeSale.GetAllWithIncludeAsync(new List<string> { "Properties" }, request.TrackChanges);
+            IEnumerable<TypePropertyDTO> typeProperties = null!;
+
+            if (allTypeProperties.Count == 0)
             {
-                //throw new ApiException($"No typeProperties were found.", (int)HttpStatusCode.NotFound);
                 return new Response<IEnumerable<TypePropertyDTO>>() { Message = "No type properties were found." };
             }
 
-            return new Response<IEnumerable<TypePropertyDTO>>(typeProperties);
+            typeProperties = allTypeProperties.Select(_mapper.Map<TypePropertyDTO>);
+
+            return new Response<IEnumerable<TypePropertyDTO>>(typeProperties) { Succeeded = true };
+
         }
     }
 }

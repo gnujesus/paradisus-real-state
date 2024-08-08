@@ -1,4 +1,4 @@
-@model List<PropertyViewModel>
+@model CustomerHomeViewModel
 @inject IHttpContextAccessor httpContextAccessor
 
 <section class="hero-bg h-screen flex items-center text-white">
@@ -19,7 +19,7 @@
         <!-- Search by property code -->
         <div class="mb-8">
             <h3 class="text-2xl font-bold mb-4">Buscar por código de la propiedad</h3>
-            <form asp-action="SearchByCode" method="get" class="flex space-x-4">
+            <form asp-action="Index" method="post" class="flex space-x-4">
                 <input type="text" name="propertyCode" placeholder="Código de la propiedad" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                 <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Buscar</button>
             </form>
@@ -28,7 +28,7 @@
         <!-- Filter form -->
         <div class="mb-8">
             <h3 class="text-2xl font-bold mb-4">Filtros de propiedades</h3>
-            <form asp-action="FilterProperties" method="get" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <form asp-action="Index" method="post" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div>
                     <label for="propertyType" class="block text-sm font-bold mb-2">Tipo de propiedad</label>
                     <select id="propertyType" name="propertyType" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
@@ -49,11 +49,11 @@
                 </div>
                 <div>
                     <label for="rooms" class="block text-sm font-bold mb-2">Habitaciones</label>
-                    <input type="number" id="rooms" name="rooms" placeholder="Número de habitaciones" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <input type="number" id="rooms" name="numberOfRooms" placeholder="Número de habitaciones" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                 </div>
                 <div>
                     <label for="bathrooms" class="block text-sm font-bold mb-2">Baños</label>
-                    <input type="number" id="bathrooms" name="bathrooms" placeholder="Número de baños" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <input type="number" id="bathrooms" name="numberOfBathrooms" placeholder="Número de baños" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                 </div>
                 <div class="flex items-end">
                     <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Filtrar</button>
@@ -62,7 +62,7 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            @foreach (var property in Model)
+            @foreach (var property in Model.Properties)
             {
                 @await Component.InvokeAsync("PropertyCard", property)
             }

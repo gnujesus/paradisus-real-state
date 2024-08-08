@@ -8,7 +8,6 @@ using RealStateApp.Core.Application.Features.TypeSaleF.Queries;
 namespace RealStateApp.WebApi.Controllers.v1
 {
     [ApiVersion("1.0")]
-    [Authorize(Roles = "Admin")]
     public class TypeSalesController : BaseApiController
     {
         private readonly ISender _sender;
@@ -20,32 +19,12 @@ namespace RealStateApp.WebApi.Controllers.v1
             _publisher = publisher;
         }
 
-        [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<TypeSaleDTO>))]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetTypeSales()
-        {
-            var typeSales = await _sender.Send(new GetTypeSalesQuery(TrackChanges: false));
-
-            return Ok(typeSales);
-        }
-
-        [HttpGet("{id}", Name = "TypeSaleById")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TypeSaleDTO))]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetTypeSale(string id)
-        {
-            var typeSale = await _sender.Send(new GetTypeSaleQuery(id, TrackChanges: false));
-
-            return Ok(typeSale);
-        }
-
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> CreateTypeSale(TypeSaleForCreationDTO typeSaleForCreationDto) // [FromBody]
+        public async Task<IActionResult> CreateTypeSale(TypeSaleForCreationDTO typeSaleForCreationDto)
         {
             var typeSale = await _sender.Send(new CreateTypeSaleCommand(typeSaleForCreationDto));
 
@@ -53,9 +32,10 @@ namespace RealStateApp.WebApi.Controllers.v1
         }
 
         [HttpPut("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TypeSaleDTO))]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TypeSaleDTO))]
         public async Task<IActionResult> UpdateTypeSale(string id, TypeSaleForUpdateDTO typeSaleForUpdateDto)
         {
             if (typeSaleForUpdateDto is null)
@@ -66,9 +46,34 @@ namespace RealStateApp.WebApi.Controllers.v1
             return Ok(updatedTypeSale);
         }
 
-        [HttpDelete("{id}")]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpGet]
+        [Authorize(Roles = "Admin, Developer")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<TypeSaleDTO>))]
+        public async Task<IActionResult> GetTypeSales()
+        {
+            var typeSales = await _sender.Send(new GetTypeSalesQuery(TrackChanges: false));
+
+            return Ok(typeSales);
+        }
+
+        [HttpGet("{id}")]
+        [Authorize(Roles = "Admin, Developer")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TypeSaleDTO))]
+        public async Task<IActionResult> GetTypeSale(string id)
+        {
+            var typeSale = await _sender.Send(new GetTypeSaleQuery(id, TrackChanges: false));
+
+            return Ok(typeSale);
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> DeleteTypeSale(string id)
         {
             await _publisher.Publish(new TypeSaleDeletedNotification(id, TrackChanges: false));
