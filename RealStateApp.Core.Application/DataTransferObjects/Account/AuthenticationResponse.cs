@@ -9,6 +9,7 @@ namespace RealStateApp.Core.Application.DataTransferObjects.Account
         public string Email { get; set; }
         public List<string> Roles { get; set; } = new();
         public bool IsActive { get; set; }
+        public string NationalId { get; set; }
         public bool HasError { get; set; }
         public string? Error { get; set; }
         public string JWToken { get; set; } = string.Empty;

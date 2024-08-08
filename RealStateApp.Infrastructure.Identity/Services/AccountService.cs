@@ -83,7 +83,9 @@ namespace RealStateApp.Infrastructure.Identity.Services
                 Email = user.Email,
                 UserName = user.UserName,
                 Phone = user.PhoneNumber,
-                Image = user.Image
+                Image = user.Image,
+                NationalId= user.NationalId,
+                
             };
 
             return saveUserViewModel;
@@ -124,6 +126,7 @@ namespace RealStateApp.Infrastructure.Identity.Services
             response.Id = user.Id;
             response.Email = user.Email;
             response.UserName = user.UserName;
+            response.NationalId = user.NationalId;
 
             var rolesList = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
 
@@ -317,6 +320,7 @@ namespace RealStateApp.Infrastructure.Identity.Services
             user.PhoneNumber = model.Phone;
             user.IsActive = model.IsActive;
             user.Image = model.Image ?? user.Image;
+            user.NationalId = model.NationalId; 
 
             // Encriptar la contraseña si se proporciona una nueva
             if (!string.IsNullOrEmpty(model.Password))
@@ -339,7 +343,9 @@ namespace RealStateApp.Infrastructure.Identity.Services
                 Email = user.Email,
                 UserName = user.UserName,
                 Phone = user.PhoneNumber,
-                Image = user.Image
+                Image = user.Image,
+                NationalId = user.NationalId,
+                
             };
         }
 
@@ -422,6 +428,7 @@ namespace RealStateApp.Infrastructure.Identity.Services
                 UserName = request.UserName,
                 PhoneNumber = request.Phone,
                 Image = request.Image,
+                NationalId = request.NationalId,
 
             };
 
@@ -483,7 +490,9 @@ namespace RealStateApp.Infrastructure.Identity.Services
                 UserName = request.UserName,
                 PhoneNumber = request.Phone,
                 Image = request.Image,
-                IsActive = false
+                IsActive = false,
+                NationalId = request.NationalId,
+
             };
 
             var result = await _userManager.CreateAsync(user, request.Password);
@@ -513,6 +522,7 @@ namespace RealStateApp.Infrastructure.Identity.Services
                 Email = a.Email,
                 Phone = a.PhoneNumber,
                 IsActive = a.IsActive,
+                NationalId=a.NationalId,
             }).ToList();
         }
 
@@ -539,6 +549,7 @@ namespace RealStateApp.Infrastructure.Identity.Services
                 LastName = agent.LastName,
                 Email = agent.Email,
                 Phone = agent.PhoneNumber,
+                NationalId = agent.NationalId,
             };
         }
 
@@ -564,7 +575,9 @@ namespace RealStateApp.Infrastructure.Identity.Services
                 FirstName = agent.FirstName,
                 LastName = agent.LastName,
                 Email = agent.Email,
-                IsActive = agent.IsActive
+                IsActive = agent.IsActive,
+                NationalId= agent.NationalId,
+
             };
         }
 
@@ -592,7 +605,8 @@ namespace RealStateApp.Infrastructure.Identity.Services
                 FirstName = agent.FirstName,
                 LastName = agent.LastName,
                 Email = agent.Email,
-                IsActive = agent.IsActive
+                IsActive = agent.IsActive,
+                NationalId= agent.NationalId,
             };
         }
         #endregion
@@ -630,7 +644,8 @@ namespace RealStateApp.Infrastructure.Identity.Services
                 UserName = request.UserName,
                 PhoneNumber = request.Phone,
                 Image = request.Image,
-                IsActive = true // Developer user starts active
+                IsActive = true, // Developer user starts active
+                NationalId = request.NationalId,
             };
 
             var result = await _userManager.CreateAsync(user, request.Password);
@@ -660,7 +675,9 @@ namespace RealStateApp.Infrastructure.Identity.Services
                 Username = d.UserName,
                 IsActive = d.IsActive,
                 Phone = d.PhoneNumber,
-                Image = d.Image
+                Image = d.Image,
+                IsActive = d.IsActive,
+                NationalId = d.NationalId,
             }).ToList();
         }
 
@@ -699,7 +716,8 @@ namespace RealStateApp.Infrastructure.Identity.Services
                 UserName = request.UserName,
                 PhoneNumber = request.Phone,
                 Image = request.Image,
-                IsActive = true // Admin user starts active
+                IsActive = true, // Admin user starts active
+                NationalId= request.NationalId,
             };
 
             var result = await _userManager.CreateAsync(user, request.Password);
@@ -727,7 +745,9 @@ namespace RealStateApp.Infrastructure.Identity.Services
                 Email = a.Email,
                 Username = a.UserName,
                 Phone = a.PhoneNumber,
-                Image = a.Image
+                Image = a.Image,
+                IsActive = true,
+                NationalId= a.NationalId,
             }).ToList();
         }
 

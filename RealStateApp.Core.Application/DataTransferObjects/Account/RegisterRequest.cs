@@ -10,5 +10,6 @@
         public string ConfirmPassword { get; set; }
         public string Phone { get; set; }
         public byte[]? Image { get; set; }
+        public string NationalId { get; set; }
     }
 }
