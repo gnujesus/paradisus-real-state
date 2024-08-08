@@ -54,5 +54,12 @@ namespace RealStateApp.Core.Application.Services.MainServices
 
             return _mapper.Map<List<ViewModel>>(entityList);
         }
+
+        public virtual async Task<List<ViewModel>> GetAllViewModel()
+        {
+            var entityList = await _repository.GetAllAsync();
+
+            return _mapper.Map<List<ViewModel>>(entityList);
+        }
     }
 }

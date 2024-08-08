@@ -113,17 +113,17 @@ namespace RealStateApp.Controllers
 
             if (!string.IsNullOrEmpty(propertyType))
             {
-                properties = properties.Where(p => p.Type_Property.Name.Equals(propertyType, StringComparison.OrdinalIgnoreCase)).ToList();
+                properties = properties.Where(p => p.TypeProperty.Name.Equals(propertyType, StringComparison.OrdinalIgnoreCase)).ToList();
             }
 
             if (minPrice > 0)
             {
-                properties = properties.Where(p => p.Value_Sale >= minPrice).ToList();
+                properties = properties.Where(p => p.Price >= minPrice).ToList();
             }
 
             if (maxPrice > 0)
             {
-                properties = properties.Where(p => p.Value_Sale <= maxPrice).ToList();
+                properties = properties.Where(p => p.Price <= maxPrice).ToList();
             }
 
             if (numberOfRooms > 0)
@@ -147,7 +147,7 @@ namespace RealStateApp.Controllers
 
             if (numberOfBathrooms > 0)
             {
-                properties = properties.Where(p => p.BathRooms == numberOfBathrooms).ToList();
+                properties = properties.Where(p => p.Bathrooms == numberOfBathrooms).ToList();
             }
 
             CustomerHomeViewModel vm = new()
