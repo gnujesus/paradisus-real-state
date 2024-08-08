@@ -27,7 +27,7 @@ namespace RealStateApp.Infrastructure.Persistence.Repositories
             return await context.Properties
                 .Include(p => p.Favorites)
                 .Include(p => p.Images)
-                .Where(p => p.Favorites.Any(f => f.User_Id == userId))
+                .Where(p => p.Favorites.Any(f => f.UserId == userId))
                 .OrderByDescending(p => p.Created)
                 .ToListAsync();
         }
@@ -39,13 +39,23 @@ namespace RealStateApp.Infrastructure.Persistence.Repositories
                 .FirstOrDefaultAsync(p => p.Id == code);
         }
 
+        public async Task<Property> GetByCodeWithIncludeAsync(string code, List<string> properties, bool trackChanges = false)
+        {
+            var query = trackChanges ? context.Set<Property>() : context.Set<Property>().AsNoTracking();
+
+            foreach (var property in properties)
+            {
+                query = query.Include(property);
+            }
+
+            return await query.SingleOrDefaultAsync(e => EF.Property<string>(e, "Code") == code);
+        }
+
         public async Task<IEnumerable<Property>> GetPropertiesByAgentIdAsync(string agentId)
         {
             return await context.Properties
                 .Include(p => p.Images)
-                .Include (p => p.Type_Property)
-                .Include(p => p.Type_sale)
-                .Where(p => p.User_Id == agentId)
+                .Where(p => p.UserId == agentId)
                 .OrderByDescending(p => p.Created)
                 .ToListAsync();
         }
@@ -63,17 +73,17 @@ namespace RealStateApp.Infrastructure.Persistence.Repositories
 
             if (!string.IsNullOrEmpty(typePropertyId))
             {
-                query = query.Where(p => p.TypeProperty_Id == typePropertyId);
+                query = query.Where(p => p.TypePropertyId == typePropertyId);
             }
 
             if (minPrice.HasValue)
             {
-                query = query.Where(p => p.Value_Sale >= minPrice.Value);
+                query = query.Where(p => p.Price >= minPrice.Value);
             }
 
             if (maxPrice.HasValue)
             {
-                query = query.Where(p => p.Value_Sale <= maxPrice.Value);
+                query = query.Where(p => p.Price <= maxPrice.Value);
             }
 
             if (rooms.HasValue)
@@ -83,7 +93,7 @@ namespace RealStateApp.Infrastructure.Persistence.Repositories
 
             if (bathrooms.HasValue)
             {
-                query = query.Where(p => p.BathRooms == bathrooms.Value);
+                query = query.Where(p => p.Bathrooms == bathrooms.Value);
             }
 
             return await query.OrderByDescending(p => p.Created).ToListAsync();

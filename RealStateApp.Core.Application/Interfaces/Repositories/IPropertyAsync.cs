@@ -9,5 +9,6 @@ namespace RealStateApp.Core.Application.Interfaces.Repositories
         Task<IEnumerable<Property>> GetPropertiesByAgentIdAsync(string agentId);
         Task<int> GetTotalPropertiesCountAsync();
         Task<IEnumerable<Property>> FilterPropertiesAsync(string typePropertyId = null!, decimal? minPrice = null, decimal? maxPrice = null, int? rooms = null, int? bathrooms = null);
+        Task<Property> GetByCodeWithIncludeAsync(string code, List<string> properties, bool trackChanges = false);
     }
 }

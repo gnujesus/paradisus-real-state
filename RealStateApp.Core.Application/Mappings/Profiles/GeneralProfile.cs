@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using RealStateApp.Core.Application.DataTransferObjects.Account;
+using RealStateApp.Core.Application.DataTransferObjects.AgentDTOs;
 using RealStateApp.Core.Application.DataTransferObjects.AmenityDTOs;
+using RealStateApp.Core.Application.DataTransferObjects.PropertyDTOs;
 using RealStateApp.Core.Application.DataTransferObjects.TypePropertyDTOs;
 using RealStateApp.Core.Application.DataTransferObjects.TypeSaleDTOs;
 using RealStateApp.Core.Application.ViewModels.AmenityModels;
@@ -24,16 +26,27 @@ namespace RealStateApp.Core.Application.Mappings.Profiles
                 .ForMember(dest => dest.Images, opt => opt.MapFrom(src => src.Images))
                 .ForMember(dest => dest.Favorites, opt => opt.MapFrom(src => src.Favorites))
                 .ForMember(dest => dest.Amenities, opt => opt.MapFrom(src => src.Amenities))
-                .ForMember(dest => dest.Type_Property, opt => opt.MapFrom(src => src.Type_Property))
-                .ForMember(dest => dest.Type_sale, opt => opt.MapFrom(src => src.Type_sale));
+                .ForMember(dest => dest.TypeProperty, opt => opt.MapFrom(src => src.TypeProperty))
+                .ForMember(dest => dest.TypeSale, opt => opt.MapFrom(src => src.TypeSale));
 
             CreateMap<SavePropertyViewModel, Property>()
                 .ReverseMap()
                 .ForMember(dest => dest.Images, opt => opt.Condition(src => src.Images != null))
                 .ForMember(dest => dest.Favorites, opt => opt.Condition(src => src.Favorites != null))
                 .ForMember(dest => dest.Amenities, opt => opt.Condition(src => src.Amenities != null))
-                .ForMember(dest => dest.Type_Property, opt => opt.Ignore())
-                .ForMember(dest => dest.Type_sale, opt => opt.Ignore());
+                .ForMember(dest => dest.TypeProperty, opt => opt.Ignore())
+                .ForMember(dest => dest.TypeSale, opt => opt.Ignore());
+
+            CreateMap<Property, PropertyDTO>()
+                .ForMember(dest => dest.Amenities, opt => opt.MapFrom(src => src.Amenities))
+                .ForMember(dest => dest.TypeProperty, opt => opt.MapFrom(src => src.TypeProperty))
+                .ForMember(dest => dest.TypeSale, opt => opt.MapFrom(src => src.TypeSale));
+
+            //CreateMap<PropertyForCreationDTO, Property>()
+            //    .ReverseMap();
+
+            //CreateMap<PropertyForUpdateDTO, Property>()
+            //    .ReverseMap();
 
             #endregion
 
@@ -47,7 +60,6 @@ namespace RealStateApp.Core.Application.Mappings.Profiles
                 .ForMember(dest => dest.Properties, opt => opt.Condition(src => src.Properties != null));
 
             CreateMap<Amenity, AmenityDTO>()
-                .ForMember(dest => dest.Properties, opt => opt.MapFrom(src => src.Properties))
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.ToString()));
 
             CreateMap<AmenityForCreationDTO, Amenity>()
@@ -56,7 +68,15 @@ namespace RealStateApp.Core.Application.Mappings.Profiles
             CreateMap<TypeSaleForUpdateDTO, Amenity>()
                 .ReverseMap();
 
-            CreateMap<AmenityWithoutPropertiesDTO, Amenity>()
+            CreateMap<AmenityDTO, Amenity>()
+                .ReverseMap();
+            #endregion
+
+            #region AgentProfile
+            CreateMap<Agent, AgentDTO>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.ToString()));
+
+            CreateMap<AgentDTO, Agent>()
                 .ReverseMap();
             #endregion
 

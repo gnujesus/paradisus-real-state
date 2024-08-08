@@ -17,14 +17,14 @@ namespace RealStateApp.Infrastructure.Persistence.Repositories
         public async Task<IEnumerable<Property>> GetPropertiesByTypeSaleIdAsync(string typeSaleId)
         {
             return await context.Properties
-                .Where(p => p.TypeSale_Id == typeSaleId)
+                .Where(p => p.PropertyTypeSaleId == typeSaleId)
                 .ToListAsync();
         }
 
         public async Task<int> GetPropertiesCountByTypeSaleIdAsync(string typeSaleId)
         {
             return await context.Properties
-                .CountAsync(p => p.TypeSale_Id == typeSaleId);
+                .CountAsync(p => p.PropertyTypeSaleId == typeSaleId);
         }
     }
 }

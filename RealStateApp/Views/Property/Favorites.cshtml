@@ -10,10 +10,10 @@
                     <img class="w-full h-48 object-cover" src="" alt="Project Image">
                 </div>
                 <div class="px-6 py-4">
-                    <div class="font-bold text-xl mb-2">@property.Type_Property</div>
+                    <div class="font-bold text-xl mb-2">@property.TypeProperty</div>
                     <p class="text-gray-700 text-base"><strong>Código:</strong> @property.Id</p>
-                    <p class="text-gray-700 text-base"><strong>@property.TypeSale_Id</strong></p>
-                    <p class="text-red-500 text-lg"><strong>Venta:</strong>@property.Value_Sale</p>
+                    <p class="text-gray-700 text-base"><strong>@property.PropertyTypeSaleId</strong></p>
+                    <p class="text-red-500 text-lg"><strong>Venta:</strong>@property.Price</p>
                 </div>
                 <div class="px-6 py-4">
                     <div class="flex items-center space-x-4">
@@ -26,23 +26,23 @@
                                 <span class="text-gray-700">@property.Rooms</span>
                             </div>
                         }
-                        @if (property.BathRooms > 0)
+                        @if (property.Bathrooms > 0)
                         {
                             <div class="flex items-center">
                                 <svg class="w-6 h-6 text-gray-700 mr-1" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M19 10h-6.586l-1.707-1.707A1 1 0 0 0 10 8H8a1 1 0 0 0 0 2h2v6H7v-6H5a1 1 0 0 0 0 2h2v6a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-6h2a1 1 0 0 0 0-2zM8 4a2 2 0 0 1 4 0v2h-4V4zm5.707 5H18v6h-4V9.707z"></path>
                                 </svg>
-                                <span class="text-gray-700">@property.BathRooms</span>
+                                <span class="text-gray-700">@property.Bathrooms</span>
                             </div>
                         }
-                        @if (!string.IsNullOrEmpty(property.Size_Property))
+                        @if (!string.IsNullOrEmpty(property.Size))
                         {
                             <div class="flex items-center">
                                 <svg class="w-6 h-6 text-gray-700 mr-1" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M12 22.7C6.8 22.7 2.7 18.6 2.7 13.4C2.7 8.2 6.8 4.1 12 4.1C17.2 4.1 21.3 8.2 21.3 13.4C21.3 18.6 17.2 22.7 12 22.7ZM12 5.6C7.7 5.6 4.2 9.1 4.2 13.4C4.2 17.7 7.7 21.2 12 21.2C16.3 21.2 19.8 17.7 19.8 13.4C19.8 9.1 16.3 5.6 12 5.6Z"></path>
                                     <path d="M12 16.6C12 16.6 10.8 15.3 10.1 14.2C9.3 13.1 9 12.5 9 11.7C9 10.5 10 9.5 11.2 9.5C12 9.5 12.7 9.9 13 10.4C13.3 9.9 14 9.5 14.8 9.5C16 9.5 17 10.5 17 11.7C17 12.5 16.7 13.1 15.9 14.2C15.2 15.3 14 16.6 14 16.6H12Z"></path>
                                 </svg>
-                                <span class="text-gray-700">@property.Size_Property</span>
+                                <span class="text-gray-700">@property.Size</span>
                             </div>
                         }
                     </div>
