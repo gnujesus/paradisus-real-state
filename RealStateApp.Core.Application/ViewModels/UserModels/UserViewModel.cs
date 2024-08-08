@@ -12,5 +12,6 @@
         public string Password { get; set; }
         public List<string> Type_user { get; set; }
         public string EmailVerified { get; set; }
+        public bool IsActive { get; set; }
     }
 }

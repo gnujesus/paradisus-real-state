@@ -2,6 +2,7 @@
 using MediatR;
 using RealStateApp.Core.Application.DataTransferObjects.AgentDTOs;
 using RealStateApp.Core.Application.Interfaces.Repositories;
+using RealStateApp.Core.Application.Interfaces.Services;
 using RealStateApp.Core.Application.Wrappers;
 
 namespace RealStateApp.Core.Application.Features.AgentF.Queries
@@ -11,33 +12,36 @@ namespace RealStateApp.Core.Application.Features.AgentF.Queries
     public class GetAgentsQueryHandler : IRequestHandler<GetAgentsQuery, Response<IEnumerable<AgentDTO>>>
     {
         private readonly IRepositoryManager _repository;
+        private readonly IUserService _userService;
         private readonly IMapper _mapper;
 
-        public GetAgentsQueryHandler(IRepositoryManager repository, IMapper mapper)
+        public GetAgentsQueryHandler(IRepositoryManager repository, IUserService userService, IMapper mapper)
         {
             _repository = repository;
+            _userService = userService;
             _mapper = mapper;
         }
 
         public async Task<Response<IEnumerable<AgentDTO>>> Handle(GetAgentsQuery request, CancellationToken cancellationToken)
         {
-            var allAgents = (await _repository.Agent.GetAllAsync());
+            var agents = await _userService.GetAllAgentsAsync();
 
-            if (allAgents.Count == 0)
-            {
-                return new Response<IEnumerable<AgentDTO>>() { Message = "No agents were found." };
-            }
+            //var allAgents = (await _repository.Agent.GetAllAsync());
 
-            IEnumerable<AgentDTO> agents = null!;
+            //if (allAgents.Count == 0)
+            //{
+            //    return new Response<IEnumerable<AgentDTO>>() { Message = "No agents were found." };
+            //}
 
-            allAgents.Select(async (a) =>
+            IEnumerable<AgentDTO> agentsDTOs = null!;
+            agentsDTOs = agents.Select(_mapper.Map<AgentDTO>);
+
+            agentsDTOs.Select(async (a) =>
             {
                 a.PropertiesAmount = (await _repository.Property.GetAllAsync()).Where(p => p.UserId == a.Id).ToList().Count();
             }).ToList();
 
-            agents = allAgents.Select(_mapper.Map<AgentDTO>);
-
-            return new Response<IEnumerable<AgentDTO>>(agents) { Succeeded = true };
+            return new Response<IEnumerable<AgentDTO>>(agentsDTOs) { Succeeded = true };
         }
     }
 }

@@ -64,10 +64,6 @@ namespace RealStateApp.Core.Application.Services.MainServices
             var userTasks = propertyModels.Select(async property =>
             {
                 var user = await _serviceManager.user.GetUserByIdAsync(property.UserId);
-                property.Agent.FirstName = user.FirstName;
-                property.Agent.LastName = user.LastName;
-                property.Agent.Email = user.Email;
-                property.UserId = user.Id;
 
             }).ToList();
 

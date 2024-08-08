@@ -15,7 +15,7 @@ namespace RealStateApp.Infrastructure.Persistence.Repositories
         private readonly Lazy<IPropertyImageRepository> _propertyImageRepository;
         private readonly Lazy<ITypePropertyAsync> _typePropertyRepository;
         private readonly Lazy<ITypeSaleAsync> _typeSaleRepository;
-        private readonly Lazy<IAgentRepository> _agentRepository;
+        //private readonly Lazy<IAgentRepository> _agentRepository;
 
         public RepositoryManager(ApplicationContext repositoryContext, IAccountService accountService)
         {
@@ -27,7 +27,7 @@ namespace RealStateApp.Infrastructure.Persistence.Repositories
             _propertyImageRepository = new Lazy<IPropertyImageRepository>(() => new PropertyImageRepository(repositoryContext));
             _typePropertyRepository = new Lazy<ITypePropertyAsync>(() => new TypePropertyRepository(repositoryContext));
             _typeSaleRepository = new Lazy<ITypeSaleAsync>(() => new TypeSaleRepository(repositoryContext));
-            _agentRepository = new Lazy<IAgentRepository>(() => new AgentRepository(repositoryContext, accountService));
+            //_agentRepository = new Lazy<IAgentRepository>(() => new AgentRepository(repositoryContext, accountService));
         }
 
         public IAmenityAsync Amenity => _amenityRepository.Value;
@@ -37,7 +37,7 @@ namespace RealStateApp.Infrastructure.Persistence.Repositories
         public IPropertyImageRepository PropertyImage => _propertyImageRepository.Value;
         public ITypePropertyAsync TypeProperty => _typePropertyRepository.Value;
         public ITypeSaleAsync TypeSale => _typeSaleRepository.Value;
-        public IAgentRepository Agent => _agentRepository.Value;
+        //public IAgentRepository Agent => _agentRepository.Value;
 
         public async Task SaveAsync() => await _repositoryContext.SaveChangesAsync();
     }

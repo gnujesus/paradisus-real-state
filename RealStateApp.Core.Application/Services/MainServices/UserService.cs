@@ -4,7 +4,6 @@ using RealStateApp.Core.Application.DataTransferObjects.Account;
 using RealStateApp.Core.Application.Enums;
 using RealStateApp.Core.Application.Interfaces.Services;
 using RealStateApp.Core.Application.ViewModels.UserModels;
-using RealStateApp.Core.Domain.Entities;
 
 namespace RealStateApp.Core.Application.Services.MainServices
 {
@@ -86,7 +85,7 @@ namespace RealStateApp.Core.Application.Services.MainServices
         }
 
 
-        public async Task<IEnumerable<Agent>> GetAllAgentsAsync()
+        public async Task<IEnumerable<UserViewModel>> GetAllAgentsAsync()
         {
             return await _accountService.GetAgentsAsync();
         }
