@@ -42,9 +42,10 @@ namespace RealStateApp.Core.Application.Features.AmenityF.Commands
             //amenityEntity.Properties = updatedProperties;
             #endregion
 
+
             _mapper.Map(request.Amenity, amenityEntity);
 
-            await _repository.Amenity.UpdateWithNavigationsAsync(amenityEntity, request.Id);
+            await _repository.Amenity.UpdateAsync(amenityEntity, request.Id);
 
             var amenity = await _repository.Amenity.GetByIdAsync(request.Id);
             var response = _mapper.Map<AmenityDTO>(amenity);
@@ -55,6 +56,7 @@ namespace RealStateApp.Core.Application.Features.AmenityF.Commands
             //else
             //    response.PropertiesQuantity = 0;
             #endregion
+
 
             return new Response<AmenityDTO> { Data = response, Succeeded = true};
         }

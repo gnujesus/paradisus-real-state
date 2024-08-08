@@ -10,6 +10,7 @@ namespace RealStateApp.Core.Application.Services.MainServices
     public class PropertyService : GenericService<SavePropertyViewModel, PropertyViewModel, Property>, IPropertyService
     {
         private readonly IRepositoryManager _repositoryManager;
+        private readonly IServiceManager _serviceManager;
         private readonly IHttpContextAccessor _contextAccessor;
         private readonly IMapper _mapper;
 
@@ -56,8 +57,18 @@ namespace RealStateApp.Core.Application.Services.MainServices
         //}
         public async Task<List<PropertyViewModel>> GetAllProperties()
         {
-            var Properties = await _repositoryManager.Property.GetAllAsync();
-            return _mapper.Map<List<PropertyViewModel>>(Properties);
+            List<string> includeProperties = new List<string> { "Type_Property", "Type_sale", "Amenities", "Favorites", "Images" };
+            var properties = await _repositoryManager.Property.GetAllWithIncludeAsync(includeProperties);
+            var propertyModels = _mapper.Map<List<PropertyViewModel>>(properties);
+
+            var userTasks = propertyModels.Select(async property =>
+            {
+                property.User = await _serviceManager.user.GetUserByIdAsync(property.User_Id);
+            }).ToList();
+
+            await Task.WhenAll(userTasks);
+
+            return propertyModels;
         }
     }
 }

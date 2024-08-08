@@ -33,6 +33,8 @@ using (var scope = app.Services.CreateScope())
         await DefaultRoles.SeedAsync(userManager, roleManager);
         await DefaultClientUser.SeedAsync(userManager, roleManager);
         await DefaultAgentUser.SeedAsync(userManager, roleManager);
+        await DefaultDeveloperUser.SeedAsync(userManager, roleManager);
+        await DefaultAdminUser.SeedAsync(userManager, roleManager);
     }
     catch (Exception ex)
     {

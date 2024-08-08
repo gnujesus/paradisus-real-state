@@ -2,7 +2,9 @@
 using MediatR;
 using RealStateApp.Core.Application.DataTransferObjects.TypePropertyDTOs;
 using RealStateApp.Core.Application.Interfaces.Repositories;
+using RealStateApp.Core.Application.ViewModels.PropertyModels;
 using RealStateApp.Core.Application.Wrappers;
+using RealStateApp.Core.Domain.Entities;
 
 namespace RealStateApp.Core.Application.Features.TypePropertyF.Queries
 {
@@ -32,6 +34,7 @@ namespace RealStateApp.Core.Application.Features.TypePropertyF.Queries
             typeProperties = allTypeProperties.Select(_mapper.Map<TypePropertyDTO>);
 
             return new Response<IEnumerable<TypePropertyDTO>>(typeProperties) { Succeeded = true };
+
         }
     }
 }

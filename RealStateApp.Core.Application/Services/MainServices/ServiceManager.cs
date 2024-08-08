@@ -9,6 +9,7 @@ namespace RealStateApp.Core.Application.Services.MainServices
     public sealed class ServiceManager : IServiceManager
     {
         private readonly IRepositoryManager _repositoryManager;
+        private readonly IAccountService _accountService;
         private readonly IHttpContextAccessor _contextAccessor;
         private readonly IMapper _mapper;
 
@@ -21,11 +22,12 @@ namespace RealStateApp.Core.Application.Services.MainServices
         private readonly Lazy<ITypeSaleService> _typeSaleService;
         private readonly Lazy<IUserService> _userService;
 
-        public ServiceManager(IRepositoryManager repositoryManager, IHttpContextAccessor contextAccessor, IMapper mapper)
+        public ServiceManager(IRepositoryManager repositoryManager, IHttpContextAccessor contextAccessor, IMapper mapper, IAccountService accountService)
         {
             _repositoryManager = repositoryManager;
             _contextAccessor = contextAccessor;
             _mapper = mapper;
+            _accountService = accountService;
 
             _amenityService = new Lazy<IAmenityService>(() => new AmenityService(repositoryManager, contextAccessor, mapper));
             _favoriteService = new Lazy<IFavoriteService>(() => new FavoriteService(repositoryManager, contextAccessor, mapper));
@@ -34,7 +36,8 @@ namespace RealStateApp.Core.Application.Services.MainServices
             _propertyImageService = new Lazy<IPropertyImageService>(() => new PropertyImageService(repositoryManager, contextAccessor, mapper));
             _typePropertyService = new Lazy<ITypePropertyService>(() => new TypePropertyService(repositoryManager, contextAccessor, mapper));
             _typeSaleService = new Lazy<ITypeSaleService>(() => new TypeSaleService(repositoryManager, contextAccessor, mapper));
-            //_userService = new Lazy<IUserService>(() => new UserService(repositoryManager, contextAccessor, mapper);
+            _userService = new Lazy<IUserService>(() => new UserService(accountService, mapper, contextAccessor));
+
         }
 
         public IAmenityService Amenity => _amenityService.Value;
@@ -43,7 +46,9 @@ namespace RealStateApp.Core.Application.Services.MainServices
         public IPropertyService Property => _propertyService.Value;
         public IPropertyImageService PropertyImage => _propertyImageService.Value;
         public ITypePropertyService TypeProperty => _typePropertyService.Value;
+
         public ITypeSaleService TypeSale => _typeSaleService.Value;
+        public IUserService user => _userService.Value;
 
         public async Task SaveAsync() => await _repositoryManager.SaveAsync();
     }

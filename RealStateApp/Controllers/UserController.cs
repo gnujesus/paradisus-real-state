@@ -24,30 +24,27 @@ namespace RealStateApp.Controllers
 
         public async Task<IActionResult> Login()
         {
-            await Task.Run(() => { });
+            var admin = _httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>(Roles.Admin.ToString());
+            var agent = _httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>(Roles.Agent.ToString());
+            var client = _httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>(Roles.Client.ToString());
 
-            if (_httpContextAccessor.HttpContext != null)
+            if (admin != null)
             {
-                var admin = _httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>(Roles.Admin.ToString());
-                var agent = _httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>(Roles.Agent.ToString());
-                var client = _httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>(Roles.Client.ToString());
-
-                if (admin != null)
-                {
-                    return RedirectToRoute(new { Controller = "Home", Action = "Index" });
-                }
-                else if (agent != null)
-                {
-                    return RedirectToRoute(new { Controller = "Home", Action = "Index" });
-                }
-                else if (client != null)
-                {
-                    // TODO: Make client home page (it must be a different page since it has it's own model and post request)
-                    return RedirectToRoute(new { Controller = "Home", Action = "Index" });
-                }
+                return RedirectToRoute(new { Controller = "Home", Action = "Index" });
             }
-
-            return View(new LoginViewModel() { });
+            else if (agent != null)
+            {
+                return RedirectToRoute(new { Controller = "Home", Action = "Index" });
+            }
+            else if (client != null)
+            {
+                // TODO: Make client home page (it must be a different page since it has it's own model and post request)
+                return RedirectToRoute(new { Controller = "Home", Action = "Index" });
+            }
+            else
+            {
+                return View(new LoginViewModel() { });
+            }     
         }
 
         public IActionResult Register()

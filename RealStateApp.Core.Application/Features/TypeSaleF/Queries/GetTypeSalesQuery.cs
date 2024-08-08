@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using RealStateApp.Core.Application.DataTransferObjects.TypePropertyDTOs;
 using RealStateApp.Core.Application.DataTransferObjects.TypeSaleDTOs;
 using RealStateApp.Core.Application.Interfaces.Repositories;
 using RealStateApp.Core.Application.Wrappers;
@@ -33,5 +34,6 @@ namespace RealStateApp.Core.Application.Features.TypeSaleF.Queries
 
             return new Response<IEnumerable<TypeSaleDTO>>(typeSales) { Succeeded = true };
         }
+
     }
 }

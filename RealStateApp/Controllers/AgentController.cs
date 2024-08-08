@@ -21,11 +21,13 @@ namespace RealStateApp.Controllers
             return View(agents);
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        // Agent's home page
+        public async Task<IActionResult> Home()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var vmList = await _serviceManager.Property.GetAllViewModel();
+            return View(vmList);
         }
+
     }
 }
 

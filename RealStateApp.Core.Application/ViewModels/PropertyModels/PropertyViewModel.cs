@@ -1,4 +1,5 @@
 ﻿using RealStateApp.Core.Domain.Entities;
+using RealStateApp.Core.Application.ViewModels.UserModels;
 
 namespace RealStateApp.Core.Application.ViewModels.PropertyModels
 {

@@ -38,6 +38,35 @@ namespace RealStateApp.Infrastructure.Identity.Services
 
         #region General Methods
 
+        public async Task<UserViewModel> GetUserByIdAsync(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+
+            var rolesList = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
+
+            var UserModel = new UserViewModel
+            {
+                Id = userId,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Phone = user.PhoneNumber,
+                Image = user.Image,
+                Email = user.Email,
+                Username = user.UserName,
+                Password = user.PasswordHash,
+                Type_user = rolesList.ToList(),
+                EmailVerified = user.Email
+
+            };
+
+            if (user == null)
+            {
+                throw new Exception("User not found");
+            }
+
+            return UserModel;
+        }
+
         public async Task<SaveUserViewModel> GetUserForUsername(string username)
         {
             var user = await _userManager.FindByNameAsync(username);
@@ -180,7 +209,7 @@ namespace RealStateApp.Infrastructure.Identity.Services
             {
                 return $"No accounts registered with this user";
             }
-
+            user.IsActive = true;
             token = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(token));
             var result = await _userManager.ConfirmEmailAsync(user, token);
             if (result.Succeeded)
