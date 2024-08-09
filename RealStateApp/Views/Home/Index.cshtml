@@ -33,10 +33,10 @@
                     <label for="propertyType" class="block text-sm font-bold mb-2">Tipo de propiedad</label>
                     <select id="propertyType" name="propertyType" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                         <option value="">Seleccione</option>
-                        <option value="Casa">Casa</option>
-                        <option value="Apartamento">Apartamento</option>
-                        <option value="Terreno">Terreno</option>
-                        <!-- Add other types as needed -->
+                        @foreach (var type in ViewBag.PropertyTypes)
+                        {
+                            <option value="@type.Id">@type.Name</option>
+                        }
                     </select>
                 </div>
                 <div>

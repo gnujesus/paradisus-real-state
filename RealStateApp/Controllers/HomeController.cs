@@ -32,6 +32,9 @@ namespace RealStateApp.Controllers
 
             var propertyImages = await _serviceManager.PropertyImage.GetAllViewModel();
 
+            var propertyTypes = await _serviceManager.TypeProperty.GetAllViewModel();
+            ViewBag.PropertyTypes = propertyTypes;
+
             if (user.Roles.Count > 0)
             {
                 switch (user.Roles[0])
@@ -64,6 +67,9 @@ namespace RealStateApp.Controllers
             int numberOfBathrooms = 0,
             bool _ = true)
         {
+            var propertyTypes = await _serviceManager.TypeProperty.GetAllViewModel();
+            ViewBag.PropertyTypes = propertyTypes;
+
             var properties = await _serviceManager.Property.GetAllViewModel();
 
             if (!string.IsNullOrEmpty(propertyCode))
@@ -73,7 +79,9 @@ namespace RealStateApp.Controllers
 
             if (!string.IsNullOrEmpty(propertyType))
             {
-                properties = properties.Where(p => p.TypeProperty.Name.Equals(propertyType, StringComparison.OrdinalIgnoreCase)).ToList();
+                properties = properties.Where(p => p.TypeProperty != null &&
+                                                   p.TypeProperty.Id == propertyType)
+                                       .ToList();
             }
 
             if (minPrice > 0)

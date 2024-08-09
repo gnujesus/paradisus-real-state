@@ -158,6 +158,15 @@ namespace RealStateApp.Controllers
             return RedirectToRoute(new {Controller="Home", Action="Index"});
         }
 
+        [HttpPost]
+        public async Task<IActionResult> RemoveFavorite(string favoriteId)
+        {
+
+            await _serviceManager.Favorite.Delete(favoriteId);
+
+            return RedirectToRoute(new { Controller = "Home", Action = "Index" });
+        }
+
     }
 }
 
