@@ -57,6 +57,13 @@
             <input class="shadow-sm appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" asp-for="ConfirmPassword" type="password" />
             <span asp-validation-for="ConfirmPassword" class="text-red-500 text-xs italic"></span>
         </div>
+
+        <div>
+            <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="NationalId">NationalId</label>
+            <input class="shadow-sm appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" asp-for="NationalId" type="text" />
+            <span asp-validation-for="NationalId" class="text-red-500 text-xs italic"></span>
+        </div>
+
     </div>
 
     <input type="hidden" asp-for="Type_User" value="Developer" />

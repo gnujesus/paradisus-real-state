@@ -55,7 +55,8 @@ namespace RealStateApp.Infrastructure.Identity.Services
                 Password = user.PasswordHash,
                 IsActive = user.IsActive,
                 Type_User = rolesList.ToList()[0],
-                EmailVerified = user.Email
+                EmailVerified = user.Email,
+                NationalId = user.NationalId
             };
 
             if (user == null)

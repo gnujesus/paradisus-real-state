@@ -1,60 +1,90 @@
-﻿@model RealStateApp.Core.Application.ViewModels.UserModels.SaveUserViewModel
+﻿@model List<UserViewModel>
+@inject IHttpContextAccessor _httpContextAccessor
 
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Our Agents";
+
+    var user = _httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>("user");
+
+    // This is to be modified since you're not supposed to have two roles
+    bool isAdmin = user != null && user.Roles[0] == Roles.Admin.ToString();
 }
 
-<section class="py-12 bg-gray-100">
-    <div class="container mx-auto px-6 md:px-12 lg:px-24">
-        <h2 class="text-4xl font-bold mb-8 text-center">Register</h2>
-        <form asp-action="Register" method="post" enctype="multipart/form-data" class="bg-white p-8 rounded-lg shadow-md">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                <div>
-                    <label for="FirstName" class="block text-gray-700">Name</label>
-                    <input asp-for="FirstName" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
-                    <span asp-validation-for="FirstName" class="text-red-500 text-sm"></span>
-                </div>
-                <div>
-                    <label for="LastName" class="block text-gray-700">Last Name</label>
-                    <input asp-for="LastName" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
-                    <span asp-validation-for="LastName" class="text-red-500 text-sm"></span>
-                </div>
+@if (!isAdmin)
+{
+    <section class="py-12 bg-gray-100">
+        <div class="container mx-auto px-6 md:px-12 lg:px-24">
+            <h2 class="text-4xl font-bold mb-8">Our Agents</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                @foreach (var agent in Model)
+                {
+                    @await Component.InvokeAsync("AgentCard", agent)
+                }
             </div>
-            <div class="mb-6">
-                <label for="UserName" class="block text-gray-700">Username</label>
-                <input asp-for="UserName" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
-                <span asp-validation-for="UserName" class="text-red-500 text-sm"></span>
+        </div>
+    </section>
+}
+else
+{
+    <section class="py-12 bg-gray-100">
+        <div class="container mx-auto px-6 md:px-12 lg:px-24">
+            <h2 class="text-4xl font-bold mb-8">Agents Table</h2>
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white border border-gray-300">
+                    <thead>
+                        <tr>
+                            <th class="py-2 px-4 border-b border-gray-400">ID</th>
+                            <th class="py-2 px-4 border-b border-gray-400">First Name</th>
+                            <th class="py-2 px-4 border-b border-gray-400">Last Name</th>
+                            <th class="py-2 px-4 border-b border-gray-400">Username</th>
+                            <th class="py-2 px-4 border-b border-gray-400">Phone</th>
+                            <th class="py-2 px-4 border-b border-gray-400">Email</th>
+                            <th class="py-2 px-4 border-b border-gray-400">National ID</th>
+                            <th class="py-2 px-4 border-b border-gray-400">Status</th>
+                            <th class="py-2 px-4 border-b border-gray-400">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var agent in Model)
+                        {
+                            <tr>
+                                <td class="py-2 px-4 border-b border-gray-300">@agent.Id</td>
+                                <td class="py-2 px-4 border-b border-gray-300">@agent.FirstName</td>
+                                <td class="py-2 px-4 border-b border-gray-300">@agent.LastName</td>
+                                <td class="py-2 px-4 border-b border-gray-300">@agent.Username</td>
+                                <td class="py-2 px-4 border-b border-gray-300">@agent.Phone</td>
+                                <td class="py-2 px-4 border-b border-gray-300">@agent.Email</td>
+                                <td class="py-2 px-4 border-b border-gray-300">@agent.NationalId</td>
+                                <td class="px-6 py-4 border-b border-gray-300">
+                                    @if (agent.IsActive)
+                                    {
+                                        <span class="text-green-600 font-bold">Active</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-red-600 font-bold">Inactive</span>
+                                    }
+                                </td>
+                                <td class="py-2 px-4 border-b border-gray-300">
+                                    <form asp-controller="Agent" asp-action="ToggleStatus" method="post" class="inline">
+                                        <input type="hidden" name="id" value="@agent.Id" />
+                                        <button type="submit" class="px-4 py-2 rounded-md hover:bg-opacity-75 @(agent.IsActive ? "bg-red-500 text-white hover:bg-red-600" : "bg-green-500 text-white hover:bg-green-600")">
+                                            @(agent.IsActive ? "Deactivate" : "Activate")
+                                        </button>
+                                    </form>
+                                    <a href="@Url.Action("Update", "Agent", new { id = agent.Id })" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 ml-2">Edit</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                <div>
-                    <label for="Email" class="block text-gray-700">Email</label>
-                    <input asp-for="Email" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
-                    <span asp-validation-for="Email" class="text-red-500 text-sm"></span>
-                </div>
-                <div>
-                    <label for="Phone" class="block text-gray-700">Phone Number</label>
-                    <input asp-for="Phone" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
-                    <span asp-validation-for="Phone" class="text-red-500 text-sm"></span>
-                </div>
-            </div>
-            <div class="mb-6">
-                <label for="Password" class="block text-gray-700">Password</label>
-                <input asp-for="Password" type="password" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
-                <span asp-validation-for="Password" class="text-red-500 text-sm"></span>
-            </div>
-            <div class="mb-6">
-                <label for="ConfirmPassword" class="block text-gray-700">Confirm Password</label>
-                <input asp-for="ConfirmPassword" type="password" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
-                <span asp-validation-for="ConfirmPassword" class="text-red-500 text-sm"></span>
-            </div>
-            <div class="mb-6">
-                <label for="ImageFile" class="block text-gray-700">Picture</label>
-                <input asp-for="ImageFile" type="file" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
-                <span asp-validation-for="ImageFile" class="text-red-500 text-sm"></span>
-            </div>
-            <div class="text-center">
-                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Register</button>
-            </div>
-        </form>
-    </div>
-</section>
+        </div>
+    </section>
+}
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

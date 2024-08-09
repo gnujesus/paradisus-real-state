@@ -1,14 +1,14 @@
 ﻿@model List<UserViewModel>
 
 @{
-    ViewData["Title"] = "Developers";
+    ViewData["Title"] = "Admin - Users";
 }
 
 <section class="py-12 bg-gray-100">
     <div class="container mx-auto px-6 md:px-12 lg:px-24">
         <div class="flex justify-between items-center mb-4">
-            <h2 class="text-4xl font-bold">Developers</h2>
-            <a asp-controller="Dev" asp-action="Save" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">New Developer</a>
+            <h2 class="text-4xl font-bold">Administrators</h2>
+            <a asp-controller="Admin" asp-action="Save" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">New Admin</a>
         </div>
         <div class="overflow-x-auto">
             <table class="min-w-full bg-white border border-gray-300">
@@ -24,16 +24,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var developer in Model)
+                    @foreach (var admin in Model)
                     {
                         <tr>
-                            <td class="px-6 py-4 border-b border-gray-300">@developer.FirstName</td>
-                            <td class="px-6 py-4 border-b border-gray-300">@developer.LastName</td>
-                            <td class="px-6 py-4 border-b border-gray-300">@developer.Username</td>
-                            <td class="px-6 py-4 border-b border-gray-300">@developer.Email</td>
-                            <td class="px-6 py-4 border-b border-gray-300">@developer.NationalId</td> <!-- National ID Column -->
+                            <td class="px-6 py-4 border-b border-gray-300">@admin.FirstName</td>
+                            <td class="px-6 py-4 border-b border-gray-300">@admin.LastName</td>
+                            <td class="px-6 py-4 border-b border-gray-300">@admin.Username</td>
+                            <td class="px-6 py-4 border-b border-gray-300">@admin.Email</td>
+                            <td class="px-6 py-4 border-b border-gray-300">@admin.NationalId</td>
                             <td class="px-6 py-4 border-b border-gray-300">
-                                @if (developer.IsActive)
+                                @if (admin.IsActive)
                                 {
                                     <span class="text-green-600 font-bold">Active</span>
                                 }
@@ -43,13 +43,13 @@
                                 }
                             </td>
                             <td class="px-6 py-4 border-b border-gray-300">
-                                <form asp-controller="Dev" asp-action="ToggleStatus" method="post" class="inline">
-                                    <input type="hidden" name="id" value="@developer.Id" />
-                                    <button type="submit" class="px-4 py-2 rounded-md hover:bg-opacity-75 @(developer.IsActive ? "bg-red-500 text-white hover:bg-red-600" : "bg-green-500 text-white hover:bg-green-600")">
-                                        @(developer.IsActive ? "Deactivate" : "Activate")
+                                <form asp-controller="Admin" asp-action="ToggleStatus" method="post" class="inline">
+                                    <input type="hidden" name="id" value="@admin.Id" />
+                                    <button type="submit" class="px-4 py-2 rounded-md hover:bg-opacity-75 @(admin.IsActive ? "bg-red-500 text-white hover:bg-red-600" : "bg-green-500 text-white hover:bg-green-600")">
+                                        @(admin.IsActive ? "Deactivate" : "Activate")
                                     </button>
                                 </form>
-                                <a href="@Url.Action("Update", "Dev", new { id = developer.Id })" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 ml-2">Edit</a>
+                                <a href="@Url.Action("Update", "Admin", new { id = admin.Id })" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 ml-2">Edit</a>
                             </td>
                         </tr>
                     }
@@ -58,3 +58,9 @@
         </div>
     </div>
 </section>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
