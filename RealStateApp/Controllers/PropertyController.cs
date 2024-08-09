@@ -1,13 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using RealStateApp.Core.Application.Interfaces.Services;
 using RealStateApp.Core.Application.Helpers;
-using RealStateApp.Models;
-using System.Diagnostics;
 using RealStateApp.Core.Application.Enums;
 using RealStateApp.Core.Application.ViewModels.PropertyModels;
 using RealStateApp.Core.Application.DataTransferObjects.Account;
-using RealStateApp.Core.Application.Services.MainServices;
-using RealStateApp.Core.Application.ViewModels.PropertyAmenityModels;
+using RealStateApp.Core.Application.ViewModels.FavoritesModels;
 
 namespace RealStateApp.Controllers
 {
@@ -32,6 +29,7 @@ namespace RealStateApp.Controllers
 
             return View(properties);
         }
+
         public async Task<IActionResult> Favorites()
         {
             AuthenticationResponse user = HttpContext.Session.Get<AuthenticationResponse>("user") ?? new();
@@ -121,12 +119,24 @@ namespace RealStateApp.Controllers
             return View(property);
         }
 
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public async Task<IActionResult> AddFavorite(string propertyId)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+
+            AuthenticationResponse user = HttpContext.Session.Get<AuthenticationResponse>("user") ?? new();
+
+            SaveFavoritesViewModel vm = new()
+            {
+                UserId = user.Id,
+                Property_Id = propertyId,
+            };
+
+            await _serviceManager.Favorite.Add(vm);
+
+            var properties = await _serviceManager.Property.GetAllViewModel(new List<string> { "Amenities" }, true);
+
+            return RedirectToRoute(new {Controller="Home", Action="Index"});
         }
+
     }
 }
 

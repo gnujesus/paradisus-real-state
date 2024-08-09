@@ -24,9 +24,10 @@
 
 <div class="max-w-sm rounded overflow-hidden shadow-lg bg-white border">
     <div class="relative">
-        @foreach(var image in Model.Images)
+        @foreach (var image in Model.Images)
         {
-            <img src="data:image/png;base64,@Convert.ToBase64String(image)" class="media-content mb-2" alt="Post Image">
+            <img src="data:image/png;base64,@Convert.ToBase64String(image.Image)" class="media-content mb-2" alt="Post Image">
+            break;
         }
     </div>
     <div class="px-6 py-4">
@@ -66,5 +67,11 @@
                 </div>
             }
         </div>
+    </div>
+    <div class="px-6 py-4">
+        <form asp-controller="Property" asp-action="AddFavorite" method="post">
+            <input type="hidden" name="propertyId" value="@project.Id" />
+            <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 w-full">Favorite</button>
+        </form>
     </div>
 </div>
