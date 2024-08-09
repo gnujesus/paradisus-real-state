@@ -15,19 +15,19 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         }
-        <form asp-controller="Login" asp-action="Index" method="post" class="bg-white p-8 rounded-lg shadow-md max-w-md mx-auto">
+        <form asp-controller="Login" asp-action="Index" method="post" class="bg-white p-8 rounded-lg shadow-md max-w-md mx-auto border border-gray-300">
             <div class="mb-6">
-                <label for="Username" class="block text-gray-700">Username</label>
-                <input asp-for="UserName" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
-                <span asp-validation-for="UserName" class="text-red-500 text-sm"></span>
+                <label for="Username" class="block text-gray-700 font-semibold">Username</label>
+                <input asp-for="UserName" class="mt-1 block w-full border border-gray-400 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 py-2 px-3" />
+                <span asp-validation-for="UserName" class="text-red-500 text-sm mt-2 block"></span>
             </div>
             <div class="mb-6">
-                <label for="Password" class="block text-gray-700">Password</label>
-                <input asp-for="Password" type="password" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
-                <span asp-validation-for="Password" class="text-red-500 text-sm"></span>
+                <label for="Password" class="block text-gray-700 font-semibold">Password</label>
+                <input asp-for="Password" type="password" class="mt-1 block w-full border border-gray-400 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 py-2 px-3" />
+                <span asp-validation-for="Password" class="text-red-500 text-sm mt-2 block"></span>
             </div>
             <div class="text-center">
-                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Login</button>
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 shadow">Login</button>
             </div>
         </form>
     </div>

@@ -1,39 +1,43 @@
 ﻿@model SaveTypeSaleViewModel
 
 @{
-    ViewData["Title"] = "Create Property Type";
-    bool editMode = @Model.Id != "" && Model.Id != null;
+    ViewData["Title"] = "Create Sale Type";
+    bool editMode = !string.IsNullOrEmpty(Model.Id);
     string action = editMode ? "Update" : "Save";
 }
 
-<h2 class="text-4xl font-bold mb-8">@action Sale Type</h2>
+<section class="py-12 bg-gray-100">
+    <div class="container mx-auto px-6 md:px-12 lg:px-24">
+        <h2 class="text-4xl font-bold mb-8 text-center">@action Sale Type</h2>
 
-<form asp-controller="SaleType" asp-action="@action" method="post" class="w-full max-w-lg">
-    <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="Name">
-            Name
-        </label>
-        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" asp-for="Name" />
-        <span asp-validation-for="Name" class="text-red-500 text-xs italic"></span>
-    </div>
+        <form asp-controller="SaleType" asp-action="@action" method="post" class="bg-white p-8 rounded-lg shadow-md max-w-lg mx-auto">
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="Name">
+                    Name
+                </label>
+                <input class="shadow-sm appearance-none border border-gray-400 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" asp-for="Name" />
+                <span asp-validation-for="Name" class="text-red-500 text-xs italic"></span>
+            </div>
 
-    <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="Description">
-            Description
-        </label>
-        <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" asp-for="Description"></textarea>
-        <span asp-validation-for="Description" class="text-red-500 text-xs italic"></span>
-    </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="Description">
+                    Description
+                </label>
+                <textarea class="shadow-sm appearance-none border border-gray-400 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" asp-for="Description"></textarea>
+                <span asp-validation-for="Description" class="text-red-500 text-xs italic"></span>
+            </div>
 
-    <div class="flex items-center justify-between">
-        <a asp-controller="SaleType" asp-action="Index" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-            Cancel
-        </a>
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-            Save 
-        </button>
+            <div class="flex items-center justify-between">
+                <a asp-controller="SaleType" asp-action="Index" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    Cancel
+                </a>
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                    Save
+                </button>
+            </div>
+        </form>
     </div>
-</form>
+</section>
 
 @section Scripts {
     @{

@@ -1,15 +1,16 @@
 ﻿@model SaveUserViewModel
 
 @{
-    ViewData["Title"] = "Update Agent";
+    ViewData["Title"] = "Create User";
     bool editMode = !string.IsNullOrEmpty(Model.Id);
+    string action = editMode ? "Update" : "Save";
 }
 
 <section class="py-12 bg-gray-100">
     <div class="container mx-auto px-6 md:px-12 lg:px-24">
-        <h2 class="text-4xl font-bold mb-8 text-center">@ViewData["Title"]</h2>
+        <h2 class="text-4xl font-bold mb-8 text-center">@action User</h2>
 
-        <form asp-controller="Agent" asp-action="Update" method="post" enctype="multipart/form-data" class="bg-white p-8 rounded-lg shadow-md max-w-2xl mx-auto space-y-6">
+        <form asp-controller="Dev" asp-action="@action" method="post" enctype="multipart/form-data" class="space-y-6 bg-white p-8 shadow-md rounded-lg max-w-4xl mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                     <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="FirstName">First Name</label>
@@ -30,6 +31,12 @@
                 </div>
 
                 <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="ImageFile">Upload Image</label>
+                    <input class="shadow-sm appearance-none border border-gray-400 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" asp-for="ImageFile" type="file" />
+                    <span asp-validation-for="ImageFile" class="text-red-500 text-xs italic"></span>
+                </div>
+
+                <div>
                     <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="Email">Email</label>
                     <input class="shadow-sm appearance-none border border-gray-400 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" asp-for="Email" type="email" />
                     <span asp-validation-for="Email" class="text-red-500 text-xs italic"></span>
@@ -39,18 +46,6 @@
                     <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="UserName">Username</label>
                     <input class="shadow-sm appearance-none border border-gray-400 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" asp-for="UserName" type="text" />
                     <span asp-validation-for="UserName" class="text-red-500 text-xs italic"></span>
-                </div>
-
-                <div>
-                    <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="NationalId">National ID</label>
-                    <input class="shadow-sm appearance-none border border-gray-400 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" asp-for="NationalId" type="text" />
-                    <span asp-validation-for="NationalId" class="text-red-500 text-xs italic"></span>
-                </div>
-
-                <div class="md:col-span-2">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="ImageFile">Image</label>
-                    <input class="shadow-sm appearance-none border border-gray-400 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" asp-for="ImageFile" type="file" />
-                    <span asp-validation-for="ImageFile" class="text-red-500 text-xs italic"></span>
                 </div>
 
                 <div>
@@ -64,13 +59,19 @@
                     <input class="shadow-sm appearance-none border border-gray-400 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" asp-for="ConfirmPassword" type="password" />
                     <span asp-validation-for="ConfirmPassword" class="text-red-500 text-xs italic"></span>
                 </div>
+
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="NationalId">National ID</label>
+                    <input class="shadow-sm appearance-none border border-gray-400 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" asp-for="NationalId" type="text" />
+                    <span asp-validation-for="NationalId" class="text-red-500 text-xs italic"></span>
+                </div>
             </div>
 
-            <input type="hidden" asp-for="Type_User" />
+            <input type="hidden" asp-for="Type_User" value="Admin" />
 
             <div class="flex justify-end space-x-4">
-                <a href="@Url.Action("Index", "Agent")" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Cancel</a>
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Save Agent</button>
+                <a href="@Url.Action("Index", "Admin")" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Cancel</a>
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">@action User</button>
             </div>
         </form>
     </div>
