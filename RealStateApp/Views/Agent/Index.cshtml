@@ -66,13 +66,15 @@ else
                                     }
                                 </td>
                                 <td class="py-2 px-4 border-b">
-                                    <form asp-controller="Agent" asp-action="ToggleStatus" method="post" class="inline">
-                                        <input type="hidden" name="id" value="@agent.Id" />
-                                        <button type="submit" class="px-4 py-2 rounded-md hover:bg-opacity-75 @(agent.IsActive ? "bg-red-500 text-white hover:bg-red-600" : "bg-green-500 text-white hover:bg-green-600")">
-                                            @(agent.IsActive ? "Deactivate" : "Activate")
-                                        </button>
-                                    </form>
-                                    <a href="@Url.Action("Update", "Agent", new { id = agent.Id })" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 ml-2">Edit</a>
+                                    <div class="flex space-x-2">
+                                        <form asp-controller="Agent" asp-action="ToggleStatus" method="post" class="inline">
+                                            <input type="hidden" name="id" value="@agent.Id" />
+                                            <button type="submit" class="px-4 py-2 rounded-md hover:bg-opacity-75 @(agent.IsActive ? "bg-red-500 text-white hover:bg-red-600" : "bg-green-500 text-white hover:bg-green-600")">
+                                                @(agent.IsActive ? "Deactivate" : "Activate")
+                                            </button>
+                                        </form>
+                                        <a href="@Url.Action("Update", "Agent", new { id = agent.Id })" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">Edit</a>
+                                    </div>
                                 </td>
                             </tr>
                         }
