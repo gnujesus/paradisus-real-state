@@ -676,7 +676,6 @@ namespace RealStateApp.Infrastructure.Identity.Services
                 IsActive = d.IsActive,
                 Phone = d.PhoneNumber,
                 Image = d.Image,
-                IsActive = d.IsActive,
                 NationalId = d.NationalId,
             }).ToList();
         }

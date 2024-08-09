@@ -10,16 +10,19 @@ namespace RealStateApp.Core.Application.Services.MainServices
     public class PropertyService : GenericService<SavePropertyViewModel, PropertyViewModel, Property>, IPropertyService
     {
         private readonly IRepositoryManager _repositoryManager;
-        private readonly IServiceManager _serviceManager;
+        private readonly IUserService _userService;
+        // private readonly IServiceManager _serviceManager;
         private readonly IHttpContextAccessor _contextAccessor;
         private readonly IMapper _mapper;
 
         // Changed a propertyviewmodel
-        public PropertyService(IRepositoryManager repositoryManager, IHttpContextAccessor contextAccessor, IMapper mapper): base(repositoryManager.Property, mapper)
+        public PropertyService(IRepositoryManager repositoryManager, IHttpContextAccessor contextAccessor, IMapper mapper, IUserService userService) : base(repositoryManager.Property, mapper)
         {
             _repositoryManager = repositoryManager;
             _contextAccessor = contextAccessor;
             _mapper = mapper;
+            _userService = userService;
+
         }
         public async Task<IEnumerable<PropertyViewModel>> GetAllPropertiesWithFavorites(string userId)
         {
@@ -63,7 +66,7 @@ namespace RealStateApp.Core.Application.Services.MainServices
 
             var userTasks = propertyModels.Select(async property =>
             {
-                var user = await _serviceManager.user.GetUserByIdAsync(property.UserId);
+                var user = await _userService.GetUserByIdAsync(property.UserId);
 
             }).ToList();
 

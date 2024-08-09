@@ -17,6 +17,7 @@ namespace RealStateApp.Infrastructure.Identity.Seeds
             defaultUser.EmailConfirmed = true;
             defaultUser.PhoneNumberConfirmed = true;
             defaultUser.IsActive = true;
+            defaultUser.NationalId = "14023983457";
 
             if (userManager.Users.All(u => u.Id != defaultUser.Id))
             {

@@ -23,24 +23,25 @@ namespace RealStateApp.Core.Application.Services.MainServices
         private readonly Lazy<ITypePropertyService> _typePropertyService;
         private readonly Lazy<ITypeSaleService> _typeSaleService;
         private readonly Lazy<IUserService> _userService;
+        private readonly IUserService _userService2;
 
-        public ServiceManager(IRepositoryManager repositoryManager, IHttpContextAccessor contextAccessor, IMapper mapper, IAccountService accountService)
+        public ServiceManager(IRepositoryManager repositoryManager, IHttpContextAccessor contextAccessor, IMapper mapper, IAccountService accountService, IUserService userService)
         {
             _repositoryManager = repositoryManager;
             _contextAccessor = contextAccessor;
             _mapper = mapper;
             _accountService = accountService;
+            _userService2 = userService;
             // _userService = userService;
 
             _amenityService = new Lazy<IAmenityService>(() => new AmenityService(repositoryManager, contextAccessor, mapper));
             _favoriteService = new Lazy<IFavoriteService>(() => new FavoriteService(repositoryManager, contextAccessor, mapper));
             _propertyAmenityService = new Lazy<IPropertyAmenityService>(() => new PropertyAmenityService(repositoryManager, contextAccessor, mapper));
-            _propertyService = new Lazy<IPropertyService>(() => new PropertyService(repositoryManager, contextAccessor, mapper));
+            _propertyService = new Lazy<IPropertyService>(() => new PropertyService(repositoryManager, contextAccessor, mapper, userService));
             _propertyImageService = new Lazy<IPropertyImageService>(() => new PropertyImageService(repositoryManager, contextAccessor, mapper));
             _typePropertyService = new Lazy<ITypePropertyService>(() => new TypePropertyService(repositoryManager, contextAccessor, mapper));
             _typeSaleService = new Lazy<ITypeSaleService>(() => new TypeSaleService(repositoryManager, contextAccessor, mapper));
             _userService = new Lazy<IUserService>(() => new UserService(accountService, mapper, contextAccessor));
-
         }
 
         public IAmenityService Amenity => _amenityService.Value;

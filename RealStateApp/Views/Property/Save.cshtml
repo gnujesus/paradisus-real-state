@@ -17,66 +17,64 @@
 }
 else
 {
-    <form asp-controller="Property" asp-action="Save" method="post" enctype="multipart/form-data" class="w-full max-w-lg">
-        <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="TypePropertyId">Tipo de Propiedad</label>
-            <select asp-for="TypePropertyId" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                @foreach (var type in propertyTypes)
-                {
-                    <option value="@type.Id">@type.Name</option>
-                }
-            </select>
-            <span asp-validation-for="TypePropertyId" class="text-red-500 text-xs italic"></span>
+    <form asp-controller="Property" asp-action="Save" method="post" enctype="multipart/form-data" class="bg-white shadow rounded-lg p-8 space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="TypePropertyId">Tipo de Propiedad</label>
+                <select asp-for="TypePropertyId" class="shadow-sm appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    @foreach (var type in propertyTypes)
+                    {
+                        <option value="@type.Id">@type.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="TypePropertyId" class="text-red-500 text-xs italic"></span>
+            </div>
+
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="PropertyTypeSaleId">Tipo de Venta</label>
+                <select asp-for="PropertyTypeSaleId" class="shadow-sm appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    @foreach (var type in saleTypes)
+                    {
+                        <option value="@type.Id">@type.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="PropertyTypeSaleId" class="text-red-500 text-xs italic"></span>
+            </div>
+
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="Price">Precio (en peso dominicano)</label>
+                <input class="shadow-sm appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" asp-for="Price" />
+                <span asp-validation-for="Price" class="text-red-500 text-xs italic"></span>
+            </div>
+
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="Size">Tamaño (m²)</label>
+                <input class="shadow-sm appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" asp-for="Size" />
+                <span asp-validation-for="Size" class="text-red-500 text-xs italic"></span>
+            </div>
+
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="Rooms">Habitaciones</label>
+                <input class="shadow-sm appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" asp-for="Rooms" />
+                <span asp-validation-for="Rooms" class="text-red-500 text-xs italic"></span>
+            </div>
+
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="Bathrooms">Baños</label>
+                <input class="shadow-sm appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" asp-for="Bathrooms" />
+                <span asp-validation-for="Bathrooms" class="text-red-500 text-xs italic"></span>
+            </div>
         </div>
 
-        <div class="mb-4">
-
-            <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="PropertyTypeSaleId">Tipo de Venta</label>
-            <select asp-for="PropertyTypeSaleId" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                @foreach (var type in saleTypes)
-                {
-                    <option value="@type.Id">@type.Name</option>
-                }
-            </select>
-            <span asp-validation-for="PropertyTypeSaleId" class="text-red-500 text-xs italic"></span>
-        </div>
-
-        <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="Price">Precio (en peso dominicano)</label>
-
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" asp-for="Price" />
-            <span asp-validation-for="Price" class="text-red-500 text-xs italic"></span>
-        </div>
-
-        <div class="mb-4">
+        <div>
             <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="Description">Descripción</label>
-            <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" asp-for="Description"></textarea>
+            <textarea class="shadow-sm appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" asp-for="Description"></textarea>
             <span asp-validation-for="Description" class="text-red-500 text-xs italic"></span>
         </div>
 
-        <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="Size">Tamaño (m²)</label>
-
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" asp-for="Size" />
-            <span asp-validation-for="Size" class="text-red-500 text-xs italic"></span>
-        </div>
-
-        <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="Rooms">Habitaciones</label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" asp-for="Rooms" />
-            <span asp-validation-for="Rooms" class="text-red-500 text-xs italic"></span>
-        </div>
-
-        <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="Bathrooms">Baños</label>
-
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" asp-for="Bathrooms" />
-            <span asp-validation-for="Bathrooms" class="text-red-500 text-xs italic"></span>
-        </div>
-
-        <div class="mb-4">
+        <div>
             <label class="block text-gray-700 text-sm font-bold mb-2">Mejoras</label>
-            <select asp-for="Amenities" multiple class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            <select asp-for="Amenities" multiple class="shadow-sm appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                 @foreach (var amenity in amenities)
                 {
                     <option value="@amenity.Id">@amenity.Name</option>
@@ -85,13 +83,13 @@ else
             <span asp-validation-for="Amenities" class="text-red-500 text-xs italic"></span>
         </div>
 
-        <div class="mb-4">
+        <div>
             <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="ImagesR">Subir Imágenes</label>
-            <input type="file" asp-for="ImagesR" multiple class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+            <input type="file" asp-for="ImagesR" multiple class="shadow-sm appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
             <span asp-validation-for="ImagesR" class="text-red-500 text-xs italic"></span>
         </div>
 
-        <div class="flex items-center justify-between">
+        <div class="flex justify-end space-x-4">
             <a asp-action="Index" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Cancelar</a>
             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Crear</button>
         </div>
