@@ -43,13 +43,15 @@
                                 }
                             </td>
                             <td class="px-6 py-4 border-b border-gray-300">
-                                <form asp-controller="Dev" asp-action="ToggleStatus" method="post" class="inline">
-                                    <input type="hidden" name="id" value="@developer.Id" />
-                                    <button type="submit" class="px-4 py-2 rounded-md hover:bg-opacity-75 @(developer.IsActive ? "bg-red-500 text-white hover:bg-red-600" : "bg-green-500 text-white hover:bg-green-600")">
-                                        @(developer.IsActive ? "Deactivate" : "Activate")
-                                    </button>
-                                </form>
-                                <a href="@Url.Action("Update", "Dev", new { id = developer.Id })" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 ml-2">Edit</a>
+                                <div class="flex space-x-2">
+                                    <form asp-controller="Dev" asp-action="ToggleStatus" method="post" class="inline">
+                                        <input type="hidden" name="id" value="@developer.Id" />
+                                        <button type="submit" class="px-4 py-2 rounded-md hover:bg-opacity-75 @(developer.IsActive ? "bg-red-500 text-white hover:bg-red-600" : "bg-green-500 text-white hover:bg-green-600")">
+                                            @(developer.IsActive ? "Deactivate" : "Activate")
+                                        </button>
+                                    </form>
+                                    <a href="@Url.Action("Update", "Dev", new { id = developer.Id })" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">Edit</a>
+                                </div>
                             </td>
                         </tr>
                     }

@@ -77,9 +77,27 @@ namespace RealStateApp.Controllers
             if (ModelState.IsValid)
             {
                 vm.UserId = user.Id;
-                await _serviceManager.Property.Add(vm);
+                var properties = await _serviceManager.Property.Add(vm);
+
+                List<byte[]> imagesData = new List<byte[]>();
+
+                if (vm.ImagesR != null && vm.ImagesR.Count > 0)
+                {
+                    foreach (var image in vm.ImagesR)
+                    {
+                        using (var memoryStream = new MemoryStream())
+                        {
+                            await image.CopyToAsync(memoryStream);
+                            byte[] imgData = memoryStream.ToArray();
+                            imagesData.Add(imgData);
+                        }
+                    }
+                }
+                _serviceManager.PropertyImage.AddImagesToPropertyAsync(properties.Id, imagesData);
+
                 return RedirectToRoute(new { Controller = "Agent", Action = "Home" });
             }
+
 
             var propertyTypes = await _serviceManager.TypeProperty.GetAllViewModel();
             var saleTypes = await _serviceManager.TypeSale.GetAllViewModel();
@@ -94,7 +112,10 @@ namespace RealStateApp.Controllers
 
         public async Task<IActionResult> Single(string id)
         {
-            var property = await _serviceManager.Property.GetByIdSaveViewModel(id);
+            var properties = await _serviceManager.Property.GetAllViewModel();
+
+            // Find the property that matches the given id
+            var property = properties.FirstOrDefault(p => p.Id == id);
 
             if (property == null)
             {
@@ -114,7 +135,7 @@ namespace RealStateApp.Controllers
             }
 
             // Retrieve all amenities related to the property
-            var properties = await _serviceManager.Property.GetAllProperties();
+            // var properties = await _serviceManager.Property.GetAllProperties();
 
             return View(property);
         }

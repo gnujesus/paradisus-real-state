@@ -69,20 +69,25 @@
                 </div>
 
                 <div>
-                    <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="Description">Descripción</label>
-                    <textarea class="shadow-sm appearance-none border border-gray-400 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" asp-for="Description"></textarea>
-                    <span asp-validation-for="Description" class="text-red-500 text-xs italic"></span>
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Mejoras</label>
+                    <fieldset asp-for="Amenities" class="border border-gray-300 p-4 rounded-md">
+                        <legend class="text-lg font-bold text-gray-700 mb-4">Elija las mejoras:</legend>
+                        <div class="space-y-3">
+                            @foreach (var amenity in amenities)
+                            {
+                                <div class="flex items-center">
+                                    <input type="checkbox" name="SelectedAmenities" value="@amenity.Id" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" />
+                                    <label class="ml-2 block text-gray-700">@amenity.Name</label>
+                                </div>
+                            }
+                        </div>
+                    </fieldset>
                 </div>
 
                 <div>
-                    <label class="block text-gray-700 text-sm font-bold mb-2">Mejoras</label>
-                    <select asp-for="Amenities" multiple class="shadow-sm appearance-none border border-gray-400 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                        @foreach (var amenity in amenities)
-                        {
-                            <option value="@amenity.Id">@amenity.Name</option>
-                        }
-                    </select>
-                    <span asp-validation-for="Amenities" class="text-red-500 text-xs italic"></span>
+                    <label class="block text-gray-700 text-sm font-bold mb-2" asp-for="Description">Descripción</label>
+                    <textarea class="shadow-sm appearance-none border border-gray-400 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" asp-for="Description"></textarea>
+                    <span asp-validation-for="Description" class="text-red-500 text-xs italic"></span>
                 </div>
 
                 <div>

@@ -30,6 +30,8 @@ namespace RealStateApp.Controllers
                 Properties = await _serviceManager.Property.GetAllViewModel(),
             };
 
+            var propertyImages = await _serviceManager.PropertyImage.GetAllViewModel();
+
             if (user.Roles.Count > 0)
             {
                 switch (user.Roles[0])

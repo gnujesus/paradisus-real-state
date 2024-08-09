@@ -1,7 +1,9 @@
-@model SavePropertyViewModel
+@model PropertyViewModel
 
 @{
     var project = Model;
+    var displayedImages = Model.Images.Take(3).ToList();
+    var moreImages = Model.Images.Skip(3).ToList();
 }
 
 <div class="container mx-auto p-6">
@@ -9,20 +11,29 @@
         <!-- Left column for images and details -->
         <div class="col-span-2">
             <div class="relative bg-gray-100 p-4 mb-4">
-                @foreach(var image in Model.Images)
-                {
-                    <img src="data:image/png;base64,@Convert.ToBase64String(image.Image)" class="media-content mb-2" alt="Post Image">
-                }
-                <div class="flex items-center justify-between mt-4">
-                    <span class="text-sm text-gray-600">Código: @Model.Id</span>
-                    <span class="text-sm text-gray-600"><i class="fas fa-expand"></i> +9 Fotos disponibles</span>
+                <div class="grid grid-cols-2 gap-4">
+                    @foreach (var image in displayedImages)
+                    {
+                        <div class="overflow-hidden rounded-lg">
+                            <img src="data:image/png;base64,@Convert.ToBase64String(image.Image)" class="object-cover w-full h-48" alt="Post Image">
+                        </div>
+                    }
                 </div>
+
+                @if (moreImages.Count > 0)
+                {
+                    <div class="text-center mt-4">
+                        <button type="button" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" onclick="openModal()">
+                            See More
+                        </button>
+                    </div>
+                }
             </div>
 
             <div class="bg-white p-6 shadow-lg mb-4">
                 <h2 class="text-2xl font-bold mb-2">@ViewBag.TypeProperty?.Name</h2>
                 <p class="text-lg text-gray-600 mb-4">@ViewBag.TypeSale?.Name</p>
-                <p class="text-red-500 text-2xl font-bold mb-4">@Model.Price.ToString("C")</p>
+                <p class="text-red-500 text-2xl font-bold mb-4">@Model.Price.ToString("C") DOP</p>
                 <div class="flex space-x-4 mb-4">
                     <div class="flex items-center space-x-2">
                         <i class="fas fa-bed"></i>
@@ -59,13 +70,13 @@
                 </div>
                 <div class="flex flex-col space-y-2">
                     <a href="tel:@ViewBag.AgentPhone" class="flex items-center text-blue-500">
-                        <i class="fas fa-phone-alt mr-2"></i> @ViewBag.AgentPhone
+                        <i class="fas fa-phone-alt mr-2"></i>Phone Number: @ViewBag.AgentPhone
                     </a>
                     <a href="https://wa.me/@ViewBag.AgentWhatsapp" class="flex items-center text-green-500">
-                        <i class="fab fa-whatsapp mr-2"></i> @ViewBag.AgentWhatsapp
+                        <i class="fab fa-whatsapp mr-2"></i>Whatsapp: @ViewBag.AgentWhatsapp
                     </a>
                     <a href="mailto:@ViewBag.AgentEmail" class="flex items-center text-gray-700">
-                        <i class="fas fa-envelope mr-2"></i> @ViewBag.AgentEmail
+                        <i class="fas fa-envelope mr-2"></i>Email: @ViewBag.AgentEmail
                     </a>
                 </div>
             </div>
@@ -73,6 +84,48 @@
     </div>
 </div>
 
+@if (moreImages.Count > 0)
+{
+    <!-- Custom Modal -->
+    <div id="imageModal" class="fixed inset-0 z-50 hidden overflow-y-auto">
+        <div class="flex items-center justify-center min-h-screen px-4">
+            <div class="relative bg-white rounded-lg shadow-lg w-full max-w-4xl">
+                <div class="p-4 border-b">
+                    <h5 class="text-lg font-semibold">More Images</h5>
+                    <button type="button" class="absolute top-2 right-2 text-gray-400 hover:text-gray-600" onclick="closeModal()">✕</button>
+                </div>
+                <div class="p-4 grid grid-cols-2 gap-4">
+                    @foreach (var image in moreImages)
+                    {
+                        <div class="overflow-hidden rounded-lg">
+                            <img src="data:image/png;base64,@Convert.ToBase64String(image.Image)" class="object-cover w-full h-48" alt="Post Image">
+                        </div>
+                    }
+                    @foreach (var image in displayedImages)
+                    {
+                        <div class="overflow-hidden rounded-lg">
+                            <img src="data:image/png;base64,@Convert.ToBase64String(image.Image)" class="object-cover w-full h-48" alt="Post Image">
+                        </div>
+                    }
+                    }
+                </div>
+                <div class="p-4 text-right border-t">
+                    <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600" onclick="closeModal()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
 @section Scripts {
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script>
+        function openModal() {
+            document.getElementById("imageModal").classList.remove("hidden");
+        }
+
+        function closeModal() {
+            document.getElementById("imageModal").classList.add("hidden");
+        }
+    </script>
 }
